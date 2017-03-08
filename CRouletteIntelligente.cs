@@ -3,7 +3,7 @@ using Microsoft.SPOT;
 
 namespace PetitRobot
 {
-  class CRoulette
+  class CRouletteIntelligente
   {
 
     CAX_12 m_ax12Roulette;
