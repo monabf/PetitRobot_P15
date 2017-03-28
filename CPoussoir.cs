@@ -1,7 +1,7 @@
 using System;
 using Microsoft.SPOT;
 
-namespace PR
+namespace PR.Membres
 {
 
     class CPoussoir

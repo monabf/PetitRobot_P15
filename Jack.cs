@@ -1,16 +1,16 @@
-using System;
-using Microsoft.SPOT;
+using Gadgeteer;
 using Gadgeteer.Modules.GHIElectronics;
 using Gadgeteer.SocketInterfaces;
+using Microsoft.SPOT.Hardware;
 
 namespace PR
 {
     /// <summary>
-    /// Classe représentant la prise jack pour le départ du robot
+    /// Jack sur entrée numérique
     /// </summary>
     class Jack
     {
-        private readonly DigitalInput Entree;
+        private readonly InputPort Entree;
 
         /// <summary>
         /// Etat de l'entrée numérique
@@ -20,14 +20,11 @@ namespace PR
         /// <summary>
         /// Initialise le jack
         /// </summary>
-        /// <param name="etendeur">Etendeur IO60P16</param>
         /// <param name="numPort">Numéro de port</param>
         /// <param name="numPin">Numéro de pin</param>
-        public Jack(IO60P16 etendeur, int numPort, int numPin)
+        public Jack(int numPort, int numPin)
         {
-            Entree = etendeur.CreateDigitalInput(numPort, numPin, GlitchFilterMode.On, ResistorMode.PullUp);
+            Entree = new InputPort(Socket.GetSocket(numPort, true, null, null).CpuPins[numPin], false, Port.ResistorMode.PullUp);
         }
-
-
     }
 }

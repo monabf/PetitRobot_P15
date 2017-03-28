@@ -17,26 +17,11 @@ using GTM = Gadgeteer.Modules;
 using Gadgeteer.Modules.GHIElectronics;
 
 
-namespace PetitRobot_V1
+namespace PR
 {
     #region structures
 
   
-    struct ConfigPorts
-    {
-        public int numIO;
-        public int pinJack;
-        public int pinAVG;
-        public int pinAVD;
-        public int pinARG;
-        public int pinARD;
-        public int numSocketUltrason;
-        public int numSerialPortBaseRoulante;
-        public int numSerialPortMembres;
-        public configChasseNeige confChasseNeige;
-        public configBras confBras;
-    }
-
     struct EtatRobot
     {
         public positionBaseRoulante posBR;
@@ -54,27 +39,30 @@ namespace PetitRobot_V1
     partial class PetitRobot
     {
         #region Attributs
+
+        // convention : contrairement aux autres attributs, les membres ne sont précédés par m_
         
-        ConfigPorts m_ports;
+        ConfigurationPorts m_ports;
         Thread m_threadRun;
         EtatRobot m_etatRobot;
 
         GestionnaireStrategie GestionStrat;
         IHM m_ihm;
-        InputPort m_jack;
-        InputPort m_AVD, m_AVG, m_ARD, m_ARG;
+        Jack m_jack;
+        GroupeInfrarouge m_IR;
+
 
         DistanceUS3 m_ultrason;
 
-        CBaseRoulante m_baseRoulante;
+        CBaseRoulante baseRoulante;
         positionBaseRoulante m_positionRobot = new positionBaseRoulante();
 
         ControleurAX12 m_controleurAX12;
-        CBras m_bras;
-        CChasseNeige m_chasseNeige;
+        CPetitBras petitBras;
+        CPince pince;
+        CPoussoir poussoir;
         
-        CTableJeu m_tableJeu;
-        
+       
         #endregion
         
         #region Constructeur
@@ -83,28 +71,28 @@ namespace PetitRobot_V1
         /// Constructeur : Initialise les différents paramétres
         /// </summary>
         /// <param name="RobotPorts">Ports du robot</param>
-        public PetitRobot(ConfigPorts RobotPorts, CTableJeu tableJeu)
+        public PetitRobot(ConfigurationPorts ports, Couleur equipe)
         {
-            m_ports = RobotPorts;
+            m_ports = ports;
         
-            m_baseRoulante = new CBaseRoulante(RobotPorts.numSerialPortBaseRoulante);
-
-            this.m_tableJeu = tableJeu;     //Relation d'agregation avec la classe CTableJeu
+            baseRoulante = new CBaseRoulante(m_ports.idBaseRoulante);
                        
             m_ihm = new IHM();
             GestionStrat = new GestionnaireStrategie();
-            m_controleurAX12= new ControleurAX12(RobotPorts.numSerialPortMembres);
-            m_chasseNeige = new CChasseNeige(m_controleurAX12, RobotPorts.confChasseNeige);
-            m_bras = new CBras(m_controleurAX12, RobotPorts.confBras);
+            m_controleurAX12 = new ControleurAX12(m_ports.idContAX12);
+
+            //NB: pince = 1 AX12, petitBras = 2 AX12 et 1 CapteurCouleur, poussoir = 1 AX12
+            pince = new CPince(equipe, m_controleurAX12, m_ports.configPince);
+            petitBras = new CPetitBras(equipe, m_controleurAX12, m_ports.configPetitBras);
+            poussoir = new CPoussoir(equipe, m_controleurAX12, m_ports.configPoussoir);
             
-            m_jack = new InputPort(GT.Socket.GetSocket(RobotPorts.numIO, true, null, null).CpuPins[RobotPorts.pinJack], false, Port.ResistorMode.PullUp);
-            m_AVG = new InputPort(GT.Socket.GetSocket(RobotPorts.numIO, true, null, null).CpuPins[RobotPorts.pinAVG], false, Port.ResistorMode.PullUp);
-            m_AVD = new InputPort(GT.Socket.GetSocket(RobotPorts.numIO, true, null, null).CpuPins[RobotPorts.pinAVD], false, Port.ResistorMode.PullUp);
-            m_ARG = new InputPort(GT.Socket.GetSocket(RobotPorts.numIO, true, null, null).CpuPins[RobotPorts.pinARG], false, Port.ResistorMode.PullUp);
-            m_ARD = new InputPort(GT.Socket.GetSocket(RobotPorts.numIO, true, null, null).CpuPins[RobotPorts.pinARD], false, Port.ResistorMode.PullUp);
+            // idIO = idPort, idJack = idPin
+            m_jack = new Jack(m_ports.idIO, m_ports.idJack);
+            m_IR = new GroupeInfrarouge(m_ports.idIO, m_ports.idInfrarougeAVD, m_ports.idInfrarougeAVG, m_ports.idInfrarougeARD, m_ports.idInfrarougeARG);
 
-            m_ultrason = new DistanceUS3(RobotPorts.numSocketUltrason);
+            m_ultrason = new DistanceUS3(m_ports.idCapteurUltrason);
 
+            // et c'est parti pour la boucle !
             m_threadRun = new Thread(new ThreadStart(robotStart));    //Création d'un thread
             
         }
@@ -114,7 +102,7 @@ namespace PetitRobot_V1
         #region Initialisation
 
         /// <summary>
-        /// Méthode qui va initialiser les paramétres du robot en fonction de la couleur et de la disposition choisie
+        /// Méthode qui va initialiser les paramètres du robot en fonction de la couleur et de la disposition choisie
         /// </summary>
         public void Initialisation()
         {
@@ -140,21 +128,22 @@ namespace PetitRobot_V1
         public void AttendreJack()
         {
             m_ihm.Afficher("Attends que le Jack soit debranche...");
-            while (!m_jack.Read()) ;  //Execution de la boucle tant que le jack n'est pas débranché
-            m_ihm.Afficher("Jack debranche : OK");
+            while (!m_jack.Etat) Thread.Sleep(1);
         }
 
         /// <summary>
         /// Démarre le thread pour la méthode robotStart
         /// </summary>
+        
+        /*
         public void Start()
         {
             double distance=0;
             //m_threadRun.Start();
-           /* do
+            do
             {
                 distance = m_ultrason.GetDistance(5);
-            } while (distance > 30 || distance==-1);*/
+            } while (distance > 30 || distance==-1);
            hisserLesPavillons();
            decalerChateau();
            /// allerEn(678, 2573, sens.avancer, false);
@@ -183,6 +172,8 @@ namespace PetitRobot_V1
             }
             return retour;
         }
+
+        */
 
         public void detecter(object o)
         {

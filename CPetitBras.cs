@@ -1,7 +1,7 @@
 using System;
 using Microsoft.SPOT;
 
-namespace PR
+namespace PR.Membres
 {
     class CPetitBras
     {
@@ -129,7 +129,8 @@ namespace PR
 
         public void tourner(Couleur equipe)
         {
-            m_rouletteIntelligente.mettreBonneCouleur(equipe);
+            // il faut cette fois-ci que la couleur de 
+            m_rouletteIntelligente.MettreBonneCouleurPresDuCapteur(equipe);
         }
 
 

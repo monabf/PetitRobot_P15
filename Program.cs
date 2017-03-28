@@ -15,7 +15,7 @@ using Gadgeteer.Modules.GHIElectronics;
 
 namespace PR
 {
-    public partial class Program
+    public partial class PetitRobot
     {
 
         // This method is run when the mainboard is powered up or reset.   
@@ -39,6 +39,7 @@ namespace PR
                 InfrarougeARD = 9,
                 CapteurUltrason = 6,
                 ContAX12 = 11,
+                DetecteurIR = 12,
             };
 
             ports.poussoir.idAx12PoussoirBleu = 1;
@@ -50,7 +51,6 @@ namespace PR
             ports.petitBras.idAX12CoudeBleu = 12;
             ports.petitBras.idAx12RotateurBleu = 13;
             ports.petitBras.idCapteurBrasBleu = 14;
-
             ports.petitBras.idAX12CoudeJaune = 15;
             ports.petitBras.idAx12RotateurJaune = 16;
             ports.petitBras.idCapteurBrasJaune = 17;

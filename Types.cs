@@ -1,8 +1,8 @@
 using System;
 
-namespace PetitRobot_V1
+namespace PR
 {
-    enum Couleur { Null = 0, Jaune, Bleu, Neutre }
+    enum Couleur { Null = 0, Jaune, Bleu }
 
     struct Vecteur2
     {
