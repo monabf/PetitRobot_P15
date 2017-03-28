@@ -13,10 +13,10 @@ namespace PR
 
         struct configPetitBras
         {
-            public byte idAX12PetitBrasBleu;   //mouvement de rentré et sortie du bras
+            public byte idAX12CoudeBleu;   //mouvement de rentré et sortie du bras
             public byte idAx12RotateurBleu;
             public byte idCapteurBrasBleu;
-            public byte idAX12PetitBrasJaune;   //mouvement de rentré et sortie du bras
+            public byte idAX12CoudeJaune;   //mouvement de rentré et sortie du bras
             public byte idAx12RotateurJaune;
             public byte idCapteurBrasJaune;
         };

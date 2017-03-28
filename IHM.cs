@@ -8,9 +8,9 @@ using GHI.Glide.Display;
 using GHI.Glide.UI;
 using System.Threading;
 
-namespace PetitRobot_V1
+namespace PR
 {
-    class IHM
+    class IHMSelection
     {
         #region Attributs
 
@@ -48,7 +48,7 @@ namespace PetitRobot_V1
         #endregion
 
 
-        public IHM()
+        public IHMSelection()
         {
             GlideTouch.Initialize();
 
