@@ -2,7 +2,7 @@ using System;
 
 namespace PetitRobot_V1
 {
-    enum Couleur { Null = 0, Vert, Violet, Neutre }
+    enum Couleur { Null = 0, Jaune, Bleu, Neutre }
 
     struct Vecteur2
     {
