@@ -3,7 +3,7 @@ using Microsoft.SPOT;
 using Gadgeteer.Modules.GHIElectronics;
 using Gadgeteer.SocketInterfaces;
 
-namespace PetitRobot_V1
+namespace PR
 {
     /// <summary>
     /// Classe représentant la prise jack pour le départ du robot

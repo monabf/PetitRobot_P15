@@ -1,13 +1,13 @@
 using System;
 using Microsoft.SPOT;
 
-namespace RobotEve
+namespace PR
 {
     class CPetitBras
     {
 
         Couleur equipe;
-        CAX12 m_ax12PetitBras;
+        CAX12 m_ax12Coude;
         CRouletteIntelligente m_rouletteIntelligente;
 
 
@@ -26,7 +26,8 @@ namespace RobotEve
             rentree = 177,
             intermediaire_rentree = 0,
             sortie = 512,
-            intermediaire_sortie = 125 // Valeurs à changer après tests sur servos
+            intermediaire_sortie = 125, // Valeurs à changer après tests sur servos
+            intialisiation_roulette = 90
         };
 
         enum positionPetitBrasJaune
@@ -34,7 +35,8 @@ namespace RobotEve
             rentree=177,
             intermediaire_rentree= 0,
             sortie=512,
-            intermediaire_sortie= 125 // Valeurs à changer après tests sur servos
+            intermediaire_sortie = 125, // Valeurs à changer après tests sur servos
+            intialisiation_roulette = 90
         };
 
 
@@ -44,24 +46,22 @@ namespace RobotEve
             // ce n'est pas superbe, mais c'est efficace !
             if (equipe == Couleur.Jaune)
             {
-                m_ax12PetitBras = new CAX12(config.idAX12PetitBrasJaune, controleur.m_port, controleur.m_direction);
+                m_ax12Coude = new CAX12(config.idAX12PetitBrasJaune, controleur.m_port, controleur.m_direction);
+                m_ax12Coude.setMode(CAX_12.AX12Mode.joint);
                 CCapteurCouleur capteurCouleurJaune = new CCapteurCouleur(config.idCapteurBrasJaune);
                 CAX_12 ax12RotateurJaune = new CAX_12(config.idAx12RotateurJaune, controleur.m_port, controleur.m_direction);
-                m_ax12Poussoir.setMode(CAX_12.AX12Mode.joint);
                 m_rouletteIntelligente = CRouletteIntelligente(capteurCouleurJaune, ax12RotateurJaune);
                 m_ax12Poussoir = new CAX_12(config.idAx12Poussoir, controleur.m_port, controleur.m_direction);
             }
             else
             {
-                m_ax12PetitBras = new CAX12(config.idAX12PetitBrasBleu, controleur.m_port, controleur.m_direction);
+                m_ax12Coude = new CAX12(config.idAX12PetitBrasBleu, controleur.m_port, controleur.m_direction);
+                m_ax12Coude.setMode(CAX_12.AX12Mode.joint);
                 CCapteurCouleur capteurCouleurBleu = new CCapteurCouleur(config.idCapteurBrasBleu);
                 CAX_12 ax12RotateurBleu = new CAX_12(config.idAx12Rotateur, controleur.m_port, controleur.m_direction);
-                m_ax12Poussoir.setMode(CAX_12.AX12Mode.joint);
                 m_rouletteIntelligente = CRouletteIntelligente(capteurCouleurBleu, ax12RotateurBleu);
                 m_ax12Poussoir = new CAX_12(config.idAx12Poussoir, controleur.m_port, controleur.m_direction);
             }
-            m_ax12PetitBras.setMode(AX12Mode.joint);
-
         }
 
 
@@ -69,11 +69,11 @@ namespace RobotEve
         {
             if (equipe == Couleur.Jaune)
             {
-                m_ax12PetitBras.move((int)positionPetitBrasJaune.intermediaire_sortie);
+                m_ax12Coude.move((int)positionPetitBrasJaune.intermediaire_sortie);
             }
             else
             {
-                m_ax12PetitBras.move((int)positionPetitBrasBleu.intermediaire_sortie);
+                m_ax12Coude.move((int)positionPetitBrasBleu.intermediaire_sortie);
             }
         }
 
@@ -81,11 +81,11 @@ namespace RobotEve
         {
             if (equipe == Couleur.Jaune)
             {
-                m_ax12PetitBras.move((int)positionPetitBrasJaune.rentree);
+                m_ax12Coude.move((int)positionPetitBrasJaune.rentree);
             }
             else
             {
-                m_ax12PetitBras.move((int)positionPetitBrasBleu.rentree);
+                m_ax12Coude.move((int)positionPetitBrasBleu.rentree);
             }
 
         }
@@ -94,11 +94,11 @@ namespace RobotEve
         {
             if (equipe == Couleur.Jaune)
             {
-                m_ax12PetitBras.move((int)positionPetitBrasJaune.intermediaire_rentree);
+                m_ax12Coude.move((int)positionPetitBrasJaune.intermediaire_rentree);
             }
             else
             {
-                m_ax12PetitBras.move((int)positionPetitBrasBleu.intermediaire_rentree);
+                m_ax12Coude.move((int)positionPetitBrasBleu.intermediaire_rentree);
             }
         }
 
@@ -107,11 +107,22 @@ namespace RobotEve
         {
             if (equipe == Couleur.Jaune)
             {
-                m_ax12PetitBras.move((int)positionPetitBrasJaune.intermediaire_sortie);
+                m_ax12Coude.move((int)positionPetitBrasJaune.intermediaire_sortie);
             }
             else
             {
-                m_ax12PetitBras.move((int)positionPetitBrasBleu.intermediaire_sortie);
+                m_ax12Coude.move((int)positionPetitBrasBleu.intermediaire_sortie);
+            }
+        }
+
+        public void initialiserRoue(Couleur equipe) {
+            if (equipe == Couleur.Jaune)
+            {
+                m_rouletteIntelligente.m_ax12roulette.move((int)positionPetitBrasJaune.intermediaire_sortie);
+            }
+            else
+            {
+                m_rouletteIntelligente.m_ax12roulette.move((int)positionPetitBrasBleu.intermediaire_sortie);
             }
         }
 

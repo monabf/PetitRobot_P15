@@ -1,9 +1,9 @@
 using System;
 using Microsoft.SPOT;
 
-namespace RobotEve
+namespace PR
 {
-    class Poussoir
+    class CPoussoir
     {
 
       Couleur couleurEquipe;
@@ -31,7 +31,7 @@ namespace RobotEve
     };
 
 
-        public Poussoir(couleurEquipe, ControleurAX12 controleur,configPoussoir config) //le constructeur
+        public CPoussoir(couleurEquipe, ControleurAX12 controleur,configPoussoir config) //le constructeur
         {
 
           if (equipe == Couleur.Jaune)
