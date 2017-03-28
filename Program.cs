@@ -13,7 +13,7 @@ using GT = Gadgeteer;
 using GTM = Gadgeteer.Modules;
 using Gadgeteer.Modules.GHIElectronics;
 
-namespace PetitRobot_V1
+namespace PR
 {
     public partial class Program
     {

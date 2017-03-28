@@ -1,7 +1,7 @@
 using System;
 using Microsoft.SPOT;
 
-namespace PetitRobot
+namespace PR
 {
   class CRouletteIntelligente
   {
