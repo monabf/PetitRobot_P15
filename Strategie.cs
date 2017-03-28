@@ -85,15 +85,15 @@ namespace PetitRobot_V1
                petitBrasJaune.deplie(); //À CODER : doit tourner de la même façon, le servomoteur est celui à la base du petit bras!! Cette fois dans le sens horaire
 
                poussoirJaune.deplie(); //À CODER : doit tourner de la même façon
-               rouletteJaune.deplie(); //À CODER : doit tourner avec les mêmes conventions, mais cette fois c'est la roulette qui tourne et non pas le servo à la base du petit bras
+               rouletteJaune.initialiserRoue(); //À CODER : doit tourner avec les mêmes conventions, mais cette fois c'est la roulette qui tourne et non pas le servo à la base du petit bras
 
                //En même temps!!!! ???? :
-               pinceJaune.semiReplie();//À CODER : doit fermer la pince à moitié (45° dans le sens horaire)
-               rouletteJaune.semiReplie();
+               pinceJaune.semiDeplie();//À CODER : doit ouvrir la pince à moitié (45° dans le sens antihoraire)
+               petitBrasJaune.semiReplie();//À CODER : 45° dans le sens antihoraire
 
                m_baseRoulante.goToXY((ushort)1287, (ushort)2803, sens.avancer);
-               pinceJaune.semiDeplie();//À CODER : doit rouvrir la pince fermée à moitié (45° dans le sens antihoraire)
-               petitBrasJaune.semiDeplie();
+               pinceJaune.semiReplie();//À CODER : doit refermer la pince fermée à moitié (45° dans le sens horaire)
+               petitBrasJaune.semiDeplie(); //À CODER : doit rouvrir le petit bras fermé à moitié (45° dans le sens horaire)
              }
 
              //on tourne et on dépose le cylindre
@@ -210,7 +210,7 @@ namespace PetitRobot_V1
                   petitBrasBleue.deplie(); //À CODER : doit tourner de la même façon, le servomoteur est celui à la base du petit bras!!
 
                   poussoirBleu.deplie(); //À CODER : doit tourner de la même façon
-                  rouletteBleue.smallrotate(); //À CODER : doit tourner avec les mêmes conventions, mais cette fois c'est la roulette qui tourne et non pas le servo à la base du petit bras
+                  rouletteBleue.initialiserRoue(); //À CODER : doit tourner avec les mêmes conventions, mais cette fois c'est la roulette qui tourne et non pas le servo à la base du petit bras
                     // petite rotation qui permet de bien attraper le cylindre
 
                   //En même temps!!!! ???? :
@@ -228,7 +228,7 @@ namespace PetitRobot_V1
                   petitBrasJaune.deplie(); //À CODER : doit tourner de la même façon, le servomoteur est celui à la base du petit bras!!
 
                   poussoirJaune.deplie(); //À CODER : doit tourner de la même façon
-                  rouletteJaune.smallrotate(); //À CODER : doit tourner avec les mêmes conventions, mais cette fois c'est la roulette qui tourne et non pas le servo à la base du petit bras
+                  rouletteJaune.initialiserRoue(); //À CODER : doit tourner avec les mêmes conventions, mais cette fois c'est la roulette qui tourne et non pas le servo à la base du petit bras
                      // petite rotation qui permet de bien attraper le cylindre
 
                   //En même temps!!!! ???? :
