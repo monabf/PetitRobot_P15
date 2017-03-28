@@ -9,7 +9,7 @@ namespace PetitRobot
     CAX_12 m_ax12Roulette;
     CCapteurCouleur m_capteurCouleur;
 
-    public CRoulette(CCapteurCouleur capteurCouleur, CAX_12 ax12Roulette)
+    public CRouletteIntelligente(CCapteurCouleur capteurCouleur, CAX_12 ax12Roulette)
     {
       m_capteurCouleur = capteurCouleur;
       m_ax12Roulette = ax12Roulette;
