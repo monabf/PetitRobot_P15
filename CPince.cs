@@ -7,7 +7,7 @@ namespace PR.Membres
     {
         CAX12 m_ax12Pince;
 
-        struct configPince
+        public struct configPince
         {
             public byte idAX12PinceJaune;   //mouvement de rentré et sortie du bras
             public byte idAX12PinceBleue;   //mouvement de rentré et sortie du bras
@@ -31,21 +31,21 @@ namespace PR.Membres
 
 
 
-        public CPince(Couleur equipe, ControleurAX12 controleur, configBras config) //le constructeur
+        public CPince(Couleur equipe, ControleurAX12 controleur, configPince config) //le constructeur
         {
             if (equipe == Couleur.Jaune)
             {
-                m_ax12PetitBras = new CAX12(config.idAX12PinceJaune, controleur.m_port, controleur.m_direction);
+                m_ax12Pince = new CAX12(config.idAX12PinceJaune, controleur.m_port, controleur.m_direction);
             }
             else
             {
-                m_ax12PetitBras = new CAX12(config.idAX12PinceBleue, controleur.m_port, controleur.m_direction);
+                m_ax12Pince = new CAX12(config.idAX12PinceBleue, controleur.m_port, controleur.m_direction);
             }
             m_ax12Pince.setMode(AX12Mode.joint);
         }
 
 
-        public void deplie()
+        public void deplie(Couleur equipe)
         {
             if (equipe == Couleur.Jaune)
             {
@@ -58,40 +58,40 @@ namespace PR.Membres
 
         }
 
-        public void replie()
+        public void replie(Couleur equipe)
         {
             if (equipe == Couleur.Jaune)
             {
-                m_ax12Pince.move((int)positionPince.rentree);
+                m_ax12Pince.move((int)positionPinceJaune.rentree);
             }
             else
             {
-                m_ax12Pince.move((int)positionPince.rentree);
+                m_ax12Pince.move((int)positionPinceBleue.rentree);
             }
         }
 
-        public void semiReplie()
+        public void semiReplie(Couleur equipe)
         {
             if (equipe == Couleur.Jaune)
             {
-                m_ax12Pince.move((int)positionPince.intermediaire_rentree);
+                m_ax12Pince.move((int)positionPinceJaune.intermediaire_rentree);
             }
             else
             {
-                m_ax12Pince.move((int)positionPince.intermediaire_rentree);
+                m_ax12Pince.move((int)positionPinceBleue.intermediaire_rentree);
             }
         }
 
 
-        public void semiDeplie()
+        public void semiDeplie(Couleur equipe)
         {
             if (equipe == Couleur.Jaune)
             {
-                m_ax12Pince.move((int)positionPince.intermediaire_sortie);
+                m_ax12Pince.move((int)positionPinceJaune.intermediaire_sortie);
             }
             else
             {
-                m_ax12Pince.move((int)positionPince.intermediaire_sortie);
+                m_ax12Pince.move((int)positionPinceBleue.intermediaire_sortie);
             }
         }
 

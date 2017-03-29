@@ -2,13 +2,11 @@ using System;
 using Microsoft.SPOT;
 using System.Threading;
 using System.Collections;
-using CPoussoir.cs;
-using CPince.cs ;
-using CPetitBras.cs ;
+using PR;
 
 
 
-namespace PetitRobot_V1
+namespace PR
 {
     partial class PetitRobot
     {

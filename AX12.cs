@@ -11,7 +11,7 @@ using GT = Gadgeteer;
 using GTM = Gadgeteer.Modules;
 using GHI.Processor;
 
-namespace PetitRobot_V1
+namespace PR
 {
     enum AX12Mode { joint, wheel };
 

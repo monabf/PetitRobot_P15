@@ -17,7 +17,7 @@ using GT = Gadgeteer;
 using GTM = Gadgeteer.Modules;
 
 
-namespace PR
+namespace PR.BR1
 {
    // enum Couleur { none = 0, Bleu, Jaune };
 
@@ -30,9 +30,9 @@ namespace PR
         public bool stop;
         public sens sens;
     }
-
+    
     enum sens : byte { avancer = (byte)'A', reculer = (byte)'R', none = 0 };
-
+    
     enum signeAngle : byte { plus = (byte)'+', moins = (byte)'-' };
 
     struct positionBaseRoulante

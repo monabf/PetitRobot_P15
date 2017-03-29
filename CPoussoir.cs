@@ -11,7 +11,7 @@ namespace PR.Membres
       CAX12 m_ax12Poussoir;
 
 
-        struct configPoussoir
+        public struct configPoussoir
         {
             public byte idAX12PoussoirBleu;
             public byte idAX12PoussoirJaune;
@@ -47,7 +47,7 @@ namespace PR.Membres
             }
 
 
-            public void rotate()
+            public void sort(Couleur equipe)
             {
               if (equipe == Couleur.Jaune)
               {
@@ -60,7 +60,7 @@ namespace PR.Membres
               }
             }
 
-            public void replie()
+            public void replie(Couleur equipe)
             {
               if (equipe == Couleur.Jaune){
                 m_ax12Poussoir.move((int)positionPoussoirJaune.rentree);

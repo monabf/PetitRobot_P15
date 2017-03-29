@@ -12,7 +12,7 @@ using GTM = Gadgeteer.Modules;
 using GHI.Processor;
 using GHI.Pins;
 
-namespace PetitRobot_V1
+namespace PR
 {
     class ControleurAX12
     {

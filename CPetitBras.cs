@@ -6,12 +6,11 @@ namespace PR.Membres
     class CPetitBras
     {
 
-        Couleur equipe;
         CAX12 m_ax12Coude;
         CRouletteIntelligente m_rouletteIntelligente;
 
 
-        struct configPetitBras
+        public struct configPetitBras
         {
             public byte idAX12CoudeBleu;   //mouvement de rentré et sortie du bras
             public byte idAx12RotateurBleu;
@@ -46,21 +45,21 @@ namespace PR.Membres
             // ce n'est pas superbe, mais c'est efficace !
             if (equipe == Couleur.Jaune)
             {
-                m_ax12Coude = new CAX12(config.idAX12PetitBrasJaune, controleur.m_port, controleur.m_direction);
-                m_ax12Coude.setMode(CAX_12.AX12Mode.joint);
-                CCapteurCouleur capteurCouleurJaune = new CCapteurCouleur(config.idCapteurBrasJaune);
-                CAX_12 ax12RotateurJaune = new CAX_12(config.idAx12RotateurJaune, controleur.m_port, controleur.m_direction);
-                m_rouletteIntelligente = CRouletteIntelligente(capteurCouleurJaune, ax12RotateurJaune);
-                m_ax12Poussoir = new CAX_12(config.idAx12Poussoir, controleur.m_port, controleur.m_direction);
+                m_ax12Coude = new CAX12(config.idAX12CoudeJaune, controleur.m_port, controleur.m_direction);
+                m_ax12Coude.setMode(AX12Mode.joint);
+                // corriger le deuxième paramètre du contructeur CCapteurCouleur ci-dessous
+                CCapteurCouleur capteurCouleurJaune = new CCapteurCouleur(config.idCapteurBrasJaune, equipe);
+                CAX12 ax12RotateurJaune = new CAX12(config.idAx12RotateurJaune, controleur.m_port, controleur.m_direction);
+                m_rouletteIntelligente = new CRouletteIntelligente(capteurCouleurJaune, ax12RotateurJaune);
             }
             else
             {
-                m_ax12Coude = new CAX12(config.idAX12PetitBrasBleu, controleur.m_port, controleur.m_direction);
-                m_ax12Coude.setMode(CAX_12.AX12Mode.joint);
-                CCapteurCouleur capteurCouleurBleu = new CCapteurCouleur(config.idCapteurBrasBleu);
-                CAX_12 ax12RotateurBleu = new CAX_12(config.idAx12Rotateur, controleur.m_port, controleur.m_direction);
-                m_rouletteIntelligente = CRouletteIntelligente(capteurCouleurBleu, ax12RotateurBleu);
-                m_ax12Poussoir = new CAX_12(config.idAx12Poussoir, controleur.m_port, controleur.m_direction);
+                m_ax12Coude = new CAX12(config.idAX12CoudeBleu, controleur.m_port, controleur.m_direction);
+                m_ax12Coude.setMode(AX12Mode.joint);
+                // corriger le deuxième paramètre du contructeur CCapteurCouleur ci-dessous
+                CCapteurCouleur capteurCouleurBleu = new CCapteurCouleur(config.idCapteurBrasBleu, equipe);
+                CAX12 ax12RotateurBleu = new CAX12(config.idAx12RotateurBleu, controleur.m_port, controleur.m_direction);
+                m_rouletteIntelligente = new CRouletteIntelligente(capteurCouleurBleu, ax12RotateurBleu);
             }
         }
 
@@ -119,17 +118,17 @@ namespace PR.Membres
         {
             if (equipe == Couleur.Jaune)
             {
-                m_rouletteIntelligente.m_ax12roulette.move((int)positionPetitBrasJaune.intermediaire_sortie);
+                m_rouletteIntelligente.getRoulette().move((int)positionPetitBrasJaune.intermediaire_sortie);
             }
             else
             {
-                m_rouletteIntelligente.m_ax12roulette.move((int)positionPetitBrasBleu.intermediaire_sortie);
+                m_rouletteIntelligente.getRoulette().move((int)positionPetitBrasBleu.intermediaire_sortie);
             }
         }
 
         public void tourner(Couleur equipe)
         {
-            // il faut cette fois-ci que la couleur de 
+            // il faut cette fois-ci que la couleur soit près du capteur
             m_rouletteIntelligente.MettreBonneCouleurPresDuCapteur(equipe);
         }
 

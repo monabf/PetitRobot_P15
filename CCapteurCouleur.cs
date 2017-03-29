@@ -11,12 +11,11 @@ namespace PR
         ColorSense myColorSense;
         static int White = 2, Yellow = 1, Blue = 0;
         int c1, c2, c3, c4;
-        int ourColor = Blue;
 
-        int config = -1; int i = -1;
-            // sens de rotation direct
-            float pricisionAngle = Pi / 10;
-            float defaultAngle = Pi / 4; //Toujours Pi/4
+        int config = -1;
+        // sens de rotation du cylindre  = direct
+        float pricisionAngle = (float) System.Math.PI / 10;
+        float defaultAngle = (float)System.Math.PI  / 4; //Toujours Pi/4
 
         public static int getHue(int red, int green, int blue)
         {
@@ -46,35 +45,33 @@ namespace PR
             return (int)System.Math.Round(hue);
 
         }
-      
 
-        
+
+
         //Constructeur
-        void CCapteurCouleur(int id, int ourColor)
+        public CCapteurCouleur(int id, Couleur equipe)
         {
             myColorSense = new ColorSense(id);
-            /* Choix de la couleur 'par defaut la couleur est Bleu' */
-            int config;
-                        if (ourColor == Yellow)
+            if (equipe == Couleur.Jaune)
             {
-                c1 = -3; c2 = 1; c3 = 3; c4 = -1;
+                c1 = -1; c2 = 3; c3 = 1; c4 = -3;
             }
-            else
+            else // par défaut, la couleur est donc bleue
             {
-                c1 = 1; c2 = -3; c3 = -1; c4 = 3;
+                c1 = 3; c2 = -1; c3 = -3; c4 = 1;
             }
         }
 
 
         //Continuer la rotation
-        bool ContinuerRotation(ref int couleurInitiale)
+        public bool ContinuerRotation(ref int couleurInitiale)
         {
 
             //Lire les couleurs 
             //***********
             ColorSense.ColorData colors = myColorSense.ReadColor();
             int HUE = getHue(colors.Red, colors.Blue, colors.Green);
-            bool white = colors.Red + colors.Blue + colors.Green > 700;
+            bool white = colors.Red + colors.Blue + colors.Green > 420;
             //**********
             //Attention !!!!!! il faut mettre le parametre couleurInitiale à -1 pour chaque cylindre
             if (couleurInitiale == -1)
@@ -84,23 +81,7 @@ namespace PR
                 else if (HUE < 100) couleurInitiale = 1; //Yellow
             }
 
-            //--// 
-            //Un cas particulier 
-            if (i > 0)
-            {
-                if (i == 3) // 3 : nombre de pas a faire pour etre sure de la couleur (on peut changer ce parametre)
-                {
-                    wcolors = myColorSense.ReadColor();
-                    HUE = getHue(wcolors.Red, wcolors.Blue, wcolors.Green);
-                    if (HUE > 150) { config = 4; return false; }
-                    else { config = 3; return false; }
-                    //TurnAngle(-3 * pricisionAngle);
-                    return true;
-                }
-                i++;
-                return true;
-            }
-
+            /////////////////////////////////////////////////
             if (HUE > 150)
             {
                 if (couleurInitiale != 0)
@@ -122,39 +103,44 @@ namespace PR
             }
             else if (white)
             {
-                if (couleurInitiale != 0) { 
-                i = 1; //TurnAngle(3 * pricisionAngle);
-                   return true;
-                 }
+                if (couleurInitiale != 2)
+                {
+                    if (couleurInitiale == 1)
+                    {
+                        config = 3;
+                        return false;
+                    }
+                    else if (couleurInitiale == 0)
+                    {
+                        config = 4;
+                        return false;
+                    }
+                    return true; //en cas d'erreur (couleurInitiale = -1) !
+                }
                 return true;
             }
             else { return true; /* la couleur n'est pas claire*/ }
         }
 
-//
+        //
         int CompleterRotation()
         {
-            
+
             //
             switch (config)
             {
                 case 1:
-                    return c1 * defaultAngle;
-                    break;
+                    return  (int) (c1 * defaultAngle);
                 case 2:
-                    return c2 * defaultAngle;
-                    break;
+                    return (int) (c2 * defaultAngle);
                 case 3:
-                    return c3 * defaultAngle;
-                    break;
+                    return (int) (c3 * defaultAngle);
                 case 4:
-                    return c4 * defaultAngle;
-                    break;
+                    return (int) (c4 * defaultAngle);
                 default:
                     Debug.Print("Error 'config cylinder' !");
-                    break;
+                    return 0;
             }
-            return 0;
         }
     }
 }

@@ -7,7 +7,7 @@ using GTM = Gadgeteer.Modules;
 using Gadgeteer.Modules.GHIElectronics;
 using System.Threading;
 
-namespace PetitRobot_V1
+namespace PR.BR2
 {
      enum etatBR
     {
@@ -17,12 +17,14 @@ namespace PetitRobot_V1
     { 
         avancer=1, reculer=-1
     };
+    
     struct positionBaseRoulante
     {
         public int x;
         public int y;
         public int alpha;
     };
+    
 
     class CBaseRoulante
     {
@@ -38,6 +40,7 @@ namespace PetitRobot_V1
             m_kangaroo.init();
           
         }
+        /*
         public void setCouleur(Couleur c)
         {
             if (c == Couleur.Violet)
@@ -53,7 +56,7 @@ namespace PetitRobot_V1
                 m_posBR.alpha = -90;
             }
         }
-
+        */
         public void getPosition(ref positionBaseRoulante posBR)
         {
             posBR=m_posBR;
