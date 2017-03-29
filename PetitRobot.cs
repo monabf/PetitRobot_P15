@@ -16,6 +16,10 @@ using GT = Gadgeteer;
 using GTM = Gadgeteer.Modules;
 using Gadgeteer.Modules.GHIElectronics;
 
+using PR.BR2;
+using PR.Vision;
+using PR.Membres;
+
 
 namespace PR
 {
@@ -41,13 +45,14 @@ namespace PR
         #region Attributs
 
         // convention : contrairement aux autres attributs, les membres ne sont précédés par m_
-        
+        Boolean detection = true;
+
         ConfigurationPorts m_ports;
         Thread m_threadRun;
         EtatRobot m_etatRobot;
 
         GestionnaireStrategie GestionStrat;
-        IHM m_ihm;
+        IHMSelection m_ihm;
         Jack m_jack;
         GroupeInfrarouge m_IR;
 
@@ -76,16 +81,16 @@ namespace PR
             m_ports = ports;
 
             Font font; // WARNING: font is not defined yet
-            m_baseRoulante = new CBaseRoulante(new CCanAppli(font));
+            m_baseRoulante = new CBaseRoulante(m_ports.idBaseRoulante);
                        
-            m_ihm = new IHM();
+            m_ihm = new IHMSelection();
             GestionStrat = new GestionnaireStrategie();
             m_controleurAX12 = new ControleurAX12(m_ports.idContAX12);
 
             //NB: pince = 1 AX12, petitBras = 2 AX12 et 1 CapteurCouleur, poussoir = 1 AX12
-            pince = new CPince(equipe, m_controleurAX12, m_ports.configPince);
-            petitBras = new CPetitBras(equipe, m_controleurAX12, m_ports.configPetitBras);
-            poussoir = new CPoussoir(equipe, m_controleurAX12, m_ports.configPoussoir);
+            pince = new CPince(equipe, m_controleurAX12, m_ports.pince);
+            petitBras = new CPetitBras(equipe, m_controleurAX12, m_ports.petitBras);
+            poussoir = new CPoussoir(equipe, m_controleurAX12, m_ports.poussoir);
             
             // idIO = idPort, idJack = idPin
             m_jack = new Jack(m_ports.idIO, m_ports.idJack);
@@ -110,10 +115,9 @@ namespace PR
             m_ihm.Selection(ref m_etatRobot.couleurEquipe, ref m_etatRobot.disposition);        //Retourne la couleur de l'equipe et la disposition du terrain choisi sur l'IHM
             m_ihm.Afficher("Selection : OK");
 
-            m_tableJeu = new CTableJeu(m_etatRobot.couleurEquipe, m_etatRobot.disposition);     //Initialisation de la position de chaque objet sur la table de jeu en fonction de la couleur de l'equipe et de la disposition choisi sur l'IHM            
             m_ihm.Afficher("Configuration de la table : OK");
 
-            m_baseRoulante.setCouleur((m_etatRobot.couleurEquipe == Couleur.Violet ? Couleur.Violet : Couleur.Vert));       //Envoi la couleur sélectionné pour définir à la base roulante sa position de départ
+            m_baseRoulante.setCouleur((m_etatRobot.couleurEquipe == Couleur.Bleu ? Couleur.Bleu : Couleur.Jaune));       //Envoi la couleur sélectionné pour définir à la base roulante sa position de départ
             
             /*InitialisationStrategie();              //Initialise la stratégie du robot
             m_ihm.Afficher("Initialisation de la strategie : OK");*/
@@ -160,7 +164,7 @@ namespace PR
 
 
         // cette fonction allerEn utilise detecter !
-        public etatBR robotGoToXY(ushort x, ushort y, sens s)
+        etatBR robotGoToXY(ushort x, ushort y, sens s)
         {
             etatBR retour;
             if (detection)
@@ -189,11 +193,11 @@ namespace PR
                 // on teste les capteurs IR avants puis le capteur laser en appui
                 double distance = 0d;
                 bool obstacle = false;
-                // mesure une distance avec 5 mesures rapides
-                m_ultrason.getDistance(5, distance);
+                // mesure une distance moyenne avec 5 mesures rapides
+                m_ultrason.getDistance(5, ref distance);
                 if (distance < 30 && distance != -1)
                     obstacle = true;
-               if ((!m_AVG.Read() || !m_AVD.Read()) && obstacle )
+               if ((!m_IR.AVG.Read() || !m_IR.AVD.Read()) && obstacle )
                     {                    
                          m_baseRoulante.stop();
                     }
@@ -202,7 +206,7 @@ namespace PR
             else
             {
                 // on teste les capteurs IR arrières
-                if (!m_ARG.Read() || !m_ARD.Read())
+                if (!m_IR.ARG.Read() || !m_IR.ARD.Read())
                 {
                     m_baseRoulante.stop();
                 }
@@ -240,6 +244,7 @@ namespace PR
         #endregion
 
         #region Action
+        /*
 
         public etatBR hisserLesPavillons()
         {
@@ -322,22 +327,8 @@ namespace PR
 
             allerEn(1550, m_etatRobot.couleurEquipe == Couleur.Violet ? m_tableJeu.Coquillages[1].Position.Y : m_tableJeu.Coquillages[12].Position.Y, sens.avancer, true);
 
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
+         
+          
             
             allerEn(1250, m_etatRobot.couleurEquipe == Couleur.Violet ? m_tableJeu.Coquillages[0].Position.Y : m_tableJeu.Coquillages[11].Position.Y, sens.avancer, true);
 
@@ -392,4 +383,6 @@ namespace PR
 
         #endregion
     }
+
+    
 }

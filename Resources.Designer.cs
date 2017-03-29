@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace PetitRobot_V1
+namespace PR
 {
     
     internal partial class Resources

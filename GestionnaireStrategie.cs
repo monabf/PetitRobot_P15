@@ -1,6 +1,6 @@
 ﻿using System.Collections;
 
-namespace PetitRobot_V1
+namespace PR
 {
     /// <summary>
     /// Gestionnaire de stratégie contenant des tâches à éxecuter sous certaines conditons, par ordre de priorité

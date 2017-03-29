@@ -6,6 +6,7 @@ namespace PR.Membres
     class CPince
     {
         CAX12 m_ax12Pince;
+        Couleur couleurEquipe;
 
         public struct configPince
         {
@@ -30,24 +31,30 @@ namespace PR.Membres
         };
 
 
+        public Couleur getCouleur()
+        {
+            return couleurEquipe;
+        }
 
         public CPince(Couleur equipe, ControleurAX12 controleur, configPince config) //le constructeur
         {
+            couleurEquipe = equipe;
             if (equipe == Couleur.Jaune)
             {
                 m_ax12Pince = new CAX12(config.idAX12PinceJaune, controleur.m_port, controleur.m_direction);
+                m_ax12Pince.setMode(AX12Mode.joint);
             }
             else
             {
                 m_ax12Pince = new CAX12(config.idAX12PinceBleue, controleur.m_port, controleur.m_direction);
+                m_ax12Pince.setMode(AX12Mode.joint);
             }
-            m_ax12Pince.setMode(AX12Mode.joint);
         }
 
 
-        public void deplie(Couleur equipe)
+        public void deplie()
         {
-            if (equipe == Couleur.Jaune)
+            if (couleurEquipe == Couleur.Jaune)
             {
                 m_ax12Pince.move((int)positionPinceJaune.sortie);
             }
@@ -58,9 +65,9 @@ namespace PR.Membres
 
         }
 
-        public void replie(Couleur equipe)
+        public void replie()
         {
-            if (equipe == Couleur.Jaune)
+            if (couleurEquipe == Couleur.Jaune)
             {
                 m_ax12Pince.move((int)positionPinceJaune.rentree);
             }
@@ -70,9 +77,9 @@ namespace PR.Membres
             }
         }
 
-        public void semiReplie(Couleur equipe)
+        public void semiReplie()
         {
-            if (equipe == Couleur.Jaune)
+            if (couleurEquipe == Couleur.Jaune)
             {
                 m_ax12Pince.move((int)positionPinceJaune.intermediaire_rentree);
             }
@@ -83,9 +90,9 @@ namespace PR.Membres
         }
 
 
-        public void semiDeplie(Couleur equipe)
+        public void semiDeplie()
         {
-            if (equipe == Couleur.Jaune)
+            if (couleurEquipe == Couleur.Jaune)
             {
                 m_ax12Pince.move((int)positionPinceJaune.intermediaire_sortie);
             }

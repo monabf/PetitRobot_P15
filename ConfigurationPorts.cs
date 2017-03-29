@@ -6,7 +6,7 @@ namespace PR
     /// Configuration des ports d'un robot
     /// </summary>
 
-    class ConfigurationPorts
+    public class ConfigurationPorts
     {
         public int idIO;
         public int idJack;

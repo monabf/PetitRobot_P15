@@ -17,15 +17,15 @@ namespace PR
         GHI.Glide.Display.Window fenetreSelection, fenetreAffichage;
 
         Couleur equipe = Couleur.Null;
-        int disposition = 0;
-        bool validation = false;
+        public int disposition = 0;
+        public bool validation = false;
 
         #endregion
 
         #region Attributs selection
         
-        GHI.Glide.UI.Button BoutonVert;
-        GHI.Glide.UI.Button BoutonViolet;
+        GHI.Glide.UI.Button BoutonBleu;
+        GHI.Glide.UI.Button BoutonJaune;
         GHI.Glide.UI.Button BoutonDispo1;
         GHI.Glide.UI.Button BoutonDispo2;
         GHI.Glide.UI.Button BoutonDispo3;
@@ -62,12 +62,17 @@ namespace PR
         /// <summary>
         /// Selection de l'équipe et de la disposition du terrais parmi les 5 différentes
         /// </summary>
+        /// 
+        public Couleur getEquipe(){
+            return equipe;
+        }
+
         public void Selection(ref Couleur m_equipe, ref int m_disposition)
         {
             Glide.MainWindow = fenetreSelection;        //Affiche la fenetre de selection sur l'écran LCD
             
-            BoutonVert = (GHI.Glide.UI.Button)fenetreSelection.GetChildByName("BoutonVert");            //Créer les différents boutons
-            BoutonViolet = (GHI.Glide.UI.Button)fenetreSelection.GetChildByName("BoutonViolet");
+            BoutonBleu = (GHI.Glide.UI.Button)fenetreSelection.GetChildByName("BoutonBleu");            //Créer les différents boutons
+            BoutonJaune = (GHI.Glide.UI.Button)fenetreSelection.GetChildByName("BoutonJaune");
             BoutonDispo1 = (GHI.Glide.UI.Button)fenetreSelection.GetChildByName("BoutonDispo1");
             BoutonDispo2 = (GHI.Glide.UI.Button)fenetreSelection.GetChildByName("BoutonDispo2");
             BoutonDispo3 = (GHI.Glide.UI.Button)fenetreSelection.GetChildByName("BoutonDispo3");
@@ -78,15 +83,15 @@ namespace PR
             TexteCouleur = (TextBlock)fenetreSelection.GetChildByName("TexteCouleur");        //Bloc de texte pour la selection (affiche la couleur et la disposition choisie)
             TexteDispo = (TextBlock)fenetreSelection.GetChildByName("TexteDispo");            //
 
-            BoutonVert.TapEvent += new OnTap(sender => { equipe = Couleur.Vert;
-                                                         TexteCouleur.Text = "Equipe verte";
-                                                         TexteCouleur.BackColor = (Color)0x00CC00;
+            BoutonBleu.TapEvent += new OnTap(sender => { equipe = Couleur.Bleu;
+                                                         TexteCouleur.Text = "Equipe bleue";
+                                                         TexteCouleur.BackColor = (Color)0x1E7FCB;
                                                          fenetreSelection.FillRect(TexteCouleur.Rect);
                                                          TexteCouleur.Invalidate(); });
 
-            BoutonViolet.TapEvent += new OnTap(sender => { equipe = Couleur.Violet;
-                                                           TexteCouleur.Text = "Equipe violette";
-                                                           TexteCouleur.BackColor = (Color)0x9900CC ;
+            BoutonJaune.TapEvent += new OnTap(sender => { equipe = Couleur.Jaune;
+                                                           TexteCouleur.Text = "Equipe jaune";
+                                                           TexteCouleur.BackColor = (Color)0xE8D630;
                                                            fenetreSelection.FillRect(TexteCouleur.Rect);
                                                            TexteCouleur.Invalidate(); });
 

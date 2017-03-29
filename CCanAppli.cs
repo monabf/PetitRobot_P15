@@ -93,7 +93,7 @@ namespace PR
             AutoResetEvent evtACK = (AutoResetEvent)m_waitACK[0];
             AutoResetEvent evtACKSTOP = (AutoResetEvent)m_waitACK[1];
 
-            // Etude de la commande reçus.
+            // Etude de la commande reçue.
 
             if ((m_msgRecu[0].ArbitrationId != (uint)IDcommande.WStopACK) && (m_msgRecu[0].ArbitrationId != (uint)IDcommande.WStopDONE))
                 if (m_msgRecu[0].ArbitrationId == m_id + 1)

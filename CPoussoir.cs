@@ -7,9 +7,8 @@ namespace PR.Membres
     class CPoussoir
     {
 
-      Couleur couleurEquipe;
-      CAX12 m_ax12Poussoir;
-
+        Couleur couleurEquipe;
+        CAX12 m_ax12Poussoir;
 
         public struct configPoussoir
         {
@@ -31,46 +30,49 @@ namespace PR.Membres
            // Valeurs a changer apres tests sur servos
         };
 
+        public Couleur getCouleur(){
+            return couleurEquipe;
+        }
 
-            public CPoussoir(Couleur equipe, ControleurAX12 controleur,configPoussoir config) //le constructeur
+
+        public CPoussoir(Couleur equipe, ControleurAX12 controleur,configPoussoir config) //le constructeur
+        {
+            couleurEquipe = equipe;
+            if (couleurEquipe == Couleur.Jaune)
             {
+            m_ax12Poussoir = new CAX12(config.idAX12PoussoirJaune, controleur.m_port, controleur.m_direction);
+            m_ax12Poussoir.setMode(AX12Mode.joint);
+            }
+            else
+            {
+            m_ax12Poussoir = new CAX12(config.idAX12PoussoirBleu, controleur.m_port, controleur.m_direction);
+            m_ax12Poussoir.setMode(AX12Mode.joint);
+            }
+        }
 
-              if (equipe == Couleur.Jaune)
-              {
-                m_ax12Poussoir = new CAX12(config.idAX12PoussoirJaune, controleur.m_port, controleur.m_direction);
-              }
-              else
-              {
-                m_ax12Poussoir = new CAX12(config.idAX12PoussoirBleu, controleur.m_port, controleur.m_direction);
-              }
-               m_ax12Poussoir.setMode(AX12Mode.joint);
+
+        public void sort()
+        {
+            if (couleurEquipe == Couleur.Jaune)
+            {
+                m_ax12Poussoir.move((int)positionPoussoirJaune.sortie);
             }
 
-
-            public void sort(Couleur equipe)
+            else
             {
-              if (equipe == Couleur.Jaune)
-              {
-                  m_ax12Poussoir.move((int)positionPoussoirJaune.sortie);
-              }
+                m_ax12Poussoir.move((int)positionPoussoirBleu.sortie);
+            }
+        }
 
-              else
-              {
-                  m_ax12Poussoir.move((int)positionPoussoirBleu.sortie);
-              }
+        public void replie()
+        {
+            if (couleurEquipe == Couleur.Jaune){
+            m_ax12Poussoir.move((int)positionPoussoirJaune.rentree);
             }
 
-            public void replie(Couleur equipe)
-            {
-              if (equipe == Couleur.Jaune){
-                m_ax12Poussoir.move((int)positionPoussoirJaune.rentree);
-              }
-
-              else {
-                  m_ax12Poussoir.move((int)positionPoussoirBleu.rentree);
-              }
+            else {
+                m_ax12Poussoir.move((int)positionPoussoirBleu.rentree);
             }
-
-
+        }
     }
 }

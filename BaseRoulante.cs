@@ -40,23 +40,25 @@ namespace PR.BR2
             m_kangaroo.init();
           
         }
-        /*
+        
         public void setCouleur(Couleur c)
         {
-            if (c == Couleur.Violet)
+            if (c == Couleur.Bleu)
             {
+                //NB: constantes à modifier
                 m_posBR.x = 678;
                 m_posBR.y = 73;
                 m_posBR.alpha = 90;
             }
             else
             {
+                // idem
                 m_posBR.x = 678;
                 m_posBR.y = 1927;
                 m_posBR.alpha = -90;
             }
         }
-        */
+        
         public void getPosition(ref positionBaseRoulante posBR)
         {
             posBR=m_posBR;

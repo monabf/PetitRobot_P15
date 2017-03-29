@@ -30,36 +30,37 @@ namespace PR
 
             var ports = new ConfigurationPorts
             {
-                Plateforme = 10,
-                IO = 5,
-                Jack = 4,
-                InfrarougeAVG = 6,
-                InfrarougeAVD = 8,
-                InfrarougeARG = 7,
-                InfrarougeARD = 9,
-                CapteurUltrason = 6,
-                ContAX12 = 11,
-                DetecteurIR = 12,
+                idBaseRoulante = 10,
+                idIO = 5,
+                idJack = 4,
+                idInfrarougeAVG = 6,
+                idInfrarougeAVD = 8,
+                idInfrarougeARG = 7,
+                idInfrarougeARD = 9,
+                idCapteurUltrason = 6,
+                idContAX12 = 11,
+                idDetecteurIR = 12,
             };
 
-            ports.poussoir.idAx12PoussoirBleu = 1;
-            ports.poussoir.idAx12PoussoirJaune = 2;
+            ports.poussoir.idAX12PoussoirBleu = 1;
+            ports.poussoir.idAX12PoussoirJaune = 2;
 
-            ports.pince.idAx12PinceBleue = 3;
-            ports.pince.idAx12PinceJaune = 4;
+            ports.pince.idAX12PinceBleue = 3;
+            ports.pince.idAX12PinceJaune = 4;
 
             ports.petitBras.idAX12CoudeBleu = 12;
-            ports.petitBras.idAx12RotateurBleu = 13;
+            ports.petitBras.idAX12RotateurBleu = 13;
             ports.petitBras.idCapteurBrasBleu = 14;
             ports.petitBras.idAX12CoudeJaune = 15;
-            ports.petitBras.idAx12RotateurJaune = 16;
+            ports.petitBras.idAX12RotateurJaune = 16;
             ports.petitBras.idCapteurBrasJaune = 17;
 
             // initialisation de l'IHM de sélection
             IHMSelection selection;
             selection = new IHMSelection();
+            selection.
             // ceci est une fonction et c'est normal !
-            selection.Validation += SelectionEffectuee;
+            //selection.Validation += SelectionEffectuee;
 
             // affiche l'IHM de sélection et attende de la validation
             selection.Afficher();
@@ -67,7 +68,7 @@ namespace PR
             selection.Fermer();
           
             PetitRobot robot;
-            robot = new PetitRobot(ports, selection.Equipe);
+            robot = new PetitRobot(ports, selection.getEquipe());
 
             // attente du jack
             robot.AttendreJack();

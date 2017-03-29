@@ -3,20 +3,20 @@ using Microsoft.SPOT;
 
 namespace PR.Membres
 {
-    class CPetitBras
+    public class CPetitBras
     {
 
         CAX12 m_ax12Coude;
         CRouletteIntelligente m_rouletteIntelligente;
-
+        Couleur couleurEquipe;
 
         public struct configPetitBras
         {
             public byte idAX12CoudeBleu;   //mouvement de rentré et sortie du bras
-            public byte idAx12RotateurBleu;
+            public byte idAX12RotateurBleu;
             public byte idCapteurBrasBleu;
             public byte idAX12CoudeJaune;   //mouvement de rentré et sortie du bras
-            public byte idAx12RotateurJaune;
+            public byte idAX12RotateurJaune;
             public byte idCapteurBrasJaune;
         };
 
@@ -39,17 +39,21 @@ namespace PR.Membres
         };
 
 
+        public Couleur getCouleur()
+        {
+            return couleurEquipe;
+        }
 
         public CPetitBras(Couleur equipe, ControleurAX12 controleur, configPetitBras config) //le constructeur
         {
-            // ce n'est pas superbe, mais c'est efficace !
-            if (equipe == Couleur.Jaune)
+            couleurEquipe = equipe;
+            if (couleurEquipe == Couleur.Jaune)
             {
                 m_ax12Coude = new CAX12(config.idAX12CoudeJaune, controleur.m_port, controleur.m_direction);
                 m_ax12Coude.setMode(AX12Mode.joint);
                 // corriger le deuxième paramètre du contructeur CCapteurCouleur ci-dessous
                 CCapteurCouleur capteurCouleurJaune = new CCapteurCouleur(config.idCapteurBrasJaune, equipe);
-                CAX12 ax12RotateurJaune = new CAX12(config.idAx12RotateurJaune, controleur.m_port, controleur.m_direction);
+                CAX12 ax12RotateurJaune = new CAX12(config.idAX12RotateurJaune, controleur.m_port, controleur.m_direction);
                 m_rouletteIntelligente = new CRouletteIntelligente(capteurCouleurJaune, ax12RotateurJaune);
             }
             else
@@ -58,15 +62,15 @@ namespace PR.Membres
                 m_ax12Coude.setMode(AX12Mode.joint);
                 // corriger le deuxième paramètre du contructeur CCapteurCouleur ci-dessous
                 CCapteurCouleur capteurCouleurBleu = new CCapteurCouleur(config.idCapteurBrasBleu, equipe);
-                CAX12 ax12RotateurBleu = new CAX12(config.idAx12RotateurBleu, controleur.m_port, controleur.m_direction);
+                CAX12 ax12RotateurBleu = new CAX12(config.idAX12RotateurBleu, controleur.m_port, controleur.m_direction);
                 m_rouletteIntelligente = new CRouletteIntelligente(capteurCouleurBleu, ax12RotateurBleu);
             }
         }
 
 
-        public void deplie(Couleur equipe)
+        public void deplie()
         {
-            if (equipe == Couleur.Jaune)
+            if (couleurEquipe == Couleur.Jaune)
             {
                 m_ax12Coude.move((int)positionPetitBrasJaune.intermediaire_sortie);
             }
@@ -76,9 +80,9 @@ namespace PR.Membres
             }
         }
 
-        public void replie(Couleur equipe)
+        public void replie()
         {
-            if (equipe == Couleur.Jaune)
+            if (couleurEquipe == Couleur.Jaune)
             {
                 m_ax12Coude.move((int)positionPetitBrasJaune.rentree);
             }
@@ -89,9 +93,9 @@ namespace PR.Membres
 
         }
 
-        public void semiReplie(Couleur equipe)
+        public void semiReplie()
         {
-            if (equipe == Couleur.Jaune)
+            if (couleurEquipe == Couleur.Jaune)
             {
                 m_ax12Coude.move((int)positionPetitBrasJaune.intermediaire_rentree);
             }
@@ -102,9 +106,9 @@ namespace PR.Membres
         }
 
 
-        public void semiDeplie(Couleur equipe)
+        public void semiDeplie()
         {
-            if (equipe == Couleur.Jaune)
+            if (couleurEquipe == Couleur.Jaune)
             {
                 m_ax12Coude.move((int)positionPetitBrasJaune.intermediaire_sortie);
             }
@@ -114,9 +118,9 @@ namespace PR.Membres
             }
         }
 
-        public void initialiserRoue(Couleur equipe)
+        public void initialiserRoue()
         {
-            if (equipe == Couleur.Jaune)
+            if (couleurEquipe == Couleur.Jaune)
             {
                 m_rouletteIntelligente.getRoulette().move((int)positionPetitBrasJaune.intermediaire_sortie);
             }
@@ -126,10 +130,10 @@ namespace PR.Membres
             }
         }
 
-        public void tourner(Couleur equipe)
+        public void tourner()
         {
             // il faut cette fois-ci que la couleur soit près du capteur
-            m_rouletteIntelligente.MettreBonneCouleurPresDuCapteur(equipe);
+            m_rouletteIntelligente.MettreBonneCouleurPresDuCapteur(couleurEquipe);
         }
 
 

@@ -2,7 +2,7 @@ using System;
 
 namespace PR
 {
-    enum Couleur { Null = 0, Jaune, Bleu }
+    public enum Couleur { Null = 0, Jaune, Bleu }
 
     struct Vecteur2
     {

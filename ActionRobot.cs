@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace PetitRobot_V1
+namespace PR
 {
     /// <summary>
     /// Fonction retournant un System.Boolean
