@@ -17,14 +17,14 @@ using GT = Gadgeteer;
 using GTM = Gadgeteer.Modules;
 
 
-namespace PetitRobot_V1
+namespace PR
 {
-    enum couleur { none = 0, violet = 'P', vert = 'G', blanc = 'W' };
+   // enum Couleur { none = 0, Bleu, Jaune };
 
     struct etatRobot
     {
         public positionBaseRoulante posBR;
-        public couleur couleurEquipe;
+        public Couleur couleurEquipe;
         public int coefPos;
         public int coefAngle;
         public bool stop;
@@ -85,7 +85,7 @@ namespace PetitRobot_V1
             m_timeOut = 20000;
         }
 
-        public idErreur stop() // arréter toute tache en cours
+        public idErreur stop() // arrêter toute tache en cours
         {
             idErreur retour = m_gestionCan.envoyer((uint)IDcommande.WStop);
             if (retour == idErreur.ACKSTOP)

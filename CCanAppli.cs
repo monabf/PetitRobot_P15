@@ -17,7 +17,7 @@ using Microsoft.SPOT.Hardware;
 using System.IO.Ports;
 
 
-namespace PetitRobot_V1
+namespace PR
 {
     enum idErreur : int
     {

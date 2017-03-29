@@ -4,7 +4,7 @@ using GT = Gadgeteer;
 using GTM = Gadgeteer.Modules;
 using Gadgeteer.Modules.GHIElectronics;
 
-namespace GadgeteerApp4
+namespace PR
 {
     class CCapteurCouleur
     {

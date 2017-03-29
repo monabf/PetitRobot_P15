@@ -14,7 +14,7 @@ using GT = Gadgeteer;
 using GTM = Gadgeteer.Modules;
 using Gadgeteer.Modules.GHIElectronics;
 
-namespace GR.Vision
+namespace PR.Vision
 {
     class CCapteurUltrason
     {
@@ -36,7 +36,7 @@ namespace GR.Vision
         /// <param name="nbrMesure">nombre de mesure que prends le capteur et renvoie une moyenne</param>
         /// <param name="distance">distance de l'obstacle (cm)</param>
         /// <returns></returns>
-        public bool getDistance( int nbrMesure, ref double distance)
+        public bool getDistance(int nbrMesure, ref double distance)
         {
             bool check = false;
             distance = 0;

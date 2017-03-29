@@ -52,9 +52,9 @@ namespace PR
         GroupeInfrarouge m_IR;
 
 
-        DistanceUS3 m_ultrason;
+        CCapteurUltrason m_ultrason;
 
-        CBaseRoulante baseRoulante;
+        CBaseRoulante m_baseRoulante;
         positionBaseRoulante m_positionRobot = new positionBaseRoulante();
 
         ControleurAX12 m_controleurAX12;
@@ -74,8 +74,9 @@ namespace PR
         public PetitRobot(ConfigurationPorts ports, Couleur equipe)
         {
             m_ports = ports;
-        
-            baseRoulante = new CBaseRoulante(m_ports.idBaseRoulante);
+
+            Font font; // WARNING: font is not defined yet
+            m_baseRoulante = new CBaseRoulante(new CCanAppli(font));
                        
             m_ihm = new IHM();
             GestionStrat = new GestionnaireStrategie();
@@ -90,7 +91,7 @@ namespace PR
             m_jack = new Jack(m_ports.idIO, m_ports.idJack);
             m_IR = new GroupeInfrarouge(m_ports.idIO, m_ports.idInfrarougeAVD, m_ports.idInfrarougeAVG, m_ports.idInfrarougeARD, m_ports.idInfrarougeARG);
 
-            m_ultrason = new DistanceUS3(m_ports.idCapteurUltrason);
+            m_ultrason = new CCapteurUltrason(m_ports.idCapteurUltrason);
 
             // et c'est parti pour la boucle !
             m_threadRun = new Thread(new ThreadStart(robotStart));    //Création d'un thread
@@ -155,45 +156,49 @@ namespace PR
             //m_bras.rentrer();
            ramasserCoquillages();
         }
+         * */
 
-        public etatBR allerEn(int x, int y, sens s, bool detection)
+
+        // cette fonction allerEn utilise detecter !
+        public etatBR robotGoToXY(ushort x, ushort y, sens s)
         {
             etatBR retour;
             if (detection)
             {
                 // on passe le sens "dir" au timer via la variable "state"
+                // analogue au timeout-callback pour les amoureux du js
                 Timer t = new Timer(new TimerCallback(detecter), s, 0, 1000);
-                retour = m_baseRoulante.allerEn(x, y, s);
+                retour = m_baseRoulante.goToXY(x, y, s);
                 t.Dispose();
             }
             else
             {
-                retour = m_baseRoulante.allerEn(x, y, s);
+                retour = m_baseRoulante.goToXY(x, y, s);
             }
             return retour;
         }
 
-        */
+        
 
         public void detecter(object o)
         {
             sens dir = (sens)o;
-            // si on avance
+            // si on avance, les ultrasons sont utiles
             if (dir == sens.avancer)
             {
                 // on teste les capteurs IR avants puis le capteur laser en appui
-                double distance;
+                double distance = 0d;
                 bool obstacle = false;
-
-                distance = m_ultrason.GetDistance(5);
+                // mesure une distance avec 5 mesures rapides
+                m_ultrason.getDistance(5, distance);
                 if (distance < 30 && distance != -1)
                     obstacle = true;
-                if ((!m_AVG.Read() || !m_AVD.Read()) && obstacle )
-                {                    
-                     m_baseRoulante.stop();
+               if ((!m_AVG.Read() || !m_AVD.Read()) && obstacle )
+                    {                    
+                         m_baseRoulante.stop();
+                    }
                 }
-            }
-            // si on recule
+            // si on recule, les ultrasons ne sont plus utiles
             else
             {
                 // on teste les capteurs IR arrières
