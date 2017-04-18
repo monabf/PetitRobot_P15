@@ -59,14 +59,14 @@ namespace PR
             IHMSelection selection;
             selection = new IHMSelection();
             selection.
-            // ceci est une fonction et c'est normal !
-            //selection.Validation += SelectionEffectuee;
+                // ceci est une fonction et c'est normal !
+                //selection.Validation += SelectionEffectuee;
 
             // affiche l'IHM de sélection et attende de la validation
             selection.Afficher();
             while (!SelectionValidee) Thread.Sleep(1);
             selection.Fermer();
-          
+
             PetitRobot robot;
             robot = new PetitRobot(ports, selection.getEquipe());
 

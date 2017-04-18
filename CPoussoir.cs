@@ -4,7 +4,7 @@ using Microsoft.SPOT;
 namespace PR.Membres
 {
 
-    class CPoussoir
+    public class CPoussoir
     {
 
         Couleur couleurEquipe;
