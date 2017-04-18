@@ -32,20 +32,20 @@ namespace PR
              if (m_etatRobot.couleurEquipe == Couleur.Jaune)
              {
                robotGoToXY((ushort)244, (ushort)2212, sens.avancer);
-               rotate(90);
+               robotRotate(90);
                robotGoToXY((ushort)157, (ushort)2128, sens.avancer);
                robotGoToXY((ushort)147, (ushort)873, sens.avancer);
-               rotate(-90);
+               robotRotate(-90);
                robotGoToXY((ushort)800, (ushort)2870, sens.avancer);
                robotGoToXY((ushort)800, (ushort)2718, sens.avancer);
              }
              else
              {
                robotGoToXY((ushort)244, (ushort)788, sens.avancer);
-               rotate(90);
+               robotRotate(90);
                robotGoToXY((ushort)147, (ushort)872, sens.avancer);
                robotGoToXY((ushort)715, (ushort)872, sens.avancer);
-               rotate(-90);
+               robotRotate(-90);
                robotGoToXY((ushort)800, (ushort)130, sens.avancer);
                robotGoToXY((ushort)800, (ushort)282, sens.avancer);
              }
@@ -55,12 +55,12 @@ namespace PR
 
              if (m_etatRobot.couleurEquipe == Couleur.Bleu)
              {
-               rotate(-90);
+               robotRotate(-90);
                robotGoToXY((ushort)1387, (ushort)197, sens.avancer);
              }
              else
              {
-               rotate(90);
+               robotRotate(90);
                robotGoToXY((ushort)1387, (ushort)2803, sens.avancer);
              }
 
@@ -151,20 +151,20 @@ namespace PR
                 if (m_etatRobot.couleurEquipe == Couleur.Jaune)
                 {
                   robotGoToXY((ushort)244, (ushort)2212, sens.avancer);
-                  rotate(90);
+                  robotRotate(90);
                   robotGoToXY((ushort)157, (ushort)2128, sens.avancer);
                   robotGoToXY((ushort)147, (ushort)873, sens.avancer);
-                  rotate(-90);
+                  robotRotate(-90);
                   robotGoToXY((ushort)800, (ushort)2870, sens.avancer);
                   robotGoToXY((ushort)800, (ushort)2718, sens.avancer);
                 }
                 else
                 {
                   robotGoToXY((ushort)244, (ushort)788, sens.avancer);
-                  rotate(90);
+                  robotRotate(90);
                   robotGoToXY((ushort)147, (ushort)872, sens.avancer);
                   robotGoToXY((ushort)715, (ushort)872, sens.avancer);
-                  rotate(-90);
+                  robotRotate(-90);
                   robotGoToXY((ushort)800, (ushort)130, sens.avancer);
                   robotGoToXY((ushort)800, (ushort)282, sens.avancer);
                 }
@@ -184,12 +184,12 @@ namespace PR
 
                 if (m_etatRobot.couleurEquipe == Couleur.Jaune)
                 {
-                  rotate(90);
+                  robotRotate(90);
                   robotGoToXY((ushort)1387, (ushort)2803, sens.avancer);
                 }
                 else
                 {
-                  rotate(-90);
+                  robotRotate(-90);
                   robotGoToXY((ushort)1387, (ushort)197, sens.avancer);
                 }
 
@@ -256,7 +256,7 @@ namespace PR
 
                 if (m_etatRobot.couleurEquipe == Couleur.Jaune)
                 {
-                  //WHILE COULEUR LU PAR LE CAPTEUR != JAUNE : ROULETTE.ROTATE(+,20) ?????
+                  //WHILE COULEUR LU PAR LE CAPTEUR != JAUNE : ROULETTE.robotRotate(+,20) ?????
                   //À CODER!!!!!!!!!!!!!
 
                   robotGoToXY((ushort)1200, (ushort)2803, sens.avancer);
@@ -274,7 +274,7 @@ namespace PR
                 }
                 else
                 {
-                  //WHILE COULEUR LU PAR LE CAPTEUR != BLEU : ROULETTE.ROTATE(+,20) ?????
+                  //WHILE COULEUR LU PAR LE CAPTEUR != BLEU : ROULETTE.robotRotate(+,20) ?????
                   //À CODER!!!!!!!!!!!!!
 
                   robotGoToXY((ushort)1200, (ushort)197, sens.avancer);
