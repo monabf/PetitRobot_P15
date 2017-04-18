@@ -142,7 +142,6 @@ namespace PR
 
 #else
             positionBaseRoulante positionRobot = new positionBaseRoulante();
-            setSpeed(50);
 
             GestionStrat.Ajouter(new ActionRobot(() =>              //Initialisation de la 1ère action : aller vers la fusée
             {
@@ -193,7 +192,7 @@ namespace PR
                   robotGoToXY((ushort)1387, (ushort)197, sens.avancer);
                 }
 
-                getPosition(ref positionRobot); //on récupère la position réelle et on l'actualise
+                m_baseRoulante.getPosition(ref positionRobot); //on récupère la position réelle et on l'actualise
 
                 return true;
             }, calculPriorite: () => 99, executionUnique: true));
@@ -270,7 +269,7 @@ namespace PR
 
                   pinceJaune.replie();
                   poussoirJaune.replie();
-                  m_baseRoulantes((ushort)1387, (ushort)2803, sens.avancer);
+                  robotGoToXY((ushort)1387, (ushort)2803, sens.avancer);
                 }
                 else
                 {
@@ -291,7 +290,7 @@ namespace PR
                   robotGoToXY((ushort)1387, (ushort)197, sens.avancer);
                 }
 
-                getPosition(ref positionRobot); //on récupère la position réelle et on l'actualise
+                m_baseRoulante.getPosition(ref positionRobot); //on récupère la position réelle et on l'actualise
                 return true;
             }, calculPriorite: () => 97-i, executionUnique: false));
 
