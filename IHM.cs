@@ -17,7 +17,7 @@ namespace PR
         GHI.Glide.Display.Window fenetreSelection, fenetreAffichage;
 
         Couleur equipe = Couleur.Null;
-        public int disposition = 0;
+        int disposition = 0;
         public bool validation = false;
 
         #endregion
@@ -63,8 +63,14 @@ namespace PR
         /// Selection de l'équipe et de la disposition du terrais parmi les 5 différentes
         /// </summary>
         /// 
-        public Couleur getEquipe(){
+        public Couleur getEquipe()
+        {
             return equipe;
+        }
+
+        public int getDisposition()
+        {
+            return disposition;
         }
 
         public void Selection(ref Couleur m_equipe, ref int m_disposition)

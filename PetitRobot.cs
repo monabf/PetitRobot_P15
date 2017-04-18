@@ -80,7 +80,7 @@ namespace PR
         {
             m_ports = ports;
 
-            Font font; // WARNING: font is not defined yet
+            //Font font; // WARNING: font is not defined yet
             m_baseRoulante = new CBaseRoulante(m_ports.idBaseRoulante);
                        
             m_ihm = new IHMSelection();
@@ -99,7 +99,7 @@ namespace PR
             m_ultrason = new CCapteurUltrason(m_ports.idCapteurUltrason);
 
             // et c'est parti pour la boucle !
-            m_threadRun = new Thread(new ThreadStart(robotStart));    //Création d'un thread
+            m_threadRun = new Thread(new ThreadStart(Demarrer));    //Création d'un thread
             
         }
 
@@ -171,20 +171,20 @@ namespace PR
             {
                 // on passe le sens "dir" au timer via la variable "state"
                 // analogue au timeout-callback pour les amoureux du js
-                Timer t = new Timer(new TimerCallback(detecter), s, 0, 1000);
-                retour = m_baseRoulante.goToXY(x, y, s);
+                Timer t = new Timer(new TimerCallback(Detecter), s, 0, 1000);
+                retour = m_baseRoulante.allerEn(x, y, s);
                 t.Dispose();
             }
             else
             {
-                retour = m_baseRoulante.goToXY(x, y, s);
+                retour = m_baseRoulante.allerEn(x, y, s);
             }
             return retour;
         }
 
         
 
-        public void detecter(object o)
+        public void Detecter(object o)
         {
             sens dir = (sens)o;
             // si on avance, les ultrasons sont utiles
@@ -216,7 +216,7 @@ namespace PR
         /// <summary>
         /// Execution des différentes tâches
         /// </summary>
-        public void robotStart()
+        public void Demarrer()
         {
             m_ihm.Afficher("Debut de la strategie");
 

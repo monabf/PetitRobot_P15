@@ -4,7 +4,7 @@ using Microsoft.SPOT;
 namespace PR.Membres
 {
 
-    class CPoussoir
+    public class CPoussoir
     {
 
         Couleur couleurEquipe;
@@ -40,13 +40,13 @@ namespace PR.Membres
             couleurEquipe = equipe;
             if (couleurEquipe == Couleur.Jaune)
             {
-            m_ax12Poussoir = new CAX12(config.idAX12PoussoirJaune, controleur.m_port, controleur.m_direction);
-            m_ax12Poussoir.setMode(AX12Mode.joint);
+                m_ax12Poussoir = new CAX12(config.idAX12PoussoirJaune, controleur.m_port, controleur.m_direction);
+                m_ax12Poussoir.setMode(AX12Mode.joint);
             }
             else
             {
-            m_ax12Poussoir = new CAX12(config.idAX12PoussoirBleu, controleur.m_port, controleur.m_direction);
-            m_ax12Poussoir.setMode(AX12Mode.joint);
+                m_ax12Poussoir = new CAX12(config.idAX12PoussoirBleu, controleur.m_port, controleur.m_direction);
+                m_ax12Poussoir.setMode(AX12Mode.joint);
             }
         }
 

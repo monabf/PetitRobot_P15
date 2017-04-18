@@ -58,13 +58,12 @@ namespace PR
             // initialisation de l'IHM de sélection
             IHMSelection selection;
             selection = new IHMSelection();
-            selection.
-            // ceci est une fonction et c'est normal !
-            //selection.Validation += SelectionEffectuee;
-
-            // affiche l'IHM de sélection et attende de la validation
-            selection.Afficher();
-            while (!SelectionValidee) Thread.Sleep(1);
+            // affiche l'IHM de sélection et attend que la couleur et la disposition aient été choisis
+            selection.Afficher("Renseigner configuration");
+            while (selection.getEquipe() != Couleur.Null || selection.getDisposition() == 0)
+            {
+                Thread.Sleep(1);
+            }
             selection.Fermer();
           
             PetitRobot robot;
@@ -73,14 +72,8 @@ namespace PR
             // attente du jack
             robot.AttendreJack();
             // démarre le robot
-            robot.Demarrer(90d);
+            robot.Demarrer();
         }
 
-        private void SelectionEffectuee(object sender, EventArgs e)
-        {
-            var selection = sender as IHMSelection;
-
-            SelectionValidee = selection.Equipe != Couleur.Null && selection.Disposition > 0;
-        }
     }
 }
