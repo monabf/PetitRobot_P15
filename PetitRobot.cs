@@ -182,6 +182,13 @@ namespace PR
             return retour;
         }
 
+        etatBR robotRotate(int alpha)
+        {
+            etatBR retour;
+            retour = m_baseRoulante.tourner(alpha);
+            return retour;
+        }
+
         
 
         public void Detecter(object o)
