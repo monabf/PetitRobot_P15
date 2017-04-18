@@ -162,7 +162,7 @@ namespace PR
 
 
         // cette fonction allerEn utilise detecter !
-        etatBR robotGoToXY(ushort x, ushort y, sens s, bool boolDetection)
+        etatBR robotGoToXY(ushort x, ushort y, sens s, bool boolDetection = false)
         {
             etatBR retour;
             if (boolDetection)
