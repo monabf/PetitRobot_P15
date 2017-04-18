@@ -45,7 +45,6 @@ namespace PR
         #region Attributs
 
         // convention : contrairement aux autres attributs, les membres ne sont précédés par m_
-        Boolean detection = true;
 
         ConfigurationPorts m_ports;
         Thread m_threadRun;
@@ -114,7 +113,6 @@ namespace PR
         {
             m_ihm.Selection(ref m_etatRobot.couleurEquipe, ref m_etatRobot.disposition);        //Retourne la couleur de l'equipe et la disposition du terrain choisi sur l'IHM
             m_ihm.Afficher("Selection : OK");
-
             m_ihm.Afficher("Configuration de la table : OK");
 
             m_baseRoulante.setCouleur((m_etatRobot.couleurEquipe == Couleur.Bleu ? Couleur.Bleu : Couleur.Jaune));       //Envoi la couleur sélectionné pour définir à la base roulante sa position de départ
@@ -164,10 +162,10 @@ namespace PR
 
 
         // cette fonction allerEn utilise detecter !
-        etatBR robotGoToXY(ushort x, ushort y, sens s)
+        etatBR robotGoToXY(ushort x, ushort y, sens s, bool boolDetection)
         {
             etatBR retour;
-            if (detection)
+            if (boolDetection)
             {
                 // on passe le sens "dir" au timer via la variable "state"
                 // analogue au timeout-callback pour les amoureux du js

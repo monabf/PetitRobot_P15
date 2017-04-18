@@ -22,7 +22,7 @@ namespace PR.Membres
 
         public void MettreBonneCouleurPresDuCapteur(Couleur equipe) {
             m_ax12Roulette.setMovingSpeed(speed.forward);
-            while (m_capteurCouleur.ContinuerRotation(equipe))
+            while (m_capteurCouleur.ContinuerRotation())
             {
                 Thread.Sleep(100);
             }
