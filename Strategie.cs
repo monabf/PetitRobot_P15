@@ -142,7 +142,10 @@ namespace PR
 
 #else
             positionBaseRoulante positionRobot = new positionBaseRoulante();
+<<<<<<< HEAD
             m_baseRoulante.setSpeed(50);
+=======
+>>>>>>> 95d4f3110f6756484a7a5dea9f1d619f078dbbe3
 
             GestionStrat.Ajouter(new ActionRobot(() =>              //Initialisation de la 1ère action : aller vers la fusée
             {
@@ -272,7 +275,7 @@ namespace PR
 
                   pinceJaune.replie();
                   poussoirJaune.replie();
-                  m_baseRoulantes((ushort)1387, (ushort)2803, sens.avancer);
+                  robotGoToXY((ushort)1387, (ushort)2803, sens.avancer);
                 }
                 else
                 {
