@@ -142,12 +142,10 @@ namespace PR.BR2
         public etatBR allerEn(double x,double y, sens s, int speed=1)
         {
             
-            int posCodeur=0;
             int erreur = 0;
             int distanceConsigne=0,distanceReelle = 0, distanceReelle_tm1=0;
             int alphaConsigne = 0, alphaReel = 0, alphaReel_tm1=0;
             int delta = 0;
-            int ecart_t = 0, ecart_tm1 = 0;
             int dureeBlocage = 0;
 
             

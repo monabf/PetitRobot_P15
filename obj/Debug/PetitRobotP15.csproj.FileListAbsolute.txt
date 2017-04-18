@@ -1,0 +1,6 @@
+C:\Users\Pierre-Etienne\Desktop\Robot\Mecatro\petitrobot_final\PetitRobot_P15\obj\Debug\PetitRobotP15.csprojResolveAssemblyReference.cache
+C:\Users\Pierre-Etienne\Desktop\Robot\Mecatro\petitrobot_final\PetitRobot_P15\obj\Debug\TinyCLR_DebugReferences.cache
+C:\Users\Pierre-Etienne\Desktop\Robot\Mecatro\petitrobot_final\PetitRobot_P15\obj\Debug\PetitRobotP15.Resources.resources
+C:\Users\Pierre-Etienne\Desktop\Robot\Mecatro\petitrobot_final\PetitRobot_P15\obj\Debug\PetitRobotP15.csproj.GenerateResource.Cache
+C:\Users\Pierre-Etienne\Desktop\Robot\Mecatro\petitrobot_final\PetitRobot_P15\obj\Debug\PetitRobotP15.Resources.tinyresources
+C:\Users\Pierre-Etienne\Desktop\Robot\Mecatro\petitrobot_final\PetitRobot_P15\obj\Debug\TinyResGen.cache

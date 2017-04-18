@@ -41,7 +41,6 @@ namespace PR
         WBeBlocked = 280
     };
 
-
     class CCanAppli
     {
         //private GTM.GHIElectronics.CANDW  m_busCan;
