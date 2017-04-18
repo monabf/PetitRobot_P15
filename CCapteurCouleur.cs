@@ -70,7 +70,7 @@ namespace PR
 
 
         //Continuer la rotation
-        bool ContinuerRotation()
+        public bool ContinuerRotation()
         {
 
             //Lire les couleurs 
