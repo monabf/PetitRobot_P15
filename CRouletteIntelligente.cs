@@ -20,7 +20,7 @@ namespace PR.Membres
             return m_ax12Roulette;
         }
 
-        public void MettreBonneCouleurPresDuCapteur(Couleur equipe) {
+        public void Tourner() {
             m_ax12Roulette.setMovingSpeed(speed.forward);
             while (m_capteurCouleur.ContinuerRotation())
             {
@@ -28,7 +28,7 @@ namespace PR.Membres
             }
             m_ax12Roulette.setMovingSpeed(speed.stop);
         }
-
+      /*
         public void MettreBonneCouleurLoinDuCapteur(Couleur equipe)
         {
             // "opposé" de la fonction précédente !
@@ -41,5 +41,6 @@ namespace PR.Membres
                 MettreBonneCouleurPresDuCapteur(Couleur.Jaune);
             }
         }
+       * */
     }
 }

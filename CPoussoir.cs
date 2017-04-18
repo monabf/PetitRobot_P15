@@ -51,7 +51,7 @@ namespace PR.Membres
         }
 
 
-        public void sort()
+        public void deplie()
         {
             if (couleurEquipe == Couleur.Jaune)
             {

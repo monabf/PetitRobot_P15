@@ -52,25 +52,39 @@ namespace PR
 
         
         //Constructeur
-        public CCapteurCouleur(int id, Couleur ourColor)
+        public CCapteurCouleur(int id, Couleur ourColor, bool grandRobot)
         {
-		   couleurInitiale = -1;
-           myColorSense = new ColorSense(id);
-			
-        /* Choix de la couleur 'par defaut la couleur est Bleu' */
-            if (ourColor == Couleur.Jaune)
-			{
-				c1 = -1; c2 = 3; c3 = 1; c4 = -3;
-			}
-			else
-			{
-				c1 = 3; c2 = -1; c3 = -3; c4 = 1;
-			}
+            couleurInitiale = -1;
+            myColorSense = new ColorSense(id);
+
+
+            if (grandRobot)
+            {
+                //Grand robot
+                if (ourColor == Couleur.Jaune)
+                {
+                    c1 = 1; c2 = -3; c3 = 3; c4 = -1;
+                }
+                else
+                {
+                    c1 = -3; c2 = 1; c3 = -1; c4 = 3;
+                }
+            }
+            else
+            { //Petit robot
+                if (ourColor == Couleur.Jaune)
+                {
+                    c1 = 5; c2 = 1; c3 = 7; c4 = 3;
+                }
+                else
+                {
+                    c1 = 1; c2 = 5; c3 = 3; c4 = 7;
+                }
+            }
         }
 
-
         //Continuer la rotation
-        bool ContinuerRotation()
+        public bool ContinuerRotation()
         {
 
             //Lire les couleurs 
@@ -125,7 +139,7 @@ namespace PR
         }
 
 //
-        int CompleterRotation()
+        public int CompleterRotation()
         {
             couleurInitiale = -1;
             //

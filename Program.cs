@@ -30,16 +30,16 @@ namespace PR
 
             var ports = new ConfigurationPorts
             {
-                idBaseRoulante = 10,
-                idIO = 5,
-                idJack = 4,
-                idInfrarougeAVG = 6,
-                idInfrarougeAVD = 8,
-                idInfrarougeARG = 7,
-                idInfrarougeARD = 9,
-                idCapteurUltrason = 6,
-                idContAX12 = 11,
-                idDetecteurIR = 12,
+                idBaseRoulante = 8, // pin Kangaroo
+                idIO = 5,  // le groupe IO (extendeur) est relié au pin 5 de la spider. le groupe IR & le jack sont branchés sur l'extendeur IO
+                idJack = 8, // pin 8 de l'extendeur
+                idInfrarougeAVG = 4, // id infra-rouge de l'extendeur. AVG = avant-gauche vu de l'arrière du robot
+                idInfrarougeAVD = 5, // idem
+                idInfrarougeARG = 6, // idem
+                idInfrarougeARD = 7, // idem
+                idCapteurUltrason = 6, // pin 6 de la spider
+                idContAX12 = 11, // pin AX12
+                // idDetecteurIR = 12, // je ne comprends pas ce port. Il doit s'agit d'une erreur. PE
             };
 
             ports.poussoir.idAX12PoussoirBleu = 1;

@@ -90,8 +90,9 @@ namespace PR
             pince = new CPince(equipe, m_controleurAX12, m_ports.pince);
             petitBras = new CPetitBras(equipe, m_controleurAX12, m_ports.petitBras);
             poussoir = new CPoussoir(equipe, m_controleurAX12, m_ports.poussoir);
+
             
-            // idIO = idPort, idJack = idPin
+            // idIO = idPortDeLaSpider, idJack = idPinSurLExtendeur
             m_jack = new Jack(m_ports.idIO, m_ports.idJack);
             m_IR = new GroupeInfrarouge(m_ports.idIO, m_ports.idInfrarougeAVD, m_ports.idInfrarougeAVG, m_ports.idInfrarougeARD, m_ports.idInfrarougeARG);
 

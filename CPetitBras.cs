@@ -52,7 +52,7 @@ namespace PR.Membres
                 m_ax12Coude = new CAX12(config.idAX12CoudeJaune, controleur.m_port, controleur.m_direction);
                 m_ax12Coude.setMode(AX12Mode.joint);
                 // corriger le deuxième paramètre du contructeur CCapteurCouleur ci-dessous
-                CCapteurCouleur capteurCouleurJaune = new CCapteurCouleur(config.idCapteurBrasJaune, equipe);
+                CCapteurCouleur capteurCouleurJaune = new CCapteurCouleur(config.idCapteurBrasJaune, equipe, false);
                 CAX12 ax12RotateurJaune = new CAX12(config.idAX12RotateurJaune, controleur.m_port, controleur.m_direction);
                 m_rouletteIntelligente = new CRouletteIntelligente(capteurCouleurJaune, ax12RotateurJaune);
             }
@@ -61,7 +61,7 @@ namespace PR.Membres
                 m_ax12Coude = new CAX12(config.idAX12CoudeBleu, controleur.m_port, controleur.m_direction);
                 m_ax12Coude.setMode(AX12Mode.joint);
                 // corriger le deuxième paramètre du contructeur CCapteurCouleur ci-dessous
-                CCapteurCouleur capteurCouleurBleu = new CCapteurCouleur(config.idCapteurBrasBleu, equipe);
+                CCapteurCouleur capteurCouleurBleu = new CCapteurCouleur(config.idCapteurBrasBleu, equipe, false);
                 CAX12 ax12RotateurBleu = new CAX12(config.idAX12RotateurBleu, controleur.m_port, controleur.m_direction);
                 m_rouletteIntelligente = new CRouletteIntelligente(capteurCouleurBleu, ax12RotateurBleu);
             }
@@ -133,7 +133,7 @@ namespace PR.Membres
         public void tourner()
         {
             // il faut cette fois-ci que la couleur soit près du capteur
-            m_rouletteIntelligente.MettreBonneCouleurPresDuCapteur(couleurEquipe);
+            m_rouletteIntelligente.Tourner();
         }
 
 

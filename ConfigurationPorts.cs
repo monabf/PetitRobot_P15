@@ -10,7 +10,7 @@ namespace PR
     {
         public int idIO;
         public int idJack;
-        public int idDetecteurIR;
+       // public int idDetecteurIR; // ??
         public int idBaseRoulante;
         public int idContAX12;
         public CPince.configPince pince;
