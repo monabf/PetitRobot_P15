@@ -3,7 +3,7 @@ using Microsoft.SPOT;
 
 namespace PR.Membres
 {
-    class CPince
+    public class CPince
     {
         CAX12 m_ax12Pince;
         Couleur couleurEquipe;

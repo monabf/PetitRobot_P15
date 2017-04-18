@@ -14,7 +14,7 @@ using GHI.Pins;
 
 namespace PR
 {
-    class ControleurAX12
+    public class ControleurAX12
     {
         public SerialPort m_port;
         public OutputPort m_direction;

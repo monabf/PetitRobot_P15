@@ -42,21 +42,6 @@ namespace PR.BR1
         public short alpha;
     };
 
-    enum IDcommande : uint
-    {
-        // Id WIDAR
-        
-	    WStop = 0x100, WStopACK, WStopDONE,
-        WSetColor = 0x103, WSetColorACK, WSetColorDONE,
-        WSetSpeed = 0x106, WSetSpeedACK, WSetSpeedDONE,
-        WGoTo = 0x109, WGoToACK, WGoToDONE,
-        WGoTo2 = 0x10C, WGoTo2ACK, WGoTo2DONE,
-        WRotate = 0x10F, WRotateACK, WRotateDONE,
-        WGetPosition = 0x112, WGetPositionACK, WGetPositionDONE,
-        WGetCodeur = 0x115, WGetCodeurACK, WGetCodeurDONE,
-        WBeBlocked = 280
-    };
-
     class CBaseRoulante
     {
         private CCanAppli m_gestionCan;
