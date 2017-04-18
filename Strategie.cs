@@ -18,7 +18,7 @@ namespace PR
         {
 #if HOMOLOGATION
            positionBaseRoulante positionRobot = new positionBaseRoulante();
-           setSpeed(50);
+           m_baseRoulante.setSpeed(50);
 
            /*ATTENTION : on a deux sets de 3 pinces, un pour chaque couleur, donc il faut quand on initialise les composants créer
            deux instances de la classe Pince, pinceJaune et pinceBleue....*/
@@ -31,37 +31,37 @@ namespace PR
              //on va vers la fusée :
              if (m_etatRobot.couleurEquipe == Couleur.Jaune)
              {
-               robotGoToXY((ushort)244, (ushort)2212, sens.avancer);
-               robotRotate(90);
-               robotGoToXY((ushort)157, (ushort)2128, sens.avancer);
-               robotGoToXY((ushort)147, (ushort)873, sens.avancer);
-               robotRotate(-90);
-               robotGoToXY((ushort)800, (ushort)2870, sens.avancer);
-               robotGoToXY((ushort)800, (ushort)2718, sens.avancer);
+               m_baseRoulante.robotGoToXY((ushort)244, (ushort)2212, sens.avancer);
+               m_baseRoulante.robotRotate(90);
+               m_baseRoulante.robotGoToXY((ushort)157, (ushort)2128, sens.avancer);
+               m_baseRoulante.robotGoToXY((ushort)147, (ushort)873, sens.avancer);
+               m_baseRoulante.robotRotate(-90);
+               m_baseRoulante.robotGoToXY((ushort)800, (ushort)2870, sens.avancer);
+               m_baseRoulante.robotGoToXY((ushort)800, (ushort)2718, sens.avancer);
              }
              else
              {
-               robotGoToXY((ushort)244, (ushort)788, sens.avancer);
-               robotRotate(90);
-               robotGoToXY((ushort)147, (ushort)872, sens.avancer);
-               robotGoToXY((ushort)715, (ushort)872, sens.avancer);
-               robotRotate(-90);
-               robotGoToXY((ushort)800, (ushort)130, sens.avancer);
-               robotGoToXY((ushort)800, (ushort)282, sens.avancer);
+               m_baseRoulante.robotGoToXY((ushort)244, (ushort)788, sens.avancer);
+               m_baseRoulante.robotRotate(90);
+               m_baseRoulante.robotGoToXY((ushort)147, (ushort)872, sens.avancer);
+               m_baseRoulante.robotGoToXY((ushort)715, (ushort)872, sens.avancer);
+               m_baseRoulante.robotRotate(-90);
+               m_baseRoulante.robotGoToXY((ushort)800, (ushort)130, sens.avancer);
+               m_baseRoulante.robotGoToXY((ushort)800, (ushort)282, sens.avancer);
              }
 
              //on fait le créneau
-             setSpeed(20);
+             m_baseRoulante.setSpeed(20);
 
              if (m_etatRobot.couleurEquipe == Couleur.Bleu)
              {
-               robotRotate(-90);
-               robotGoToXY((ushort)1387, (ushort)197, sens.avancer);
+               m_baseRoulante.robotRotate(-90);
+               m_baseRoulante.robotGoToXY((ushort)1387, (ushort)197, sens.avancer);
              }
              else
              {
-               robotRotate(90);
-               robotGoToXY((ushort)1387, (ushort)2803, sens.avancer);
+               m_baseRoulante.robotRotate(90);
+               m_baseRoulante.robotGoToXY((ushort)1387, (ushort)2803, sens.avancer);
              }
 
              //on récupère le cylindre
@@ -78,7 +78,7 @@ namespace PR
                pinceJaune.semiDeplie();//À CODER : doit ouvrir la pince à moitié (45° dans le sens antihoraire)
                petitBrasJaune.semiReplie();//À CODER : 45° dans le sens antihoraire
 
-               robotGoToXY((ushort)1287, (ushort)2803, sens.avancer);
+               m_baseRoulante.robotGoToXY((ushort)1287, (ushort)2803, sens.avancer);
                pinceJaune.semiReplie();//À CODER : doit refermer la pince fermée à moitié (45° dans le sens horaire)
                petitBrasJaune.semiDeplie(); //À CODER : doit rouvrir le petit bras fermé à moitié (45° dans le sens horaire)
              }
@@ -95,54 +95,54 @@ namespace PR
                pinceBleue.semiDeplie(); //À CODER : doit continuer à ouvrir la pince à moitié (45° dans le sens horaire)
                petitBrasBleu.semiReplie(); //À CODER : doit fermer la pince à moitié (45° dans le sens horaire)
 
-               robotGoToXY((ushort)1287, (ushort)197, sens.avancer);
+               m_baseRoulante.robotGoToXY((ushort)1287, (ushort)197, sens.avancer);
                pinceBleu.semiReplie(); //À CODER : doit refermer la pince fermée à moitié (45° dans le sens antihoraire)
                petitBrasBleu.semiDeplie(); //À CODER : doit rouvrir le petit bras à moitié (45° dans le sens antihoraire)
              }
 
              //on tourne et on dépose le cylindre
-             setSpeed(35);
+             m_baseRoulante.setSpeed(35);
 
              if (m_etatRobot.couleurEquipe == Couleur.Jaune)
              {
                petitBrasJaune.tourner(Equipe);
 
-               robotGoToXY((ushort)1200, (ushort)2803, sens.avancer);
+               m_baseRoulante.robotGoToXY((ushort)1200, (ushort)2803, sens.avancer);
                pinceJaune.replie();
                petitBrasJaune.deplie();//on range pince et petit bras et on va jusqu'à la gouttière
-               robotGoToXY((ushort)1150, (ushort)2803, sens.avancer);
-               robotGoToXY((ushort)1180, (ushort)2803, sens.reculer);
+               m_baseRoulante.robotGoToXY((ushort)1150, (ushort)2803, sens.avancer);
+               m_baseRoulante.robotGoToXY((ushort)1180, (ushort)2803, sens.reculer);
 
                pinceJaune.deplie();//on ressort la pince
-               robotGoToXY((ushort)824-i*100, (ushort)2803, sens.avancer);
+               m_baseRoulante.robotGoToXY((ushort)824-i*100, (ushort)2803, sens.avancer);
 
                pinceJaune.replie();
                poussoirJaune.replie();
-               robotGoToXY((ushort)1387, (ushort)2803, sens.avancer);
+               m_baseRoulante.robotGoToXY((ushort)1387, (ushort)2803, sens.avancer);
              }
              else
              {
                petitBrasBleu.tourner();
 
-               robotGoToXY((ushort)1200, (ushort)197, sens.avancer);
+               m_baseRoulante.robotGoToXY((ushort)1200, (ushort)197, sens.avancer);
                pinceBleue.replie();
                petitBrasBleu.deplie();//on range pince et petit bras et on va jusqu'à la gouttière
-               robotGoToXY((ushort)1150, (ushort)197, sens.avancer);
-               robotGoToXY((ushort)1180, (ushort)197, sens.reculer);
+               m_baseRoulante.robotGoToXY((ushort)1150, (ushort)197, sens.avancer);
+               m_baseRoulante.robotGoToXY((ushort)1180, (ushort)197, sens.reculer);
 
                pinceBleue.deplie();//on ressort la pince
-               robotGoToXY((ushort)824-i*100, (ushort)197, sens.avancer);
+               m_baseRoulante.robotGoToXY((ushort)824-i*100, (ushort)197, sens.avancer);
 
                pinceBleue.replie();
                poussoirBleu.replie();
-               robotGoToXY((ushort)1387, (ushort)197, sens.avancer);
+               m_baseRoulante.robotGoToXY((ushort)1387, (ushort)197, sens.avancer);
              }
 
            }, calculPriorite: () => 100, executionUnique: true));
 
 #else
             positionBaseRoulante positionRobot = new positionBaseRoulante();
-            setSpeed(50);
+            m_baseRoulante.setSpeed(50);
 
             GestionStrat.Ajouter(new ActionRobot(() =>              //Initialisation de la 1ère action : aller vers la fusée
             {
@@ -150,26 +150,26 @@ namespace PR
 
                 if (m_etatRobot.couleurEquipe == Couleur.Jaune)
                 {
-                  robotGoToXY((ushort)244, (ushort)2212, sens.avancer);
-                  robotRotate(90);
-                  robotGoToXY((ushort)157, (ushort)2128, sens.avancer);
-                  robotGoToXY((ushort)147, (ushort)873, sens.avancer);
-                  robotRotate(-90);
-                  robotGoToXY((ushort)800, (ushort)2870, sens.avancer);
-                  robotGoToXY((ushort)800, (ushort)2718, sens.avancer);
+                  m_baseRoulante.robotGoToXY((ushort)244, (ushort)2212, sens.avancer);
+                  m_baseRoulante.robotRotate(90);
+                  m_baseRoulante.robotGoToXY((ushort)157, (ushort)2128, sens.avancer);
+                  m_baseRoulante.robotGoToXY((ushort)147, (ushort)873, sens.avancer);
+                  m_baseRoulante.robotRotate(-90);
+                  m_baseRoulante.robotGoToXY((ushort)800, (ushort)2870, sens.avancer);
+                  m_baseRoulante.robotGoToXY((ushort)800, (ushort)2718, sens.avancer);
                 }
                 else
                 {
-                  robotGoToXY((ushort)244, (ushort)788, sens.avancer);
-                  robotRotate(90);
-                  robotGoToXY((ushort)147, (ushort)872, sens.avancer);
-                  robotGoToXY((ushort)715, (ushort)872, sens.avancer);
-                  robotRotate(-90);
-                  robotGoToXY((ushort)800, (ushort)130, sens.avancer);
-                  robotGoToXY((ushort)800, (ushort)282, sens.avancer);
+                  m_baseRoulante.robotGoToXY((ushort)244, (ushort)788, sens.avancer);
+                  m_baseRoulante.robotRotate(90);
+                  m_baseRoulante.robotGoToXY((ushort)147, (ushort)872, sens.avancer);
+                  m_baseRoulante.robotGoToXY((ushort)715, (ushort)872, sens.avancer);
+                  m_baseRoulante.robotRotate(-90);
+                  m_baseRoulante.robotGoToXY((ushort)800, (ushort)130, sens.avancer);
+                  m_baseRoulante.robotGoToXY((ushort)800, (ushort)282, sens.avancer);
                 }
 
-                getPosition(ref positionRobot); //on récupère la position réelle et on l'actualise
+                m_baseRoulante.getPosition(ref positionRobot); //on récupère la position réelle et on l'actualise
                 return true;
             }, calculPriorite: () => 100, executionUnique: true));
 
@@ -180,20 +180,20 @@ namespace PR
             {
                 m_ihm.Afficher("Creneau");
 
-                setSpeed(20);
+                m_baseRoulante.setSpeed(20);
 
                 if (m_etatRobot.couleurEquipe == Couleur.Jaune)
                 {
-                  robotRotate(90);
-                  robotGoToXY((ushort)1387, (ushort)2803, sens.avancer);
+                  m_baseRoulante.robotRotate(90);
+                  m_baseRoulante.robotGoToXY((ushort)1387, (ushort)2803, sens.avancer);
                 }
                 else
                 {
-                  robotRotate(-90);
-                  robotGoToXY((ushort)1387, (ushort)197, sens.avancer);
+                  m_baseRoulante.robotRotate(-90);
+                  m_baseRoulante.robotGoToXY((ushort)1387, (ushort)197, sens.avancer);
                 }
 
-                getPosition(ref positionRobot); //on récupère la position réelle et on l'actualise
+                m_baseRoulante.getPosition(ref positionRobot); //on récupère la position réelle et on l'actualise
 
                 return true;
             }, calculPriorite: () => 99, executionUnique: true));
@@ -221,7 +221,7 @@ namespace PR
                   pinceJaune.semiReplie();//À CODER : doit fermer la pince à moitié (45° dans le sens horaire)
                   petitBrasJaune.semiReplie(); //idem c'est bien petitBrasJaune et pas rouletteJaune
 
-                  robotGoToXY((ushort)1287, (ushort)2803, sens.avancer);
+                  m_baseRoulante.robotGoToXY((ushort)1287, (ushort)2803, sens.avancer);
                   pinceJaune.semiDeplie();//À CODER : doit rouvrir la pince fermée à moitié (45° dans le sens antihoraire)
                   petitBrasJaune.semiDeplie();
                 }
@@ -239,7 +239,7 @@ namespace PR
                   pinceBleue.semiReplie(); //À CODER : doit fermer la pince à moitié (45° dans le sens horaire)
                   petitBrasBleue.semiReplie(); //ATTENTION c'est bien petitBrasBleu et pas roulette comme dans la version précédente
 
-                  robotGoToXY((ushort)1287, (ushort)197, sens.avancer);
+                  m_baseRoulante.robotGoToXY((ushort)1287, (ushort)197, sens.avancer);
                   pinceBleue.semiDeplie(); //À CODER : doit rouvrir la pince fermée à moitié (45° dans le sens antihoraire)
                   petitBrasBleu.semiDeplie();
                 }
@@ -254,19 +254,21 @@ namespace PR
             {
                 m_ihm.Afficher("Rotation et depot du cylindre");
 
+                m_baseRoulante.setSpeed(35);
+
                 if (m_etatRobot.couleurEquipe == Couleur.Jaune)
                 {
-                  //WHILE COULEUR LU PAR LE CAPTEUR != JAUNE : ROULETTE.robotRotate(+,20) ?????
+                  //WHILE COULEUR LU PAR LE CAPTEUR != JAUNE : ROULETTE.ROTATE(+,20) ?????
                   //À CODER!!!!!!!!!!!!!
 
-                  robotGoToXY((ushort)1200, (ushort)2803, sens.avancer);
+                  m_baseRoulante.robotGoToXY((ushort)1200, (ushort)2803, sens.avancer);
                   pinceJaune.replie();
                   petitBrasJaune.deplie();//on range pince et petit bras et on va jusqu'à la gouttière
-                  robotGoToXY((ushort)1150, (ushort)2803, sens.avancer);
-                  robotGoToXY((ushort)1180, (ushort)2803, sens.reculer);
+                  m_baseRoulante.robotGoToXY((ushort)1150, (ushort)2803, sens.avancer);
+                  m_baseRoulante.robotGoToXY((ushort)1180, (ushort)2803, sens.reculer);
 
                   pinceJaune.deplie();//on ressort la pince
-                  robotGoToXY((ushort)824-i*100, (ushort)2803, sens.avancer);
+                  m_baseRoulante.robotGoToXY((ushort)824-i*100, (ushort)2803, sens.avancer);
 
                   pinceJaune.replie();
                   poussoirJaune.replie();
@@ -274,24 +276,24 @@ namespace PR
                 }
                 else
                 {
-                  //WHILE COULEUR LU PAR LE CAPTEUR != BLEU : ROULETTE.robotRotate(+,20) ?????
+                  //WHILE COULEUR LU PAR LE CAPTEUR != BLEU : ROULETTE.ROTATE(+,20) ?????
                   //À CODER!!!!!!!!!!!!!
 
-                  robotGoToXY((ushort)1200, (ushort)197, sens.avancer);
+                  m_baseRoulante.robotGoToXY((ushort)1200, (ushort)197, sens.avancer);
                   pinceBleue.replie();
                   petitBrasBleu.deplie();//on range pince et petit bras et on va jusqu'à la gouttière
-                  robotGoToXY((ushort)1150, (ushort)197, sens.avancer);
-                  robotGoToXY((ushort)1180, (ushort)197, sens.reculer);
+                  m_baseRoulante.robotGoToXY((ushort)1150, (ushort)197, sens.avancer);
+                  m_baseRoulante.robotGoToXY((ushort)1180, (ushort)197, sens.reculer);
 
                   pinceBleue.deplie();//on ressort la pince
-                  robotGoToXY((ushort)824-i*100, (ushort)197, sens.avancer);
+                  m_baseRoulante.robotGoToXY((ushort)824-i*100, (ushort)197, sens.avancer);
 
                   pinceBleue.replie();
                   poussoirBleu.replie();
-                  robotGoToXY((ushort)1387, (ushort)197, sens.avancer);
+                  m_baseRoulante.robotGoToXY((ushort)1387, (ushort)197, sens.avancer);
                 }
 
-                getPosition(ref positionRobot); //on récupère la position réelle et on l'actualise
+                m_baseRoulante.getPosition(ref positionRobot); //on récupère la position réelle et on l'actualise
                 return true;
             }, calculPriorite: () => 97-i, executionUnique: false));
 
