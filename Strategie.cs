@@ -3,8 +3,7 @@ using Microsoft.SPOT;
 using System.Threading;
 using System.Collections;
 using PR;
-using PR.BR2;
-
+using PR.BR1;
 
 
 namespace PR
@@ -53,7 +52,7 @@ namespace PR
              //on fait le créneau
              setSpeed(20);
 
-             if (m_etatRobot.couleurEquipe == Couleur.Bleu)
+             if (m_etatRobot.couleurEquipe == Couleur.Jaune)
              {
                robotRotate(-90);
                robotGoToXY((ushort)1387, (ushort)197, sens.avancer);
@@ -168,7 +167,7 @@ namespace PR
                   robotGoToXY((ushort)800, (ushort)282, sens.avancer);
                 }
 
-                m_baseRoulante.getPosition(ref positionRobot); //on récupère la position réelle et on l'actualise
+                getPosition(ref positionRobot); //on récupère la position réelle et on l'actualise
                 return true;
             }, calculPriorite: () => 100, executionUnique: true));
 
@@ -179,6 +178,7 @@ namespace PR
             {
                 m_ihm.Afficher("Creneau");
 
+                setSpeed(20);
 
                 if (m_etatRobot.couleurEquipe == Couleur.Jaune)
                 {
@@ -199,8 +199,7 @@ namespace PR
 
 
 
-            for(int i=0;i<4;i++)
-            {
+            for(int i=0;i<4;i++){
 
             GestionStrat.Ajouter(new ActionRobot(() =>              //Initialisation de la 3ème action : Récupérer le cylindre
             {
@@ -209,38 +208,38 @@ namespace PR
                 if (m_etatRobot.couleurEquipe == Couleur.Jaune)
                 {
                   //En même temps!!!! ????? :
-                  pince.deplie(); //À CODER : doit ouvrir la pince (rotation de 90° dans le sens ANTIhoraire car on est de l'autre côté du robot puisqu'on est jaunes cette fois!!!)
-                  petitBras.deplie(); //À CODER : doit tourner de la même façon, le servomoteur est celui à la base du petit bras!!
+                  pinceJaune.deplie(); //À CODER : doit ouvrir la pince (rotation de 90° dans le sens ANTIhoraire car on est de l'autre côté du robot puisqu'on est jaunes cette fois!!!)
+                  petitBrasJaune.deplie(); //À CODER : doit tourner de la même façon, le servomoteur est celui à la base du petit bras!!
 
-                  poussoir.deplie(); //À CODER : doit tourner de la même façon
-                  petitBras.initialiserRoue(); //À CODER : doit tourner avec les mêmes conventions, mais cette fois c'est la roulette qui tourne et non pas le servo à la base du petit bras
+                  poussoirJaune.deplie(); //À CODER : doit tourner de la même façon
+                  rouletteJaune.initialiserRoue(); //À CODER : doit tourner avec les mêmes conventions, mais cette fois c'est la roulette qui tourne et non pas le servo à la base du petit bras
                      // petite rotation qui permet de bien attraper le cylindre
 
                   //En même temps!!!! ???? :
-                  pince.semiReplie();//À CODER : doit fermer la pince à moitié (45° dans le sens horaire)
-                  petitBras.semiReplie(); //idem c'est bien petitBrasJaune et pas rouletteJaune
+                  pinceJaune.semiReplie();//À CODER : doit fermer la pince à moitié (45° dans le sens horaire)
+                  petitBrasJaune.semiReplie(); //idem c'est bien petitBrasJaune et pas rouletteJaune
 
                   robotGoToXY((ushort)1287, (ushort)2803, sens.avancer);
-                  pince.semiDeplie();//À CODER : doit rouvrir la pince fermée à moitié (45° dans le sens antihoraire)
-                  petitBras.semiDeplie();
+                  pinceJaune.semiDeplie();//À CODER : doit rouvrir la pince fermée à moitié (45° dans le sens antihoraire)
+                  petitBrasJaune.semiDeplie();
                 }
                 else
                 {
                   //En même temps!!!! ????? :
-                  pince.deplie(); //À CODER : doit ouvrir la pince (rotation de 90° dans le sens horaire)
-                  petitBras.deplie(); //À CODER : doit tourner de la même façon, le servomoteur est celui à la base du petit bras!!
+                  pinceBleue.deplie(); //À CODER : doit ouvrir la pince (rotation de 90° dans le sens horaire)
+                  petitBrasBleue.deplie(); //À CODER : doit tourner de la même façon, le servomoteur est celui à la base du petit bras!!
 
-                  poussoir.deplie(); //À CODER : doit tourner de la même façon
-                  petitBras.initialiserRoue(); //À CODER : doit tourner avec les mêmes conventions, mais cette fois c'est la roulette qui tourne et non pas le servo à la base du petit bras
+                  poussoirBleu.deplie(); //À CODER : doit tourner de la même façon
+                  rouletteBleue.initialiserRoue(); //À CODER : doit tourner avec les mêmes conventions, mais cette fois c'est la roulette qui tourne et non pas le servo à la base du petit bras
                     // petite rotation qui permet de bien attraper le cylindre
 
                   //En même temps!!!! ???? :
-                  pince.semiReplie(); //À CODER : doit fermer la pince à moitié (45° dans le sens horaire)
-                  petitBras.semiReplie(); //ATTENTION c'est bien petitBrasBleu et pas roulette comme dans la version précédente
+                  pinceBleue.semiReplie(); //À CODER : doit fermer la pince à moitié (45° dans le sens horaire)
+                  petitBrasBleue.semiReplie(); //ATTENTION c'est bien petitBrasBleu et pas roulette comme dans la version précédente
 
                   robotGoToXY((ushort)1287, (ushort)197, sens.avancer);
-                  pince.semiDeplie(); //À CODER : doit rouvrir la pince fermée à moitié (45° dans le sens antihoraire)
-                  petitBras.semiDeplie();
+                  pinceBleue.semiDeplie(); //À CODER : doit rouvrir la pince fermée à moitié (45° dans le sens antihoraire)
+                  petitBrasBleu.semiDeplie();
                 }
 
                 return true;
@@ -259,16 +258,16 @@ namespace PR
                   //À CODER!!!!!!!!!!!!!
 
                   robotGoToXY((ushort)1200, (ushort)2803, sens.avancer);
-                  pince.replie();
-                  petitBras.deplie();//on range pince et petit bras et on va jusqu'à la gouttière
+                  pinceJaune.replie();
+                  petitBrasJaune.deplie();//on range pince et petit bras et on va jusqu'à la gouttière
                   robotGoToXY((ushort)1150, (ushort)2803, sens.avancer);
                   robotGoToXY((ushort)1180, (ushort)2803, sens.reculer);
 
-                  pince.deplie();//on ressort la pince
-                  robotGoToXY((ushort) (824-i*100), (ushort)2803, sens.avancer);
+                  pinceJaune.deplie();//on ressort la pince
+                  robotGoToXY((ushort)824-i*100, (ushort)2803, sens.avancer);
 
-                  pince.replie();
-                  poussoir.replie();
+                  pinceJaune.replie();
+                  poussoirJaune.replie();
                   robotGoToXY((ushort)1387, (ushort)2803, sens.avancer);
                 }
                 else
@@ -277,16 +276,16 @@ namespace PR
                   //À CODER!!!!!!!!!!!!!
 
                   robotGoToXY((ushort)1200, (ushort)197, sens.avancer);
-                  pince.replie();
-                  petitBras.deplie();//on range pince et petit bras et on va jusqu'à la gouttière
+                  pinceBleue.replie();
+                  petitBrasBleu.deplie();//on range pince et petit bras et on va jusqu'à la gouttière
                   robotGoToXY((ushort)1150, (ushort)197, sens.avancer);
                   robotGoToXY((ushort)1180, (ushort)197, sens.reculer);
 
-                  pince.deplie();//on ressort la pince
-                  robotGoToXY((ushort) (824-i*100), (ushort)197, sens.avancer);
+                  pinceBleue.deplie();//on ressort la pince
+                  robotGoToXY((ushort)824-i*100, (ushort)197, sens.avancer);
 
-                  pince.replie();
-                  poussoir.replie();
+                  pinceBleue.replie();
+                  poussoirBleu.replie();
                   robotGoToXY((ushort)1387, (ushort)197, sens.avancer);
                 }
 
