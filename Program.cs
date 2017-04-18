@@ -65,7 +65,7 @@ namespace PR
                 Thread.Sleep(1);
             }
             selection.Fermer();
-          
+
             PetitRobot robot;
             robot = new PetitRobot(ports, selection.getEquipe());
 
