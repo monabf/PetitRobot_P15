@@ -53,7 +53,7 @@ namespace PR
              //on fait le créneau
              setSpeed(20);
 
-             if (m_etatRobot.couleurEquipe == Couleur.Bleu)
+             if (m_etatRobot.couleurEquipe == Couleur.Jaune)
              {
                robotRotate(-90);
                robotGoToXY((ushort)1387, (ushort)197, sens.avancer);
