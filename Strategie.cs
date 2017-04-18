@@ -55,12 +55,12 @@ namespace PR
 
              if (m_etatRobot.couleurEquipe == Couleur.Bleu)
              {
-               m_baseRoulante.rotate(-,90);
+               m_baseRoulante.rotate(-90);
                m_baseRoulante.robotGoToXY((ushort)1387, (ushort)197, sens.avancer);
              }
              else
              {
-               m_baseRoulante.rotate(+,90);
+               m_baseRoulante.rotate(90);
                m_baseRoulante.robotGoToXY((ushort)1387, (ushort)2803, sens.avancer);
              }
 
