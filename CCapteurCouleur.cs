@@ -55,8 +55,6 @@ namespace PR
         public CCapteurCouleur(int id, Couleur ourColor, bool grandRobot)
         {
             couleurInitiale = -1;
-            // ATTENTION ligne à retirer
-            id = 9;
             myColorSense = new ColorSense(id);
             Debug.Print("ColorSense opérationnel");
 
