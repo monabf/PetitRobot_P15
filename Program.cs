@@ -15,7 +15,7 @@ using Gadgeteer.Modules.GHIElectronics;
 
 namespace PR
 {
-    public partial class PetitRobot
+    public partial class Program
     {
 
         // This method is run when the mainboard is powered up or reset.   

@@ -69,7 +69,7 @@ namespace PR.BR2
             int erreur = 0;
             int posCodeur = 0;
             erreur=m_kangaroo.getPosition(mode.drive, ref posCodeur);
-            distance = (int)(posCodeur / (int)unite.mm);
+            distance = (int)(posCodeur / (int)unite.cm);
             return erreur;
         }
 
@@ -190,7 +190,7 @@ namespace PR.BR2
             delta = 0;
             m_status = 0;
             distanceConsigne = (int)s*(int)System.Math.Sqrt(System.Math.Pow((x - m_posBR.x), 2) + System.Math.Pow((y -m_posBR.y), 2));
-            m_kangaroo.allerEn(distanceConsigne , speed, unite.mm);
+            m_kangaroo.allerEn(distanceConsigne , speed, unite.cm);
             //attente d'être arrive ou bloque ou stoppe
             do
             {

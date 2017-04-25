@@ -14,7 +14,7 @@ namespace Kangaroo
 
     enum unite
     {
-        mm = 80, cm = 800, m = 80000, degre = 79, kmh = 15000//20000
+        mm = 6, cm = 65, m = 650, degre = 79, kmh = 15000//20000
     };
     class CKangaroo
     {
@@ -166,7 +166,7 @@ namespace Kangaroo
             distance = (int)u * distance;
             init();
             start(mode.drive);
-            speed = speed * (int)unite.kmh;
+            speed = speed * (int) unite.kmh;
             if (m_port.IsOpen)
             {
                 commande = "D,p" + distance.ToString() + "s" + speed.ToString() + "\r\n";
