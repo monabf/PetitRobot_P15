@@ -52,8 +52,8 @@ namespace PR.Membres
                 m_ax12Coude = new CAX12(config.idAX12CoudeJaune, controleur.m_port, controleur.m_direction);
                 m_ax12Coude.setMode(AX12Mode.joint);
                 // corriger le deuxième paramètre du contructeur CCapteurCouleur ci-dessous
-                CCapteurCouleur capteurCouleurJaune = new CCapteurCouleur(config.idCapteurBrasJaune, equipe, false);
                 CAX12 ax12RotateurJaune = new CAX12(config.idAX12RotateurJaune, controleur.m_port, controleur.m_direction);
+                CCapteurCouleur capteurCouleurJaune = new CCapteurCouleur(config.idCapteurBrasJaune, equipe, false);
                 m_rouletteIntelligente = new CRouletteIntelligente(capteurCouleurJaune, ax12RotateurJaune);
             }
             else
@@ -61,10 +61,16 @@ namespace PR.Membres
                 m_ax12Coude = new CAX12(config.idAX12CoudeBleu, controleur.m_port, controleur.m_direction);
                 m_ax12Coude.setMode(AX12Mode.joint);
                 // corriger le deuxième paramètre du contructeur CCapteurCouleur ci-dessous
-                CCapteurCouleur capteurCouleurBleu = new CCapteurCouleur(config.idCapteurBrasBleu, equipe, false);
                 CAX12 ax12RotateurBleu = new CAX12(config.idAX12RotateurBleu, controleur.m_port, controleur.m_direction);
+                Debug.Print("Rotateur opérationnel");
+                Debug.Print("" +config.idCapteurBrasBleu);
+                CCapteurCouleur capteurCouleurBleu = new CCapteurCouleur(config.idCapteurBrasBleu, equipe, false);
+                Debug.Print("Capteur couleur opérationnel");
                 m_rouletteIntelligente = new CRouletteIntelligente(capteurCouleurBleu, ax12RotateurBleu);
             }
+
+            Debug.Print("CPetitBras opérationnel");
+
         }
 
 
@@ -120,6 +126,7 @@ namespace PR.Membres
 
         public void initialiserRoue()
         {
+            m_rouletteIntelligente.getRoulette().setMode(AX12Mode.joint);
             if (couleurEquipe == Couleur.Jaune)
             {
                 m_rouletteIntelligente.getRoulette().move((int)positionPetitBrasJaune.intermediaire_sortie);
@@ -128,6 +135,7 @@ namespace PR.Membres
             {
                 m_rouletteIntelligente.getRoulette().move((int)positionPetitBrasBleu.intermediaire_sortie);
             }
+            m_rouletteIntelligente.getRoulette().setMode(AX12Mode.wheel);
         }
 
         public void tourner()
