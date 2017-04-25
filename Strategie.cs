@@ -144,7 +144,7 @@ namespace PR
 
             GestionStrat.Ajouter(new ActionRobot(() =>              //Initialisation de la 1ère action : aller vers la fusée
             {
-                m_ihm.Afficher("Se deplacer vers la fusee");
+//                m_ihm.Afficher("Se deplacer vers la fusee");
 
                 if (m_etatRobot.couleurEquipe == Couleur.Jaune)
                 {
@@ -176,7 +176,7 @@ namespace PR
 
             GestionStrat.Ajouter(new ActionRobot(() =>              //Initialisation de la 2ème action : Créneau pour être face à la fusée
             {
-                m_ihm.Afficher("Creneau");
+                //m_ihm.Afficher("Creneau");
 
                 // m_baseRoulante.setSpeed(20);
 
@@ -203,7 +203,7 @@ namespace PR
 
             GestionStrat.Ajouter(new ActionRobot(() =>              //Initialisation de la 3ème action : Récupérer le cylindre
             {
-                m_ihm.Afficher("Recupere le cylindre");
+                //m_ihm.Afficher("Recupere le cylindre");
 
                 if (m_etatRobot.couleurEquipe == Couleur.Jaune)
                 {
@@ -250,7 +250,7 @@ namespace PR
 
             GestionStrat.Ajouter(new ActionRobot(() =>              //Initialisation de la 4ème action : RFaire tourner le cylindre pour mettre la même couleur sur le dessus et dépôt du cylindre dans la rainure
             {
-                m_ihm.Afficher("Rotation et depot du cylindre");
+                //m_ihm.Afficher("Rotation et depot du cylindre");
 
                 if (m_etatRobot.couleurEquipe == Couleur.Jaune)
                 {

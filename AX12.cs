@@ -89,7 +89,6 @@ namespace PR
                 getReponse(out outID, out len, out error, null);
                 sendCommand(m_ID, Instruction.AX_WRITE_DATA, limitsCCW);
                 getReponse(out outID, out len, out error, null);
-
             }
             return (int)error;
 

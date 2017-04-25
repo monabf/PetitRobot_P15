@@ -13,7 +13,9 @@ namespace PR.Membres
         {
             m_capteurCouleur = capteurCouleur;
             m_ax12Roulette = ax12Roulette;
+            Debug.Print("Hypothèse wheel pas opérationnel");
             m_ax12Roulette.setMode(AX12Mode.wheel);
+            Debug.Print("roulette opérationnelle");
         }
 
         public CAX12 getRoulette(){

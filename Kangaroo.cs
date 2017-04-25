@@ -14,7 +14,7 @@ namespace Kangaroo
 
     enum unite
     {
-        mm = 6, cm = 65, m = 650, degre = 79, kmh = 15000//20000
+        mm = 6, cm = 65, m = 650, degre = 9, kmh = 15000//20000
     };
     class CKangaroo
     {

@@ -49,6 +49,7 @@ namespace PR.Membres
                 m_ax12Pince = new CAX12(config.idAX12PinceBleue, controleur.m_port, controleur.m_direction);
                 m_ax12Pince.setMode(AX12Mode.joint);
             }
+            Debug.Print("CPince opérationnel");
         }
 
 

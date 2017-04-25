@@ -48,6 +48,8 @@ namespace PR.Membres
                 m_ax12Poussoir = new CAX12(config.idAX12PoussoirBleu, controleur.m_port, controleur.m_direction);
                 m_ax12Poussoir.setMode(AX12Mode.joint);
             }
+            Debug.Print("CPoussoir opérationnel");
+
         }
 
 

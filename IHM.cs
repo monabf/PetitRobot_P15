@@ -51,11 +51,11 @@ namespace PR
         public IHMSelection()
         {
             GlideTouch.Initialize();
-
+            Debug.Print("IHM created");
             fenetreSelection = GlideLoader.LoadWindow(Resources.GetString(Resources.StringResources.fenetreSelection));     //Charge le fichier XML pour la fenetre de selection
             fenetreAffichage = GlideLoader.LoadWindow(Resources.GetString(Resources.StringResources.fenetreAffichage));     // -- -- -- -- -- -- -- -- -- -- -- -- -- d'affichage
-
-            Glide.FitToScreen = true;       //Dimensionne la fenetre pour l'adapter à l'écran LCD
+            Debug.Print("IHM completed");
+                        Glide.FitToScreen = true;       //Dimensionne la fenetre pour l'adapter à l'écran LCD
             
         }
 
