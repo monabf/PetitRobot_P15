@@ -51,7 +51,7 @@ namespace PR
         EtatRobot m_etatRobot;
 
         GestionnaireStrategie GestionStrat;
-        IHMSelection m_ihm;
+        //IHMSelection m_ihm;
         Jack m_jack;
         GroupeInfrarouge m_IR;
 
@@ -82,14 +82,19 @@ namespace PR
             //Font font; // WARNING: font is not defined yet
             m_baseRoulante = new CBaseRoulante(m_ports.idBaseRoulante);
                        
-            m_ihm = new IHMSelection();
+           // m_ihm = new IHMSelection();
+
             GestionStrat = new GestionnaireStrategie();
+            InitialisationStrategie();
+
             m_controleurAX12 = new ControleurAX12(m_ports.idContAX12);
 
+            Debug.Print("Cont AX12 opérationnel");
             //NB: pince = 1 AX12, petitBras = 2 AX12 et 1 CapteurCouleur, poussoir = 1 AX12
             pince = new CPince(equipe, m_controleurAX12, m_ports.pince);
-            petitBras = new CPetitBras(equipe, m_controleurAX12, m_ports.petitBras);
             poussoir = new CPoussoir(equipe, m_controleurAX12, m_ports.poussoir);
+            petitBras = new CPetitBras(equipe, m_controleurAX12, m_ports.petitBras);
+            Debug.Print("Members opérationnels");
 
             
             // idIO = idPortDeLaSpider, idJack = idPinSurLExtendeur
@@ -97,9 +102,16 @@ namespace PR
             m_IR = new GroupeInfrarouge(m_ports.idIO, m_ports.idInfrarougeAVD, m_ports.idInfrarougeAVG, m_ports.idInfrarougeARD, m_ports.idInfrarougeARG);
 
             m_ultrason = new CCapteurUltrason(m_ports.idCapteurUltrason);
+            Debug.Print("Détection opérationnels");
 
             // et c'est parti pour la boucle !
+            // est-ce vraiment utile ?
+            
             m_threadRun = new Thread(new ThreadStart(Demarrer));    //Création d'un thread
+            m_threadRun.Start();
+            Debug.Print("Thread opérationnels");
+             
+
             
         }
 
@@ -110,6 +122,7 @@ namespace PR
         /// <summary>
         /// Méthode qui va initialiser les paramètres du robot en fonction de la couleur et de la disposition choisie
         /// </summary>
+        /**
         public void Initialisation()
         {
             m_ihm.Selection(ref m_etatRobot.couleurEquipe, ref m_etatRobot.disposition);        //Retourne la couleur de l'equipe et la disposition du terrain choisi sur l'IHM
@@ -118,9 +131,11 @@ namespace PR
 
             m_baseRoulante.setCouleur((m_etatRobot.couleurEquipe == Couleur.Bleu ? Couleur.Bleu : Couleur.Jaune));       //Envoi la couleur sélectionné pour définir à la base roulante sa position de départ
             
-            /*InitialisationStrategie();              //Initialise la stratégie du robot
-            m_ihm.Afficher("Initialisation de la strategie : OK");*/
+            InitialisationStrategie();              //Initialise la stratégie du robot
+           // m_ihm.Afficher("Initialisation de la strategie : OK");
         }
+        **/
+    
 
         #endregion
 
@@ -131,7 +146,7 @@ namespace PR
         /// </summary>
         public void AttendreJack()
         {
-            m_ihm.Afficher("Attends que le Jack soit debranche...");
+            //m_ihm.Afficher("Attends que le Jack soit debranche...");
             while (!m_jack.Etat) Thread.Sleep(1);
         }
 
@@ -224,15 +239,17 @@ namespace PR
         /// </summary>
         public void Demarrer()
         {
-            m_ihm.Afficher("Debut de la strategie");
-
+            //m_ihm.Afficher("Debut de la strategie");
+            Debug.Print("Demmarage ok");
+            Debug.Print(""+GestionStrat.NombreAction);
             while (GestionStrat.ExecutionPossible == true)     //Execution de la boucle tant qu'il y a toujours une action à réaliser
             {
-                m_ihm.Afficher("Execution de l'action suivante");
+               // m_ihm.Afficher("Execution de l'action suivante");
                 GestionStrat.ExecuterSuivante();
+                Debug.Print("Action suivante");
             }
 
-            m_ihm.Afficher("Fin de la strategie");
+            //m_ihm.Afficher("Fin de la strategie");
             
         }
 
@@ -243,7 +260,7 @@ namespace PR
         {
             m_threadRun.Abort();
             m_baseRoulante.stop();
-            m_ihm.Afficher("Fin");
+            //m_ihm.Afficher("Fin");
             //m_ihm.Fermer();
         }
 

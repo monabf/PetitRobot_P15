@@ -20,7 +20,7 @@ namespace PR
             {
                 if ((Resources.manager == null))
                 {
-                    Resources.manager = new System.Resources.ResourceManager("PetitRobot_V1.Resources", typeof(Resources).Assembly);
+                    Resources.manager = new System.Resources.ResourceManager("PR.Resources", typeof(Resources).Assembly);
                 }
                 return Resources.manager;
             }
