@@ -85,7 +85,7 @@ namespace Kangaroo
             if (m_port.IsOpen)
             {
                 start(mode.drive);
-                commande = "D, UNITS 1696 mm = 128 lines";
+                commande = "D, UNITS 1696 mm = 256 lines";
                 buffer = System.Text.Encoding.UTF8.GetBytes(commande);
                 m_port.Write(buffer, 0, commande.Length);
                 start(mode.drive);
@@ -94,7 +94,7 @@ namespace Kangaroo
                 m_port.Write(buffer, 0, commande.Length);
 
                 start(mode.turn);
-                commande = "T, UNITS 360 degrees = 37 lines";
+                commande = "T, UNITS 360 degrees = 74 lines";
                 buffer = System.Text.Encoding.UTF8.GetBytes(commande);
                 m_port.Write(buffer, 0, commande.Length);
                 start(mode.turn);
@@ -185,7 +185,7 @@ namespace Kangaroo
             bool retour = false;
             byte[] buffer = new byte[100];
 
-            angle = (int)(angle * 9.1);
+            angle = (int)(angle * 9);
             //angle = angle * (int)unite.degre;
             //speed = speed * (int)unite.kmh;
             init();
