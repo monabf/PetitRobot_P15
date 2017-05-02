@@ -149,22 +149,35 @@ namespace PR
                 if (m_etatRobot.couleurEquipe == Couleur.Jaune)
                 {
                   robotGoToXY((ushort)244, (ushort)2212, sens.avancer);
-                  robotRotate(90);
+                  //robotRotate(90);
                   robotGoToXY((ushort)157, (ushort)2128, sens.avancer);
                   robotGoToXY((ushort)147, (ushort)873, sens.avancer);
-                  robotRotate(-90);
+                  //robotRotate(-90);
                   robotGoToXY((ushort)800, (ushort)2870, sens.avancer);
                   robotGoToXY((ushort)800, (ushort)2718, sens.avancer);
                 }
                 else
                 {
-                  robotGoToXY((ushort)244, (ushort)788, sens.avancer);
-                  robotRotate(90);
-                  robotGoToXY((ushort)147, (ushort)872, sens.avancer);
-                  robotGoToXY((ushort)715, (ushort)872, sens.avancer);
-                  robotRotate(-90);
-                  robotGoToXY((ushort)800, (ushort)130, sens.avancer);
-                  robotGoToXY((ushort)800, (ushort)282, sens.avancer);
+                    /*
+                    while (true)
+                    {
+                        robotGoToXY((ushort)244, (ushort)872, sens.avancer);
+                        robotGoToXY((ushort)550, (ushort)872, sens.avancer);
+                        robotGoToXY((ushort)550, (ushort)400, sens.avancer);
+                        robotGoToXY((ushort)244, (ushort)400, sens.avancer);
+                    }*/
+                  //robotGoToXY((ushort)244, (ushort)872, sens.avancer);
+                  //robotGoToXY((ushort)500, (ushort)788, sens.avancer);
+                  
+                  //robotRotate(90);
+                  robotGoToXY((ushort)170, (ushort)872, sens.reculer);
+                  robotGoToXY((ushort)860, (ushort)872, sens.avancer);
+                  //robotRotate(-90);
+                  robotGoToXY((ushort)860, (ushort)420, sens.avancer);
+                  robotGoToXY((ushort)1400, (ushort)265, sens.avancer);
+                  Thread.Sleep(10000);
+                  //robotGoToXY((ushort)1400, (ushort)265, sens.reculer);
+                  
                 }
 
                 m_baseRoulante.getPosition(ref positionRobot); //on récupère la position réelle et on l'actualise
@@ -187,7 +200,7 @@ namespace PR
                 }
                 else
                 {
-                  robotRotate(-90);
+                  //robotRotate(-90);
                   robotGoToXY((ushort)1387, (ushort)197, sens.avancer);
                 }
 
@@ -254,8 +267,6 @@ namespace PR
 
                 if (m_etatRobot.couleurEquipe == Couleur.Jaune)
                 {
-                  //WHILE COULEUR LU PAR LE CAPTEUR != JAUNE : ROULETTE.robotRotate(+,20) ?????
-                  //À CODER!!!!!!!!!!!!!
 
                   robotGoToXY((ushort)1200, (ushort)2803, sens.avancer);
                   pince.replie();

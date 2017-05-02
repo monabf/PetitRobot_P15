@@ -49,13 +49,13 @@ namespace PR
             ports.pince.idAX12PinceJaune = 1;
 
             ports.petitBras.idAX12CoudeBleu = 3;
-            ports.petitBras.idAX12RotateurBleu = 3; // ATTENTION : il faudra mettre le numéro 4 !
+            ports.petitBras.idAX12RotateurBleu = 4; // ATTENTION : il faudra mettre le numéro 4 avec le logiciel !
             ports.petitBras.idAX12CoudeJaune = 3;
             ports.petitBras.idAX12RotateurJaune = 4;
 
             // ces ports là sont des ports de la spyder/spider
-            ports.petitBras.idCapteurBrasBleu = 9;
-            ports.petitBras.idCapteurBrasJaune = 4; // ce port 4 n'est pas adapté, il faut en trouver un autre !!
+            ports.petitBras.idCapteurBrasBleu = 4;
+            ports.petitBras.idCapteurBrasJaune = 9; // ce port 4 n'est pas adapté, il faut en trouver un autre !!
 
             // initialisation de l'IHM de sélection
             /*
@@ -83,6 +83,11 @@ namespace PR
             robot.AttendreJack();
             // démarre le robot
             Debug.Print("jack");
+            //robot.petitBras.tourner();
+            robot.Demarrer();
+            
+            
+            Debug.Print("fin");
             // l'action suivante n'est-elle pas prise en charge dans PetitRobot ?
             //robot.Demarrer();
             //Debug.Print("robot démarré");

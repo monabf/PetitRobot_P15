@@ -13,9 +13,10 @@ namespace PR.BR2
     {
         arrive=1,bloque,stope
     };
+    // ATTENTION: seulement pour les tests. Valeurs à corriger impérativement !
     enum sens
     { 
-        avancer=1, reculer=-1
+        avancer = -1, reculer = 1
     };
     
     struct positionBaseRoulante
@@ -31,7 +32,7 @@ namespace PR.BR2
         CKangaroo m_kangaroo;
         public positionBaseRoulante m_posBR;
         public etatBR m_status=0;
-        RelayX1 relai = new RelayX1(4);
+        RelayX1 relai = new RelayX1(10);//A changer
 
         public CBaseRoulante(int numPort)
         {
@@ -46,16 +47,16 @@ namespace PR.BR2
             if (c == Couleur.Bleu)
             {
                 //NB: constantes à modifier
-                m_posBR.x = 678;
-                m_posBR.y = 73;
-                m_posBR.alpha = 90;
+                m_posBR.x = 872;//244
+                m_posBR.y = 244;//400
+                m_posBR.alpha = 0;//+90
             }
             else
             {
                 // idem
-                m_posBR.x = 678;
-                m_posBR.y = 1927;
-                m_posBR.alpha = -90;
+                m_posBR.x = 244;
+                m_posBR.y = 2500;
+                m_posBR.alpha = -90;//-
             }
         }
         
@@ -69,7 +70,7 @@ namespace PR.BR2
             int erreur = 0;
             int posCodeur = 0;
             erreur=m_kangaroo.getPosition(mode.drive, ref posCodeur);
-            distance = (int)(posCodeur / (int)unite.cm);
+            distance = (int)(posCodeur / 6.5);///(int)unite.mm
             return erreur;
         }
 
@@ -78,7 +79,7 @@ namespace PR.BR2
             int erreur = 0;
             int posCodeur = 0;
             erreur=m_kangaroo.getPosition(mode.turn, ref posCodeur);
-            angle = (int)(posCodeur / (int)unite.degre);
+            angle = (int)(posCodeur / 9.1);/// (int)unite.degre 9.27
             return erreur;
         }
 
@@ -186,11 +187,12 @@ namespace PR.BR2
                         getAngleTourne(ref alphaReel);
                     }
                 }
+
             } while (m_status != etatBR.arrive && m_status != etatBR.bloque && m_status != etatBR.stope);
             delta = 0;
             m_status = 0;
             distanceConsigne = (int)s*(int)System.Math.Sqrt(System.Math.Pow((x - m_posBR.x), 2) + System.Math.Pow((y -m_posBR.y), 2));
-            m_kangaroo.allerEn(distanceConsigne , speed, unite.cm);
+            m_kangaroo.allerEn(distanceConsigne , speed, unite.mm);
             //attente d'être arrive ou bloque ou stoppe
             do
             {
@@ -212,7 +214,7 @@ namespace PR.BR2
                     dureeBlocage = 0;
 
                 delta = System.Math.Abs(distanceConsigne - distanceReelle);
-                if (delta < 5)
+                if (delta < 5)//5
                 {
                     m_status = etatBR.arrive;
                     Thread.Sleep(1000);
@@ -231,12 +233,13 @@ namespace PR.BR2
                     
 
                 }
-                
 
             } while (m_status != etatBR.arrive && m_status != etatBR.bloque && m_status != etatBR.stope);
+
             m_posBR.alpha = m_posBR.alpha + alphaReel;
-            m_posBR.x = m_posBR.x + (int)(distanceReelle * System.Math.Cos(m_posBR.alpha * System.Math.PI / 180));
-            m_posBR.y = m_posBR.y + (int)(distanceReelle * System.Math.Sin(m_posBR.alpha * System.Math.PI / 180));
+            m_posBR.x = m_posBR.x + (int)(-distanceReelle * System.Math.Cos(m_posBR.alpha * System.Math.PI / 180));
+            m_posBR.y = m_posBR.y + (int)(-distanceReelle * System.Math.Sin(m_posBR.alpha * System.Math.PI / 180));
+            Debug.Print("position_x " + m_posBR.x + " position_y" + m_posBR.y);
           /*  m_kangaroo.powerdown(mode.drive);
             m_kangaroo.powerdown(mode.turn);
             m_kangaroo.init();*/

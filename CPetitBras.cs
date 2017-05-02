@@ -135,7 +135,8 @@ namespace PR.Membres
             {
                 m_rouletteIntelligente.getRoulette().move((int)positionPetitBrasBleu.intermediaire_sortie);
             }
-            m_rouletteIntelligente.getRoulette().setMode(AX12Mode.wheel);
+           // la ligne ci-dessous a été commentée pour les tests. La décommenter après
+            // m_rouletteIntelligente.getRoulette().setMode(AX12Mode.wheel);
         }
 
         public void tourner()

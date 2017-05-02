@@ -14,7 +14,7 @@ namespace Kangaroo
 
     enum unite
     {
-        mm = 6, cm = 65, m = 650, degre = 9, kmh = 15000//20000
+        mm = 6, cm = 65, m = 650, degre = 9, kmh =(int) (15000/12)//20000
     };
     class CKangaroo
     {
@@ -163,7 +163,7 @@ namespace Kangaroo
             bool retour = false;
             byte[] buffer = new byte[100];
 
-            distance = (int)u * distance;
+            distance = (int) (6.5 * distance);//u
             init();
             start(mode.drive);
             speed = speed * (int) unite.kmh;
@@ -185,14 +185,15 @@ namespace Kangaroo
             bool retour = false;
             byte[] buffer = new byte[100];
 
-            angle = angle * (int)unite.degre;
+            angle = (int)(angle * 9.1);
+            //angle = angle * (int)unite.degre;
             //speed = speed * (int)unite.kmh;
             init();
             start(mode.turn);
             if (m_port.IsOpen)
             {
                // commande = "T,p" + angle.ToString() + "s" + speed.ToString() + "\r\n";
-                commande = "T,p" + angle.ToString() + "s15000\r\n";
+                commande = "T,p" + angle.ToString() + "s3000\r\n";//15000
                 buffer = System.Text.Encoding.UTF8.GetBytes(commande);
                 m_port.Write(buffer, 0, commande.Length);
                 retour = true;

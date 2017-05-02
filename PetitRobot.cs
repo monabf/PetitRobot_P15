@@ -81,6 +81,7 @@ namespace PR
 
             //Font font; // WARNING: font is not defined yet
             m_baseRoulante = new CBaseRoulante(m_ports.idBaseRoulante);
+            m_baseRoulante.setCouleur(Couleur.Bleu);
                        
            // m_ihm = new IHMSelection();
 
@@ -106,9 +107,9 @@ namespace PR
 
             // et c'est parti pour la boucle !
             // est-ce vraiment utile ?
-            
+            /*
             m_threadRun = new Thread(new ThreadStart(Demarrer));    //Création d'un thread
-            m_threadRun.Start();
+            m_threadRun.Start();*/
             Debug.Print("Thread opérationnels");
              
 
@@ -148,6 +149,9 @@ namespace PR
         {
             //m_ihm.Afficher("Attends que le Jack soit debranche...");
             while (!m_jack.Etat) Thread.Sleep(1);
+            /*
+            m_threadRun = new Thread(new ThreadStart(Demarrer));    //Création d'un thread
+            m_threadRun.Start();*/
         }
 
         /// <summary>
@@ -178,7 +182,7 @@ namespace PR
 
 
         // cette fonction allerEn utilise detecter !
-        etatBR robotGoToXY(ushort x, ushort y, sens s, bool boolDetection = false)
+        etatBR robotGoToXY(ushort x,ushort y, sens s, bool boolDetection = false)
         {
             etatBR retour;
             if (boolDetection)
@@ -186,12 +190,12 @@ namespace PR
                 // on passe le sens "dir" au timer via la variable "state"
                 // analogue au timeout-callback pour les amoureux du js
                 Timer t = new Timer(new TimerCallback(Detecter), s, 0, 1000);
-                retour = m_baseRoulante.allerEn(x, y, s);
+                retour = m_baseRoulante.allerEn(y, x, s);// x,y,s
                 t.Dispose();
             }
             else
             {
-                retour = m_baseRoulante.allerEn(x, y, s);
+                retour = m_baseRoulante.allerEn(y, x, s);
             }
             return retour;
         }
@@ -218,10 +222,14 @@ namespace PR
                 m_ultrason.getDistance(5, ref distance);
                 if (distance < 30 && distance != -1)
                     obstacle = true;
-               if ((!m_IR.AVG.Read() || !m_IR.AVD.Read()) && obstacle )
-                    {                    
-                         m_baseRoulante.stop();
-                    }
+                
+                if ((!m_IR.AVG.Read() || !m_IR.AVD.Read()) && obstacle)
+                {
+                    m_baseRoulante.stop();
+                    
+                    Debug.Print("Détection obstacle avant");
+                }
+                
                 }
             // si on recule, les ultrasons ne sont plus utiles
             else
@@ -229,9 +237,14 @@ namespace PR
                 // on teste les capteurs IR arrières
                 if (!m_IR.ARG.Read() || !m_IR.ARD.Read())
                 {
+                    Debug.Print("Détection obstacle après");
                     m_baseRoulante.stop();
+                    
+
                 }
+                
             }
+            
         }
         
         /// <summary>
@@ -242,7 +255,7 @@ namespace PR
             //m_ihm.Afficher("Debut de la strategie");
             Debug.Print("Demmarage ok");
             Debug.Print(""+GestionStrat.NombreAction);
-            while (GestionStrat.ExecutionPossible == true)     //Execution de la boucle tant qu'il y a toujours une action à réaliser
+            while (GestionStrat.ExecutionPossible == true)     //Execution de la boucle tant qu'il y a toujours une action à réaliser 
             {
                // m_ihm.Afficher("Execution de l'action suivante");
                 GestionStrat.ExecuterSuivante();
