@@ -67,36 +67,36 @@ namespace PR
              if (m_etatRobot.couleurEquipe == Couleur.Jaune)
              {
                //En même temps!!!! ????? :
-               pinceJaune.deplie(); //À CODER : doit ouvrir la pince (rotation de 90° dans le sens ANTIhoraire car on est de l'autre côté du robot puisqu'on est jaunes cette fois!!!)
-               petitBrasJaune.deplie(); //À CODER : doit tourner de la même façon, le servomoteur est celui à la base du petit bras!! Cette fois dans le sens horaire
+               pince.deplie(); //À CODER : doit ouvrir la pince (rotation de 90° dans le sens ANTIhoraire car on est de l'autre côté du robot puisqu'on est jaunes cette fois!!!)
+               petitBras.deplie(); //À CODER : doit tourner de la même façon, le servomoteur est celui à la base du petit bras!! Cette fois dans le sens horaire
 
-               poussoirJaune.deplie(); //À CODER : doit tourner de la même façon
-               rouletteJaune.initialiserRoue(); //À CODER : doit tourner avec les mêmes conventions, mais cette fois c'est la roulette qui tourne et non pas le servo à la base du petit bras
+               poussoir.deplie(); //À CODER : doit tourner de la même façon
+               roulette.initialiserRoue(); //À CODER : doit tourner avec les mêmes conventions, mais cette fois c'est la roulette qui tourne et non pas le servo à la base du petit bras
 
                //En même temps!!!! ???? :
-               pinceJaune.semiDeplie();//À CODER : doit ouvrir la pince à moitié (45° dans le sens antihoraire)
-               petitBrasJaune.semiReplie();//À CODER : 45° dans le sens antihoraire
+               pince.semiDeplie();//À CODER : doit ouvrir la pince à moitié (45° dans le sens antihoraire)
+               petitBras.semiReplie();//À CODER : 45° dans le sens antihoraire
 
                robotGoToXY((ushort)1287, (ushort)2803, sens.avancer);
-               pinceJaune.semiReplie();//À CODER : doit refermer la pince fermée à moitié (45° dans le sens horaire)
-               petitBrasJaune.semiDeplie(); //À CODER : doit rouvrir le petit bras fermé à moitié (45° dans le sens horaire)
+               pince.semiReplie();//À CODER : doit refermer la pince fermée à moitié (45° dans le sens horaire)
+               petitBras.semiDeplie(); //À CODER : doit rouvrir le petit bras fermé à moitié (45° dans le sens horaire)
              }
              else
              {
                //En même temps!!!! ????? :
-               pinceBleue.deplie(); //À CODER : doit ouvrir la pince (rotation de 90° dans le sens horaire)
-               petitBrasBleue.deplie(); //À CODER : doit tourner de la même façon, le servomoteur est celui à la base du petit bras!! Cette fois c'est le sens antihoraire
+               pince.deplie(); //À CODER : doit ouvrir la pince (rotation de 90° dans le sens horaire)
+               petitBras.deplie(); //À CODER : doit tourner de la même façon, le servomoteur est celui à la base du petit bras!! Cette fois c'est le sens antihoraire
 
-               poussoirBleu.deplie(); //À CODER : doit tourner de la même façon
-               rouletteBleue.initialiserRoue(); //À CODER : doit tourner avec les mêmes conventions, mais cette fois c'est la roulette qui tourne et non pas le servo à la base du petit bras, dans le sens antihoraire
+               poussoir.deplie(); //À CODER : doit tourner de la même façon
+               roulette.initialiserRoue(); //À CODER : doit tourner avec les mêmes conventions, mais cette fois c'est la roulette qui tourne et non pas le servo à la base du petit bras, dans le sens antihoraire
 
                //En même temps!!!! ???? :
-               pinceBleue.semiDeplie(); //À CODER : doit continuer à ouvrir la pince à moitié (45° dans le sens horaire)
-               petitBrasBleu.semiReplie(); //À CODER : doit fermer la pince à moitié (45° dans le sens horaire)
+               pince.semiDeplie(); //À CODER : doit continuer à ouvrir la pince à moitié (45° dans le sens horaire)
+               petitBras.semiReplie(); //À CODER : doit fermer la pince à moitié (45° dans le sens horaire)
 
                robotGoToXY((ushort)1287, (ushort)197, sens.avancer);
-               pinceBleu.semiReplie(); //À CODER : doit refermer la pince fermée à moitié (45° dans le sens antihoraire)
-               petitBrasBleu.semiDeplie(); //À CODER : doit rouvrir le petit bras à moitié (45° dans le sens antihoraire)
+               pince.semiReplie(); //À CODER : doit refermer la pince fermée à moitié (45° dans le sens antihoraire)
+               petitBras.semiDeplie(); //À CODER : doit rouvrir le petit bras à moitié (45° dans le sens antihoraire)
              }
 
              //on tourne et on dépose le cylindre
@@ -104,36 +104,36 @@ namespace PR
 
              if (m_etatRobot.couleurEquipe == Couleur.Jaune)
              {
-               petitBrasJaune.tourner(Equipe);
+               petitBras.tourner(Equipe);
 
                robotGoToXY((ushort)1200, (ushort)2803, sens.avancer);
                pinceJaune.replie();
-               petitBrasJaune.deplie();//on range pince et petit bras et on va jusqu'à la gouttière
+               petitBras.deplie();//on range pince et petit bras et on va jusqu'à la gouttière
                robotGoToXY((ushort)1150, (ushort)2803, sens.avancer);
                robotGoToXY((ushort)1180, (ushort)2803, sens.reculer);
 
-               pinceJaune.deplie();//on ressort la pince
+               pince.deplie();//on ressort la pince
                robotGoToXY((ushort)824-i*100, (ushort)2803, sens.avancer);
 
-               pinceJaune.replie();
-               poussoirJaune.replie();
+               pince.replie();
+               poussoir.replie();
                robotGoToXY((ushort)1387, (ushort)2803, sens.avancer);
              }
              else
              {
-               petitBrasBleu.tourner();
+               petitBras.tourner();
 
                robotGoToXY((ushort)1200, (ushort)197, sens.avancer);
-               pinceBleue.replie();
-               petitBrasBleu.deplie();//on range pince et petit bras et on va jusqu'à la gouttière
+               pince.replie();
+               petitBras.deplie();//on range pince et petit bras et on va jusqu'à la gouttière
                robotGoToXY((ushort)1150, (ushort)197, sens.avancer);
                robotGoToXY((ushort)1180, (ushort)197, sens.reculer);
 
-               pinceBleue.deplie();//on ressort la pince
+               pince.deplie();//on ressort la pince
                robotGoToXY((ushort)824-i*100, (ushort)197, sens.avancer);
 
-               pinceBleue.replie();
-               poussoirBleu.replie();
+               pince.replie();
+               poussoir.replie();
                robotGoToXY((ushort)1387, (ushort)197, sens.avancer);
              }
 
