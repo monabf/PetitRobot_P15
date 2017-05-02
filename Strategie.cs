@@ -32,20 +32,20 @@ namespace PR
              {
                robotGoToXY((ushort)157, (ushort)2130, sens.avancer);
                robotRotate(-90);
-               robotGoToXY((ushort)140, (ushort)2130, sens.avancer);
+               robotGoToXY((ushort)140, (ushort)2130, sens.reculer);
                robotGoToXY((ushort)885, (ushort)2130, sens.avancer);
                robotRotate(90);
-               robotGoToXY((ushort)885, (ushort)2862, sens.avancer);
+               robotGoToXY((ushort)885, (ushort)2862, sens.reculer;
                robotGoToXY((ushort)885, (ushort)2803, sens.avancer);
              }
              else
              {
                robotGoToXY((ushort)157, (ushort)870, sens.avancer);
                robotRotate(90);
-               robotGoToXY((ushort)140, (ushort)870, sens.avancer);
+               robotGoToXY((ushort)140, (ushort)870, sens.reculer);
                robotGoToXY((ushort)885, (ushort)870, sens.avancer);
                robotRotate(-90);
-               robotGoToXY((ushort)885, (ushort)138, sens.avancer);
+               robotGoToXY((ushort)885, (ushort)138, sens.reculer);
                robotGoToXY((ushort)885, (ushort)197, sens.avancer);
              }
 
