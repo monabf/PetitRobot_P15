@@ -79,7 +79,7 @@ namespace PR.BR2
             int erreur = 0;
             int posCodeur = 0;
             erreur=m_kangaroo.getPosition(mode.turn, ref posCodeur);
-            angle = (int)(posCodeur / 9.1);/// (int)unite.degre 9.27
+            angle = (int)(posCodeur / 9);/// (int)unite.degre 9.27
             return erreur;
         }
 
