@@ -107,7 +107,7 @@ namespace PR
                petitBras.tourner(Equipe);
 
                robotGoToXY((ushort)1200, (ushort)2803, sens.avancer);
-               pinceJaune.replie();
+               pince.replie();
                petitBras.deplie();//on range pince et petit bras et on va jusqu'à la gouttière
                robotGoToXY((ushort)1150, (ushort)2803, sens.avancer);
                robotGoToXY((ushort)1180, (ushort)2803, sens.reculer);
