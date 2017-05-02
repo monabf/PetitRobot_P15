@@ -269,9 +269,8 @@ namespace PR
                   pince.deplie();//on ressort la pince
                   robotGoToXY((ushort) (824-i*100), (ushort)2803, sens.avancer);
 
-                  pince.replie();
-                  poussoir.replie();
-                  robotGoToXY((ushort)1387, (ushort)2803, sens.avancer);
+                  pince.replieArriere();
+                  poussoir.replieArriere();
 
                   //retour en face de la fusée après avoir déposé le cylindre
                   robotGoToXY((ushort)1387, (ushort)2803, sens.reculer);
@@ -292,10 +291,10 @@ namespace PR
 
                   pince.replieArriere();//attention replieArriere pour la pince aussi
                   poussoir.replieArriere();//attention le poussoir doit cette fois se replier vers l'arriere donc il faut une autre fonction replieArriere qui fasse le même mouvement dans l'autre sens
-                  robotGoToXY((ushort)1387, (ushort)197, sens.avancer);
 
                   //retour en face de la fusée après avoir déposé le cylindre
                   robotGoToXY((ushort)1387, (ushort)197, sens.reculer);
+
                 }
 
 
