@@ -202,14 +202,17 @@ namespace PR
             return retour;
         }
 
-        void recalageX(int angle, int x)
+        void recalageX(int angle, int x,sens s, int speed)
+        {
+            m_baseRoulante.recalagePosX(angle, x,speed,s);
+        }
+        /*void recalageX(int angle, int x)
         {
             m_baseRoulante.recalagePosX(angle, x);
-        }
-
-        void recalageY(int angle, int y)
+        }*/
+        void recalageY(int angle, int y,int speed, sens s)
         {
-            m_baseRoulante.recalagePosY(angle, y);
+            m_baseRoulante.recalagePosY(angle, y,speed,s);
         }
 
         void getPosition(ref positionBaseRoulante pos)

@@ -185,7 +185,7 @@ namespace Kangaroo
             bool retour = false;
             byte[] buffer = new byte[100];
 
-            angle = (int)(angle*8.7*360/373.5);//9
+            angle = (int)(angle*8.7);//*(371)/(373.5));//9
             //angle = angle * (int)unite.degre;
             //speed = speed * (int)unite.kmh;
             init();
@@ -193,7 +193,7 @@ namespace Kangaroo
             if (m_port.IsOpen)
             {
                // commande = "T,p" + angle.ToString() + "s" + speed.ToString() + "\r\n";
-                commande = "T,p" + angle.ToString() + "s1000\r\n";//15000
+                commande = "T,p" + angle.ToString() + "s500\r\n";//15000
                 buffer = System.Text.Encoding.UTF8.GetBytes(commande);
                 m_port.Write(buffer, 0, commande.Length);
                 retour = true;

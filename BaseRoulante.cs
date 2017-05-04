@@ -60,15 +60,51 @@ namespace PR.BR2
             }
         }
 
-        public void recalagePosX(int angle, int x)
+        public void recalagePosX(int angle, int x,int speed,sens s)
         {
+            bool reponse = true;
             m_posBR.alpha = angle;
             m_posBR.y = x;
+            int r = 0;
+            int distanceReelle=0;
+            int AdistanceReelle=0;
+            m_kangaroo.allerEn((int)(s)*500, speed, unite.mm);
+            while (reponse)
+            {
+                getDistanceParcourue(ref distanceReelle);
+                if (distanceReelle!=AdistanceReelle) r=0;
+                if (distanceReelle==AdistanceReelle) r++;
+                if (r == 3)
+                {
+                    m_kangaroo.allerEn(0, speed, unite.mm);
+                    reponse = false;
+                    
+                }
+            }
         }
-        public void recalagePosY(int angle, int y)
+
+
+        public void recalagePosY(int angle, int y, int speed, sens s)
         {
+            bool reponse = true;
             m_posBR.alpha = angle;
             m_posBR.x = y;
+            int r = 0;
+            int distanceReelle = 0;
+            int AdistanceReelle = 0;
+            m_kangaroo.allerEn((int)(s) * 500, speed, unite.mm);
+            while (reponse)
+            {
+                getDistanceParcourue(ref distanceReelle);
+                if (distanceReelle != AdistanceReelle) r = 0;
+                if (distanceReelle == AdistanceReelle) r++;
+                if (r == 3)
+                {
+                    m_kangaroo.allerEn(0, speed, unite.mm);
+                    reponse = false;
+
+                }
+            }
         }
 
         public void changerXYA(int angle, int x, int y)
@@ -98,7 +134,7 @@ namespace PR.BR2
             int erreur = 0;
             int posCodeur = 0;
             erreur=m_kangaroo.getPosition(mode.turn, ref posCodeur);
-            angle = (int)(posCodeur/(8.7*360/373.5));/// (int)unite.degre 9.27  / 9.1
+            angle = (int)(posCodeur/(8.7));//*371.7/373.5));/// (int)unite.degre 9.27  / 9.1
             return erreur;
         }
 

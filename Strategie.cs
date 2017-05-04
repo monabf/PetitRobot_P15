@@ -168,16 +168,34 @@ namespace PR
                 }
                 else
                 {
-                  robotGoToXY((ushort)157, (ushort)870, sens.avancer);
-                  robotRotate(90);
-                  robotGoToXY((ushort)140, (ushort)870, sens.reculer);
-                  robotGoToXY((ushort)885, (ushort)870, sens.avancer);
-                  robotRotate(-90);
-                  robotGoToXY((ushort)885, (ushort)138, sens.reculer);
-                  robotGoToXY((ushort)885, (ushort)197, sens.avancer);
+                    robotGoToXY((ushort)157, (ushort)480, sens.avancer, false, 9);//410
+                    robotGoToXY((ushort)157, (ushort)540, sens.avancer, false, 1);
+                    robotGoToXY((ushort)157, (ushort)780, sens.avancer, false, 7);
+                    robotGoToXY((ushort)157, (ushort)737, sens.reculer, false, 7);
+                    recalageY(0, 740);
+                    robotGoToXY((ushort)157, (ushort)880, sens.avancer, false, 7);
+                    //robotGoToXY((ushort)157, (ushort)880, sens.avancer);
+                    robotGoToXY((ushort)35, (ushort)880, sens.reculer, false, 5);
+                    recalageX(90, 30);
+                    getPosition(ref positionRobot);
+                    //recalageY(, 134);
+                    robotGoToXY((ushort)840, (ushort)positionRobot.x, sens.avancer);//y=880
+                    robotGoToXY((ushort)840, (ushort)190, sens.reculer);
+                    getPosition(ref positionRobot);
+                    robotGoToXY((ushort)positionRobot.y, (ushort)128, sens.reculer, false, 8);//840
+                    recalageY(0, 134);
+                    recalageX(0, 900);
+                    robotGoToXY((ushort)900, (ushort)290, sens.avancer);
+                    robotGoToXY((ushort)1375, (ushort)205, sens.reculer);
+                    Thread.Sleep(10000);
+
+                    //robotRotate(-90);
+                    robotGoToXY((ushort)860, (ushort)420, sens.avancer);
+                    robotGoToXY((ushort)1400, (ushort)265, sens.avancer);
+                    Thread.Sleep(10000);
                 }
 
-                m_baseRoulante.getPosition(ref positionRobot); //on récupère la position réelle et on l'actualise
+                getPosition(ref positionRobot); //on récupère la position réelle et on l'actualise
                 return true;
             }, calculPriorite: () => 100, executionUnique: true));
 
