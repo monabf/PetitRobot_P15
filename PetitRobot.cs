@@ -65,6 +65,7 @@ namespace PR
         CPetitBras petitBras;
         CPince pince;
         CPoussoir poussoir;
+        public static bool check = false;
         
        
         #endregion
@@ -182,7 +183,7 @@ namespace PR
 
 
         // cette fonction allerEn utilise detecter !
-        etatBR robotGoToXY(ushort x,ushort y, sens s, bool boolDetection = false)
+        etatBR robotGoToXY(ushort x,ushort y, sens s, bool boolDetection = false,int speed=10)
         {
             etatBR retour;
             if (boolDetection)
@@ -190,14 +191,35 @@ namespace PR
                 // on passe le sens "dir" au timer via la variable "state"
                 // analogue au timeout-callback pour les amoureux du js
                 Timer t = new Timer(new TimerCallback(Detecter), s, 0, 1000);
-                retour = m_baseRoulante.allerEn(y, x, s);// x,y,s
+                retour = m_baseRoulante.allerDect(y, x, s,speed);// x,y,s
+                check = false;
                 t.Dispose();
             }
             else
             {
-                retour = m_baseRoulante.allerEn(y, x, s);
+                retour = m_baseRoulante.allerEn(y, x, s,speed);
             }
             return retour;
+        }
+
+        void recalageX(int angle, int x)
+        {
+            m_baseRoulante.recalagePosX(angle, x);
+        }
+
+        void recalageY(int angle, int y)
+        {
+            m_baseRoulante.recalagePosY(angle, y);
+        }
+
+        void getPosition(ref positionBaseRoulante pos)
+        {
+            m_baseRoulante.getPosition(ref pos);
+        }
+
+        void changerXYA(int x, int y, int angle)
+        {
+            m_baseRoulante.changerXYA(angle, x, y);
         }
 
         etatBR robotRotate(int alpha)
@@ -222,13 +244,15 @@ namespace PR
                 m_ultrason.getDistance(5, ref distance);
                 if (distance < 30 && distance != -1)
                     obstacle = true;
-                
+
                 if ((!m_IR.AVG.Read() || !m_IR.AVD.Read()) && obstacle)
                 {
-                    m_baseRoulante.stop();
-                    
+                    //m_baseRoulante.stop();
+                    check = true;
+
                     Debug.Print("Détection obstacle avant");
                 }
+                else check = false;
                 
                 }
             // si on recule, les ultrasons ne sont plus utiles
@@ -238,10 +262,12 @@ namespace PR
                 if (!m_IR.ARG.Read() || !m_IR.ARD.Read())
                 {
                     Debug.Print("Détection obstacle après");
-                    m_baseRoulante.stop();
-                    
+                    //m_baseRoulante.stop();
+                    check = true;
+
 
                 }
+                else check = false;
                 
             }
             

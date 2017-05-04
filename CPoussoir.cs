@@ -14,37 +14,38 @@ namespace PR.Membres
         {
             public byte idAX12PoussoirBleu;
             public byte idAX12PoussoirJaune;
-         };
+        };
 
         enum positionPoussoirBleu
         {
-            rentree=825,
-            intermediaire=512,
-            sortie=224
-           // Valeurs a changer apres tests sur servos
+            rentree = 825,
+            intermediaire = 512,
+            sortie = 224
+            // Valeurs a changer apres tests sur servos
         };
 
         enum positionPoussoirJaune
         {
-            rentree=206,
-            intermediaire=512,
-            sortie=834
-           // Valeurs a changer apres tests sur servos
+            rentree = 206,
+            intermediaire = 512,
+            sortie = 834
+            // Valeurs a changer apres tests sur servos
         };
 
-        public Couleur getCouleur(){
+        public Couleur getCouleur()
+        {
             return couleurEquipe;
         }
 
 
-        public CPoussoir(Couleur equipe, ControleurAX12 controleur,configPoussoir config) //le constructeur
+        public CPoussoir(Couleur equipe, ControleurAX12 controleur, configPoussoir config) //le constructeur
         {
             couleurEquipe = equipe;
             if (couleurEquipe == Couleur.Jaune)
             {
                 m_ax12Poussoir = new CAX12(config.idAX12PoussoirJaune, controleur.m_port, controleur.m_direction);
                 m_ax12Poussoir.setMode(AX12Mode.joint);
-//                m_ax12Poussoir.setMovingSpeed();
+                //                m_ax12Poussoir.setMovingSpeed();
             }
             else
             {
@@ -71,11 +72,13 @@ namespace PR.Membres
 
         public void replie()
         {
-            if (couleurEquipe == Couleur.Jaune){
-            m_ax12Poussoir.move((int)positionPoussoirJaune.rentree);
+            if (couleurEquipe == Couleur.Jaune)
+            {
+                m_ax12Poussoir.move((int)positionPoussoirJaune.rentree);
             }
 
-            else {
+            else
+            {
                 m_ax12Poussoir.move((int)positionPoussoirBleu.rentree);
             }
         }

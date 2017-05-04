@@ -14,7 +14,7 @@ namespace Kangaroo
 
     enum unite
     {
-        mm = 6, cm = 65, m = 650, degre = 9, kmh =(int) (15000/12)//20000
+        mm = 6, cm = 65, m = 650, degre = 9, kmh =(int) (15000/120)//20000
     };
     class CKangaroo
     {
@@ -85,7 +85,7 @@ namespace Kangaroo
             if (m_port.IsOpen)
             {
                 start(mode.drive);
-                commande = "D, UNITS 1696 mm = 256 lines";
+                commande = "D, UNITS 1696 mm = 256 lines";// = "D, UNITS 1696 mm = 128 lines";
                 buffer = System.Text.Encoding.UTF8.GetBytes(commande);
                 m_port.Write(buffer, 0, commande.Length);
                 start(mode.drive);
@@ -94,7 +94,7 @@ namespace Kangaroo
                 m_port.Write(buffer, 0, commande.Length);
 
                 start(mode.turn);
-                commande = "T, UNITS 360 degrees = 74 lines";
+                commande = "T, UNITS 360 degrees = 74 lines";//"T, UNITS 360 degrees = 37 lines";
                 buffer = System.Text.Encoding.UTF8.GetBytes(commande);
                 m_port.Write(buffer, 0, commande.Length);
                 start(mode.turn);
@@ -163,10 +163,10 @@ namespace Kangaroo
             bool retour = false;
             byte[] buffer = new byte[100];
 
-            distance = (int) (6.5 * distance);//u
+            distance = (int)(6.5/1.01 * distance);// 6.5 * 
             init();
             start(mode.drive);
-            speed = speed * (int) unite.kmh;
+            speed = speed * (int)unite.kmh;//* (int)unite.kmh;
             if (m_port.IsOpen)
             {
                 commande = "D,p" + distance.ToString() + "s" + speed.ToString() + "\r\n";
@@ -185,7 +185,7 @@ namespace Kangaroo
             bool retour = false;
             byte[] buffer = new byte[100];
 
-            angle = (int)(angle * 9);
+            angle = (int)(angle*8.7*360/373.5);//9
             //angle = angle * (int)unite.degre;
             //speed = speed * (int)unite.kmh;
             init();
@@ -193,7 +193,7 @@ namespace Kangaroo
             if (m_port.IsOpen)
             {
                // commande = "T,p" + angle.ToString() + "s" + speed.ToString() + "\r\n";
-                commande = "T,p" + angle.ToString() + "s3000\r\n";//15000
+                commande = "T,p" + angle.ToString() + "s1000\r\n";//15000
                 buffer = System.Text.Encoding.UTF8.GetBytes(commande);
                 m_port.Write(buffer, 0, commande.Length);
                 retour = true;

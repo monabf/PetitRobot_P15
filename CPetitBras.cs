@@ -22,9 +22,9 @@ namespace PR.Membres
 
         enum positionPetitBrasBleu
         {
-            rentree = 200,
+            rentree = 800,
             intermediaire_rentree = 512,
-            sortie = 830,
+            sortie = 350,
             intermediaire_sortie = 512, // Valeurs à changer après tests sur servos
             intialisiation_roulette = 90
         };
@@ -32,7 +32,7 @@ namespace PR.Membres
         enum positionPetitBrasJaune
         {
             rentree = 821,
-            intermediaire_rentree = 512,
+            intermediaire_rentree = 650,
             sortie = 206,
             intermediaire_sortie = 512, // Valeurs à changer après tests sur servos
             intialisiation_roulette = 90
@@ -63,7 +63,7 @@ namespace PR.Membres
                 // corriger le deuxième paramètre du contructeur CCapteurCouleur ci-dessous
                 CAX12 ax12RotateurBleu = new CAX12(config.idAX12RotateurBleu, controleur.m_port, controleur.m_direction);
                 Debug.Print("Rotateur opérationnel");
-                Debug.Print("" +config.idCapteurBrasBleu);
+                Debug.Print("" + config.idCapteurBrasBleu);
                 CCapteurCouleur capteurCouleurBleu = new CCapteurCouleur(config.idCapteurBrasBleu, equipe, false);
                 Debug.Print("Capteur couleur opérationnel");
                 m_rouletteIntelligente = new CRouletteIntelligente(capteurCouleurBleu, ax12RotateurBleu);
@@ -135,7 +135,7 @@ namespace PR.Membres
             {
                 m_rouletteIntelligente.getRoulette().move((int)positionPetitBrasBleu.intermediaire_sortie);
             }
-           // la ligne ci-dessous a été commentée pour les tests. La décommenter après
+            // la ligne ci-dessous a été commentée pour les tests. La décommenter après
             // m_rouletteIntelligente.getRoulette().setMode(AX12Mode.wheel);
         }
 
