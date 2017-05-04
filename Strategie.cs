@@ -32,20 +32,20 @@ namespace PR
              {
                robotGoToXY((ushort)157, (ushort)2130, sens.avancer);
                robotRotate(-90);
-               robotGoToXY((ushort)140, (ushort)2130, sens.avancer);
+               robotGoToXY((ushort)140, (ushort)2130, sens.reculer);
                robotGoToXY((ushort)885, (ushort)2130, sens.avancer);
                robotRotate(90);
-               robotGoToXY((ushort)885, (ushort)2862, sens.avancer);
+               robotGoToXY((ushort)885, (ushort)2862, sens.reculer;
                robotGoToXY((ushort)885, (ushort)2803, sens.avancer);
              }
              else
              {
                robotGoToXY((ushort)157, (ushort)870, sens.avancer);
                robotRotate(90);
-               robotGoToXY((ushort)140, (ushort)870, sens.avancer);
+               robotGoToXY((ushort)140, (ushort)870, sens.reculer);
                robotGoToXY((ushort)885, (ushort)870, sens.avancer);
                robotRotate(-90);
-               robotGoToXY((ushort)885, (ushort)138, sens.avancer);
+               robotGoToXY((ushort)885, (ushort)138, sens.reculer);
                robotGoToXY((ushort)885, (ushort)197, sens.avancer);
              }
 
@@ -105,7 +105,8 @@ namespace PR
 
              if (m_etatRobot.couleurEquipe == Couleur.Jaune)
              {
-               petitBras.tourner(Equipe);
+               //WHILE COULEUR LU PAR LE CAPTEUR != JAUNE : ROULETTE.robotRotate(+,20) ?????
+               //À CODER!!!!!!!!!!!!!
 
                robotGoToXY((ushort)1200, (ushort)2803, sens.avancer);
                pince.replie();
@@ -114,15 +115,18 @@ namespace PR
                robotGoToXY((ushort)1180, (ushort)2803, sens.reculer);
 
                pince.deplie();//on ressort la pince
-               robotGoToXY((ushort)824-i*100, (ushort)2803, sens.avancer);
+               robotGoToXY((ushort) (824-i*100), (ushort)2803, sens.avancer);
 
-               pince.replie();
-               poussoir.replie();
-               robotGoToXY((ushort)1387, (ushort)2803, sens.avancer);
+               pince.replieArriere();
+               poussoir.replieArriere();
+
+               //retour en face de la fusée après avoir déposé le cylindre
+               robotGoToXY((ushort)1387, (ushort)2803, sens.reculer);
              }
              else
              {
-               petitBras.tourner();
+               //WHILE COULEUR LU PAR LE CAPTEUR != BLEU : ROULETTE.robotRotate(+,20) ?????
+               //À CODER!!!!!!!!!!!!!
 
                robotGoToXY((ushort)1200, (ushort)197, sens.avancer);
                pince.replie();
@@ -131,11 +135,14 @@ namespace PR
                robotGoToXY((ushort)1180, (ushort)197, sens.reculer);
 
                pince.deplie();//on ressort la pince
-               robotGoToXY((ushort)824-i*100, (ushort)197, sens.avancer);
+               robotGoToXY((ushort) (824-i*100), (ushort)197, sens.avancer);
 
-               pince.replie();
-               poussoir.replie();
-               robotGoToXY((ushort)1387, (ushort)197, sens.avancer);
+               pince.replieArriere();//attention replieArriere pour la pince aussi
+               poussoir.replieArriere();//attention le poussoir doit cette fois se replier vers l'arriere donc il faut une autre fonction replieArriere qui fasse le même mouvement dans l'autre sens
+
+               //retour en face de la fusée après avoir déposé le cylindre
+               robotGoToXY((ushort)1387, (ushort)197, sens.reculer);
+
              }
 
 
@@ -153,20 +160,20 @@ namespace PR
                 {
                   robotGoToXY((ushort)157, (ushort)2130, sens.avancer);
                   robotRotate(-90);
-                  robotGoToXY((ushort)140, (ushort)2130, sens.avancer);
+                  robotGoToXY((ushort)140, (ushort)2130, sens.reculer);
                   robotGoToXY((ushort)885, (ushort)2130, sens.avancer);
                   robotRotate(90);
-                  robotGoToXY((ushort)885, (ushort)2862, sens.avancer);
+                  robotGoToXY((ushort)885, (ushort)2862, sens.reculer);
                   robotGoToXY((ushort)885, (ushort)2803, sens.avancer);
                 }
                 else
                 {
                   robotGoToXY((ushort)157, (ushort)870, sens.avancer);
                   robotRotate(90);
-                  robotGoToXY((ushort)140, (ushort)870, sens.avancer);
+                  robotGoToXY((ushort)140, (ushort)870, sens.reculer);
                   robotGoToXY((ushort)885, (ushort)870, sens.avancer);
                   robotRotate(-90);
-                  robotGoToXY((ushort)885, (ushort)138, sens.avancer);
+                  robotGoToXY((ushort)885, (ushort)138, sens.reculer);
                   robotGoToXY((ushort)885, (ushort)197, sens.avancer);
                 }
 
