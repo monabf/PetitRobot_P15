@@ -44,6 +44,7 @@ namespace PR.Membres
             {
                 m_ax12Poussoir = new CAX12(config.idAX12PoussoirJaune, controleur.m_port, controleur.m_direction);
                 m_ax12Poussoir.setMode(AX12Mode.joint);
+//                m_ax12Poussoir.setMovingSpeed();
             }
             else
             {

@@ -57,11 +57,11 @@ namespace PR.Membres
         {
             if (couleurEquipe == Couleur.Jaune)
             {
-                m_ax12Pince.move((int)positionPinceJaune.sortie);
+                m_ax12Pince.move((int)positionPinceJaune.intermediaire_rentree);
             }
             else
             {
-                m_ax12Pince.move((int)positionPinceBleue.sortie);
+                m_ax12Pince.move((int)positionPinceBleue.intermediaire_rentree);
             }
 
         }
@@ -100,6 +100,18 @@ namespace PR.Membres
             else
             {
                 m_ax12Pince.move((int)positionPinceBleue.intermediaire_sortie);
+            }
+        }
+
+        public void replieArriere()
+        {
+            if (couleurEquipe == Couleur.Jaune)
+            {
+                m_ax12Pince.move((int)positionPinceJaune.sortie);
+            }
+            else
+            {
+                m_ax12Pince.move((int)positionPinceBleue.sortie);
             }
         }
 
