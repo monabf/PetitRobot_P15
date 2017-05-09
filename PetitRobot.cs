@@ -72,15 +72,10 @@ namespace PR
         
         #region Constructeur
 
-        /// <summary>
-        /// Constructeur : Initialise les différents paramétres
-        /// </summary>
-        /// <param name="RobotPorts">Ports du robot</param>
         public PetitRobot(ConfigurationPorts ports, Couleur equipe)
         {
             m_ports = ports;
 
-            //Font font; // WARNING: font is not defined yet
             m_baseRoulante = new CBaseRoulante(m_ports.idBaseRoulante);
             m_baseRoulante.setCouleur(Couleur.Bleu);
                        
@@ -155,34 +150,8 @@ namespace PR
             m_threadRun.Start();*/
         }
 
-        /// <summary>
-        /// Démarre le thread pour la méthode robotStart
-        /// </summary>
-        
-        /*
-        public void Start()
-        {
-            double distance=0;
-            //m_threadRun.Start();
-            do
-            {
-                distance = m_ultrason.GetDistance(5);
-            } while (distance > 30 || distance==-1);
-           hisserLesPavillons();
-           decalerChateau();
-           /// allerEn(678, 2573, sens.avancer, false);
-            //allerEn(678, 73, sens.reculer, false);
-          //  m_baseRoulante.tourner(-90);
-           // m_chasseNeige.deployer();
-            //m_chasseNeige.ranger();
-            //m_bras.sortir();
-            //m_bras.rentrer();
-           ramasserCoquillages();
-        }
-         * */
+                
 
-
-        // cette fonction allerEn utilise detecter !
         etatBR robotGoToXY(ushort x,ushort y, sens s, bool boolDetection = false,int speed=10)
         {
             etatBR retour;
@@ -323,145 +292,7 @@ namespace PR
 
         #endregion
 
-        #region Action
-        /*
-
-        public etatBR hisserLesPavillons()
-        {
-            etatBR retour = 0;
-            
-
-            m_baseRoulante.getPosition(ref m_positionRobot);
-            allerEn(m_positionRobot.x,m_etatRobot.couleurEquipe == Couleur.Violet ? m_tableJeu.Cabines[0].Position.Y : m_tableJeu.Cabines[3].Position.Y , sens.avancer, false);     //Avance devant la première cabine
-           // m_baseRoulante.tourner(-90);
-            
-            m_baseRoulante.getPosition(ref m_positionRobot);
-            allerEn(70, m_etatRobot.couleurEquipe == Couleur.Violet ? m_tableJeu.Cabines[0].Position.Y : m_tableJeu.Cabines[3].Position.Y, sens.reculer, false);     //Ferme la première cabine
-            
-            m_baseRoulante.getPosition(ref m_positionRobot);
-            allerEn(m_positionRobot.x + 300, m_positionRobot.y, sens.avancer, false);       //Avance de 30cm
-           // m_baseRoulante.tourner(+90);
-            
-            m_baseRoulante.getPosition(ref m_positionRobot);
-            allerEn(m_positionRobot.x, m_etatRobot.couleurEquipe == Couleur.Violet ? m_tableJeu.Cabines[1].Position.Y : m_tableJeu.Cabines[2].Position.Y, sens.avancer, false);       //Se place en face de la deuxième cabine
-           // m_baseRoulante.tourner(-90);
-
-            m_baseRoulante.getPosition(ref m_positionRobot);
-            allerEn(70, m_etatRobot.couleurEquipe == Couleur.Violet ? m_tableJeu.Cabines[1].Position.Y : m_tableJeu.Cabines[2].Position.Y, sens.reculer, false);       //Ferme la deuxième cabine
-
-            return retour;
-        }
-
-        public etatBR decalerChateau()
-        {
-            etatBR retour = 0;
-
-            m_baseRoulante.getPosition(ref m_positionRobot);
-            allerEn(m_etatRobot.couleurEquipe == Couleur.Violet ? (m_positionRobot.x + 200) : (m_positionRobot.x - 200), m_positionRobot.y, sens.avancer, false);
-            m_baseRoulante.getPosition(ref m_positionRobot);
-            allerEn(100, m_etatRobot.couleurEquipe == Couleur.Violet ? (m_positionRobot.y - 200) : (m_positionRobot.y + 200), sens.reculer, false);
-            m_bras.sortir();
-            m_baseRoulante.getPosition(ref m_positionRobot);
-            allerEn(100, m_etatRobot.couleurEquipe == Couleur.Violet ? m_tableJeu.Dunes[1].Position.Y -120 : m_tableJeu.Dunes[3].Position.Y+120, sens.avancer, false);
-            m_baseRoulante.getPosition(ref m_positionRobot);
-            allerEn(m_positionRobot.x, m_etatRobot.couleurEquipe == Couleur.Violet ? (m_positionRobot.y - 200) : (m_positionRobot.y + 200), sens.reculer, false);
-            m_bras.rentrer();
-
-            return retour;
-        }
-
-        public etatBR pousserChateau()
-        {
-            etatBR retour = 0;
-
-            allerEn(900, m_etatRobot.couleurEquipe == Couleur.Violet ? (m_tableJeu.Dunes[0].Position.Y - 350) : (m_tableJeu.Dunes[4].Position.Y + 350), sens.avancer, false);
-
-            m_chasseNeige.deployer();
-
-            m_baseRoulante.getPosition(ref m_positionRobot);
-            allerEn(m_positionRobot.x, m_etatRobot.couleurEquipe == Couleur.Violet ? (m_positionRobot.y + 650) : (m_positionRobot.y - 650), sens.avancer, false);
-
-            m_chasseNeige.ranger();
-
-            m_baseRoulante.getPosition(ref m_positionRobot);
-            allerEn(m_positionRobot.x, m_etatRobot.couleurEquipe == Couleur.Violet ? (m_positionRobot.y - 350) : (m_positionRobot.y + 350), sens.reculer, false);
-
-            return retour;
-        }
-
-        public etatBR ramasserCoquillages()
-        {
-            etatBR retour = 0;
-
-            m_chasseNeige.deployer();
-
-            if (m_etatRobot.disposition == 1 || m_etatRobot.disposition == 2)
-            {
-                //allerEn(1250, m_etatRobot.couleurEquipe == Couleur.Violet ? 600 : 2400, sens.avancer, true);
-            }
-            else
-            {
-                allerEn(1250, m_etatRobot.couleurEquipe == Couleur.Violet ? 700 : 2400, sens.avancer, true);
-            }
-            
-
-            allerEn(1550, m_etatRobot.couleurEquipe == Couleur.Violet ? m_tableJeu.Coquillages[1].Position.Y : m_tableJeu.Coquillages[12].Position.Y, sens.avancer, true);
-
-         
-          
-            
-            allerEn(1250, m_etatRobot.couleurEquipe == Couleur.Violet ? m_tableJeu.Coquillages[0].Position.Y : m_tableJeu.Coquillages[11].Position.Y, sens.avancer, true);
-
-            allerEn(m_tableJeu.Serviette.Position.X, m_tableJeu.Serviette.Position.Y, sens.avancer, true);
-
-            m_chasseNeige.ranger();
-
-            return retour;
-        }
-
-        /*public etatBR ramasserCoquillages()
-        {
-            etatBR retour = 0;
-
-            m_chasseNeige.deployer();
-
-            allerEn(1250, m_etatRobot.couleurEquipe == Couleur.Violet ? 600 : 2400, sens.avancer, true);
-
-            allerEn(1550, m_etatRobot.couleurEquipe == Couleur.Violet ? m_tableJeu.Coquillages[1].Position.Y : m_tableJeu.Coquillages[12].Position.Y, sens.avancer, true);
-
-            allerEn(1250, m_etatRobot.couleurEquipe == Couleur.Violet ? m_tableJeu.Coquillages[0].Position.Y : m_tableJeu.Coquillages[11].Position.Y, sens.avancer, true);
-
-            allerEn(m_tableJeu.Serviette.Position.X, m_tableJeu.Serviette.Position.Y, sens.avancer, true);
-
-            m_chasseNeige.ranger();
-
-            switch (m_etatRobot.disposition)
-            { 
-                case 1 :
-
-                    break;
-
-                case 2 :
-
-                    break;
-
-                case 3 :
-
-                    break;
-
-                case 4 :
-
-                    break;
-
-                case 5 :
-
-                    break;
-            }
-
-            return retour;
-        }*/
-
-        #endregion
+    
     }
 
     
