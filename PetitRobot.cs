@@ -54,7 +54,7 @@ namespace PR
         //IHMSelection m_ihm;
         Jack m_jack;
         GroupeInfrarouge m_IR;
-
+        DateTime InstantDebut;
 
         CCapteurUltrason m_ultrason;
 
@@ -294,21 +294,54 @@ namespace PR
         /// <summary>
         /// Execution des différentes tâches
         /// </summary>
-        public void Demarrer()
+        public void Demarrer(double tempsImparti)
         {
-            //m_ihm.Afficher("Debut de la strategie");
-            Debug.Print("Demmarage ok");
-            Debug.Print(""+GestionStrat.NombreAction);
-            while (GestionStrat.ExecutionPossible == true)     //Execution de la boucle tant qu'il y a toujours une action à réaliser 
+
+
+            Timer timeout;
+            DateTime fin = new DateTime();
+            var thDecompte = new Thread(() =>
             {
-               // m_ihm.Afficher("Execution de l'action suivante");
+                while (GestionStrat.ExecutionPossible && DateTime.Now < fin)
+                {
+                    //Trac.Ecrire("Temps restant: " + (fin - DateTime.Now).ToString().Substring(3, 5) + ".");
+                    Thread.Sleep(10000);
+                }
+            });
+            var thStrat = new Thread(() => EffectuerStrategie());
+
+            InstantDebut = DateTime.Now;
+            fin = InstantDebut.AddSeconds(tempsImparti);
+
+            InitialisationStrategie();
+
+            thDecompte.Start();
+            thStrat.Start();
+
+            timeout = new Timer(state =>
+            {
+                //m_ihm.Ecrire("Fin du temps imparti.");
+                if (thStrat.IsAlive) thStrat.Abort();
+                m_baseRoulante.stop();
+
+            }, null, (int)(tempsImparti * 1000), -1);
+        }
+
+        private void EffectuerStrategie()
+        {
+            //m_ihm.Ecrire("Debut de l'execution de la strategie.");
+
+            while (GestionStrat.ExecutionPossible)
+            {
+                //m_ihm.Ecrire("Execution de l'action suivante.");
                 GestionStrat.ExecuterSuivante();
-                Debug.Print("Action suivante");
             }
 
-            //m_ihm.Afficher("Fin de la strategie");
-            
+            //m_ihm.Ecrire("Fin de l'execution de la strategie.");
+           
         }
+
+        
 
         /// <summary>
         /// Stop tout mouvement du robot. Est appelé au bout de 90s.
