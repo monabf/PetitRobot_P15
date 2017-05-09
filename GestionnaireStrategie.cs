@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System.Threading;
 
 namespace PR
 {
@@ -69,6 +70,10 @@ namespace PR
         public void Supprimer(ActionRobot action)
         {
             Actions.Remove(action);
+            while (Actions.Count == 0)
+            {
+                Thread.Sleep(20);
+            }
         }
 
         /// <summary>
