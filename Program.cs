@@ -83,6 +83,7 @@ namespace PR
             robot.AttendreJack();
             // démarre le robot
             Debug.Print("jack");
+            
             //robot.petitBras.tourner();
             robot.Demarrer();
             

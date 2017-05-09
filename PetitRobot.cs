@@ -65,7 +65,7 @@ namespace PR
         CPetitBras petitBras;
         CPince pince;
         CPoussoir poussoir;
-        public static bool check = false;
+        public static bool obstacle = false;
         
        
         #endregion
@@ -190,10 +190,21 @@ namespace PR
             {
                 // on passe le sens "dir" au timer via la variable "state"
                 // analogue au timeout-callback pour les amoureux du js
-                Timer t = new Timer(new TimerCallback(Detecter), s, 0, 1000);
+                //Timer t = new Timer(new TimerCallback(Detecter), s, 0, 1000);
+                obstacle = false; // paramètre pour savoir si il y'a bien un obstacle
+                var thDetection = new Thread(() =>
+                {
+                    while (true)
+                    {
+                        Detecter(s);
+                        //Thread.Sleep(20);
+                    }
+                });
+                thDetection.Start();
                 retour = m_baseRoulante.allerDect(y, x, s,speed);// x,y,s
-                check = false;
-                t.Dispose();
+                thDetection.Suspend();
+                obstacle = false;
+                //t.Dispose();
             }
             else
             {
@@ -238,24 +249,28 @@ namespace PR
         {
             sens dir = (sens)o;
             // si on avance, les ultrasons sont utiles
+
             if (dir == sens.avancer)
             {
                 // on teste les capteurs IR avants puis le capteur laser en appui
                 double distance = 0d;
-                bool obstacle = false;
+                bool obstacleUS = false;
                 // mesure une distance moyenne avec 5 mesures rapides
-                m_ultrason.getDistance(5, ref distance);
+                //Ultrason désactivé pour l'instant, ils prennent beaucoup trop de temps pour acquérir l'information.
+                /*
+                m_ultrason.getDistance(1, ref distance);
                 if (distance < 30 && distance != -1)
-                    obstacle = true;
+                    obstacleUS = true;
+                */
 
-                if ((!m_IR.AVG.Read() || !m_IR.AVD.Read()) && obstacle)
+                if ((!m_IR.AVG.Read() || !m_IR.AVD.Read()))// infrarouge OK.. et c'est une condition et && obstacleUS
                 {
                     //m_baseRoulante.stop();
-                    check = true;
+                    obstacle = true;
 
-                    Debug.Print("Détection obstacle avant");
+                    
                 }
-                else check = false;
+                else obstacle = false;
                 
                 }
             // si on recule, les ultrasons ne sont plus utiles
@@ -264,13 +279,13 @@ namespace PR
                 // on teste les capteurs IR arrières
                 if (!m_IR.ARG.Read() || !m_IR.ARD.Read())
                 {
-                    Debug.Print("Détection obstacle après");
+                    //Debug.Print("Détection obstacle après");
                     //m_baseRoulante.stop();
-                    check = true;
+                    obstacle = true;
 
 
                 }
-                else check = false;
+                else obstacle = false;
                 
             }
             

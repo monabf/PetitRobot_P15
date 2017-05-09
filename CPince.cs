@@ -25,7 +25,7 @@ namespace PR.Membres
         enum positionPinceBleue
         {
             rentree = 200,
-            intermediaire_rentree = 512,
+            intermediaire_rentree = 452,//512
             sortie = 830,
             intermediaire_sortie = 512 // Valeurs à changer après tests sur servos
         };
@@ -49,6 +49,7 @@ namespace PR.Membres
                 m_ax12Pince = new CAX12(config.idAX12PinceBleue, controleur.m_port, controleur.m_direction);
                 m_ax12Pince.setMode(AX12Mode.joint);
             }
+            m_ax12Pince.setMovingSpeed(75);
             Debug.Print("CPince opérationnel");
         }
 
@@ -57,11 +58,11 @@ namespace PR.Membres
         {
             if (couleurEquipe == Couleur.Jaune)
             {
-                m_ax12Pince.move((int)positionPinceJaune.intermediaire_rentree);
+                m_ax12Pince.move((int)positionPinceJaune.sortie);
             }
             else
             {
-                m_ax12Pince.move((int)positionPinceBleue.intermediaire_rentree);
+                m_ax12Pince.move((int)positionPinceBleue.sortie);
             }
 
         }

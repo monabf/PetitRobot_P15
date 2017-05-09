@@ -19,6 +19,7 @@ namespace PR.Membres
         enum positionPoussoirBleu
         {
             rentree = 825,
+            intermediaireRentré=572,
             intermediaire = 512,
             sortie = 224
             // Valeurs a changer apres tests sur servos
@@ -27,6 +28,7 @@ namespace PR.Membres
         enum positionPoussoirJaune
         {
             rentree = 206,
+            intermediaireRentré=422,
             intermediaire = 512,
             sortie = 834
             // Valeurs a changer apres tests sur servos
@@ -52,6 +54,7 @@ namespace PR.Membres
                 m_ax12Poussoir = new CAX12(config.idAX12PoussoirBleu, controleur.m_port, controleur.m_direction);
                 m_ax12Poussoir.setMode(AX12Mode.joint);
             }
+            m_ax12Poussoir.setMovingSpeed(75);
             Debug.Print("CPoussoir opérationnel");
 
         }
@@ -69,6 +72,20 @@ namespace PR.Membres
                 m_ax12Poussoir.move((int)positionPoussoirBleu.intermediaire);
             }
         }
+
+        public void semireplie()
+        {
+            if (couleurEquipe == Couleur.Jaune)
+            {
+                m_ax12Poussoir.move((int)positionPoussoirJaune.intermediaireRentré);
+            }
+
+            else
+            {
+                m_ax12Poussoir.move((int)positionPoussoirBleu.intermediaireRentré);
+            }
+        }
+
 
         public void replie()
         {

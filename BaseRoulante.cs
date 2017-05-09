@@ -47,9 +47,9 @@ namespace PR.BR2
             if (c == Couleur.Bleu)
             {
                 //NB: constantes à modifier
-                m_posBR.x = 30;//30 //210
-                m_posBR.y = 157;//157 //1380
-                m_posBR.alpha = 0;//0 //-90
+                m_posBR.x = 205;//30 //85
+                m_posBR.y = 1405;//157 //157
+                m_posBR.alpha = -90;//0 //0
             }
             else
             {
@@ -68,19 +68,21 @@ namespace PR.BR2
             int r = 0;
             int distanceReelle=0;
             int AdistanceReelle=0;
-            m_kangaroo.allerEn((int)(s)*500, speed, unite.mm);
+            m_kangaroo.allerEn((int)(s)*100, speed, unite.mm);
             while (reponse)
             {
                 getDistanceParcourue(ref distanceReelle);
                 if (distanceReelle!=AdistanceReelle) r=0;
                 if (distanceReelle==AdistanceReelle) r++;
-                if (r == 3)
+                if (r == 4)
                 {
-                    m_kangaroo.allerEn(0, speed, unite.mm);
+                    m_kangaroo.start(mode.drive);
+                    //m_kangaroo.allerEn(0, speed, unite.mm);
                     reponse = false;
                     
                 }
             }
+            Thread.Sleep(1000);
         }
 
 
@@ -92,19 +94,22 @@ namespace PR.BR2
             int r = 0;
             int distanceReelle = 0;
             int AdistanceReelle = 0;
-            m_kangaroo.allerEn((int)(s) * 500, speed, unite.mm);
+            m_kangaroo.allerEn((int)(s) * 100, speed, unite.mm);
             while (reponse)
             {
                 getDistanceParcourue(ref distanceReelle);
-                if (distanceReelle != AdistanceReelle) r = 0;
-                if (distanceReelle == AdistanceReelle) r++;
-                if (r == 3)
+                
+                if (distanceReelle == AdistanceReelle) r++;// position du robot ne bougeant plus
+                if (r == 4) 
                 {
-                    m_kangaroo.allerEn(0, speed, unite.mm);
+                    //m_kangaroo.allerEn(0, speed, unite.mm);
+                    m_kangaroo.start(mode.drive);
                     reponse = false;
 
                 }
+                if (distanceReelle != AdistanceReelle) r = 0;
             }
+            Thread.Sleep(1000);
         }
 
         public void changerXYA(int angle, int x, int y)
@@ -247,6 +252,7 @@ namespace PR.BR2
             delta = 0;
             m_status = 0;
             distanceConsigne = (int)s*(int)System.Math.Sqrt(System.Math.Pow((x - m_posBR.x), 2) + System.Math.Pow((y -m_posBR.y), 2));
+            Debug.Print("distance à parcourir : " + distanceConsigne);
             m_kangaroo.allerEn(distanceConsigne , speed, unite.mm);
             //attente d'être arrive ou bloque ou stoppe
             do
@@ -359,13 +365,15 @@ namespace PR.BR2
 
             do
             {
-                if (PetitRobot.check)
+                if (PetitRobot.obstacle)
                 {
                     Debug.Print("entrée de la fonction check");
                     getDistanceParcourue(ref distanceStop);
+                    
+                    //m_kangaroo.allerEn(0, 1, unite.mm);
+                    m_kangaroo.start(mode.drive);
                     distanceSF += distanceStop;
-                    m_kangaroo.allerEn(0, 0, unite.mm);
-                    while (PetitRobot.check) Thread.Sleep(100);
+                    while (PetitRobot.obstacle) Thread.Sleep(100);
                     m_kangaroo.allerEn(distanceConsigne + distanceSF, speed, unite.mm);//distanceConsigne - distanceSF
                     Debug.Print("sortie de la fonction check");
 

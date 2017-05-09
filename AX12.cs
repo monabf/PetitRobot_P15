@@ -15,7 +15,7 @@ namespace PR
 {
     enum AX12Mode { joint, wheel };
 
-    enum speed { stop = 0, reverse = 1023, forward = 2047 }
+    enum speed { stop = 0, reverse = 1023, forward = 1500 }//2047
 
     enum Instruction : byte
     {
@@ -206,14 +206,27 @@ namespace PR
 
         }
 
+        public int setMovingSpeed(int vitesse)
+        {
+            byte len, error = 1;
+            int value = (int)vitesse;
+            if (true)
+            {
+                byte[] buf = { 0x20, (byte)(value), (byte)(value >> 8) };
+                sendCommand(m_ID, Instruction.AX_WRITE_DATA, buf);
+                Thread.Sleep(100);
+                getReponse(out m_ID, out len, out error, null);
+            }
 
+            return (int)error;
+        }
 
         public int setMovingSpeed(speed vitesse)
         {
             m_speed = vitesse;
             byte len, error = 1;
             int value = (int)vitesse;
-            if (m_mode == AX12Mode.wheel)
+            if (true)
             {
                 byte[] buf = { 0x20, (byte)(value), (byte)(value >> 8) };
                 sendCommand(m_ID, Instruction.AX_WRITE_DATA, buf);

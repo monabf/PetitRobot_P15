@@ -70,7 +70,7 @@ namespace PR.Membres
             }
 
             Debug.Print("CPetitBras opérationnel");
-
+            m_rouletteIntelligente.getRoulette().setMovingSpeed(75);
         }
 
 

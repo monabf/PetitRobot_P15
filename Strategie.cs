@@ -168,25 +168,22 @@ namespace PR
                 }
                 else
                 {
-                    robotGoToXY((ushort)157, (ushort)480, sens.avancer, false, 9);//410
-                    robotGoToXY((ushort)157, (ushort)540, sens.avancer, false, 1);
-                    robotGoToXY((ushort)157, (ushort)780, sens.avancer, false, 7);
-                    robotGoToXY((ushort)157, (ushort)737, sens.reculer, false, 7);
-                    recalageY(0, 740);
-                    robotGoToXY((ushort)157, (ushort)880, sens.avancer, false, 7);
+                    recalageY(0, 795, 10, sens.reculer);//740
+                    robotGoToXY((ushort)157, (ushort)935, sens.avancer, false, 7);//157,880
                     //robotGoToXY((ushort)157, (ushort)880, sens.avancer);
-                    robotGoToXY((ushort)35, (ushort)880, sens.reculer, false, 5);
-                    recalageX(90, 30);
-                    getPosition(ref positionRobot);
+                    robotGoToXY((ushort)100, (ushort)935, sens.reculer, false, 7);//100,880
+                    recalageX(90, 85, sens.reculer, 10);//30
+                    positionBaseRoulante pos = new positionBaseRoulante();
+                    getPosition(ref pos);
                     //recalageY(, 134);
-                    robotGoToXY((ushort)840, (ushort)positionRobot.x, sens.avancer);//y=880
+                    robotGoToXY((ushort)840, (ushort)pos.x, sens.avancer);//y=880
                     robotGoToXY((ushort)840, (ushort)190, sens.reculer);
-                    getPosition(ref positionRobot);
-                    robotGoToXY((ushort)positionRobot.y, (ushort)128, sens.reculer, false, 8);//840
-                    recalageY(0, 134);
-                    recalageX(0, 900);
-                    robotGoToXY((ushort)900, (ushort)290, sens.avancer);
-                    robotGoToXY((ushort)1375, (ushort)205, sens.reculer);
+                    getPosition(ref pos);
+                    //robotGoToXY((ushort)pos.y, (ushort)128, sens.reculer,false,8);//840
+                    recalageY(0, 189, 10, sens.reculer);//134
+                    //recalageX(0, 900,sens.reculer,5);
+                    robotGoToXY((ushort)pos.y, (ushort)290, sens.avancer);
+      
                     Thread.Sleep(10000);
 
                     //robotRotate(-90);
