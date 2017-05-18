@@ -15,7 +15,7 @@ namespace PR
 {
     enum AX12Mode { joint, wheel };
 
-    enum speed { stop = 0, reverse = 1023, forward = 1500 }//2047
+    enum speed { stop = 0, reverse = 700, forward = 1700 }//1023 //2047
 
     enum Instruction : byte
     {

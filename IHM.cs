@@ -7,17 +7,19 @@ using GHI.Glide;
 using GHI.Glide.Display;
 using GHI.Glide.UI;
 using System.Threading;
+using PetitRobotP15;
 
+enum Couleurs { rouge, orange, jaune, vert, bleu, indigo, violet };
 namespace PR
 {
-    class IHMSelection
+    class IHM
     {
         #region Attributs
 
-        GHI.Glide.Display.Window fenetreSelection, fenetreAffichage;
+        GHI.Glide.Display.Window fenetreSelection, fenetreAffichage, fenetrePhase;
 
-        Couleur equipe = Couleur.Null;
-        int disposition = 0;
+        Couleur m_equipe = Couleur.Null;
+        int m_disposition = 0;
         public bool validation = false;
 
         #endregion
@@ -48,12 +50,15 @@ namespace PR
         #endregion
 
 
-        public IHMSelection()
+        public IHM()
         {
             GlideTouch.Initialize();
             Debug.Print("IHM created");
-            fenetreSelection = GlideLoader.LoadWindow(Resources.GetString(Resources.StringResources.fenetreSelection));     //Charge le fichier XML pour la fenetre de selection
+            fenetreSelection = GlideLoader.LoadWindow(Resources.GetString(Resources.StringResources.fenetreSelection));
+            Glide.MainWindow = fenetreSelection;
+            //Charge le fichier XML pour la fenetre de selection
             fenetreAffichage = GlideLoader.LoadWindow(Resources.GetString(Resources.StringResources.fenetreAffichage));     // -- -- -- -- -- -- -- -- -- -- -- -- -- d'affichage
+            fenetrePhase = GlideLoader.LoadWindow(Resources.GetString(Resources.StringResources.fenetrePhase)); 
             Debug.Print("IHM completed");
                         Glide.FitToScreen = true;       //Dimensionne la fenetre pour l'adapter à l'écran LCD
             
@@ -63,23 +68,52 @@ namespace PR
         /// Selection de l'équipe et de la disposition du terrais parmi les 5 différentes
         /// </summary>
         /// 
+        /// 
         public Couleur getEquipe()
         {
-            return equipe;
+            return m_equipe;
         }
 
         public int getDisposition()
         {
-            return disposition;
+            return m_disposition;
         }
-
-        public void Selection(ref Couleur m_equipe, ref int m_disposition)
+        public void retourPhase(Couleurs couleur)
+        {
+            switch(couleur)
+            {
+                case Couleurs.rouge :
+                    fenetrePhase.BackColor = Microsoft.SPOT.Presentation.Media.Colors.Red;
+                    break;
+                case Couleurs.orange :
+                    fenetrePhase.BackColor = Microsoft.SPOT.Presentation.Media.Colors.Orange;
+                    break;
+                case Couleurs.jaune :
+                    fenetrePhase.BackColor = Microsoft.SPOT.Presentation.Media.Colors.Yellow;
+                    break;
+                case Couleurs.vert :
+                    fenetrePhase.BackColor = Microsoft.SPOT.Presentation.Media.Colors.Green;
+                    break;
+                case Couleurs.bleu :
+                    fenetrePhase.BackColor = Microsoft.SPOT.Presentation.Media.Colors.Blue;
+                    break;
+                case Couleurs.indigo :
+                    fenetrePhase.BackColor = Microsoft.SPOT.Presentation.Media.Colors.Cyan;
+                    break;
+                case Couleurs.violet:
+                    fenetrePhase.BackColor = Microsoft.SPOT.Presentation.Media.Colors.Purple;
+                    break;
+                
+            }
+            Glide.MainWindow = fenetrePhase;
+        }
+        public void Selection()
         {
             Glide.MainWindow = fenetreSelection;        //Affiche la fenetre de selection sur l'écran LCD
             
             BoutonBleu = (GHI.Glide.UI.Button)fenetreSelection.GetChildByName("BoutonBleu");            //Créer les différents boutons
             BoutonJaune = (GHI.Glide.UI.Button)fenetreSelection.GetChildByName("BoutonJaune");
-            BoutonDispo1 = (GHI.Glide.UI.Button)fenetreSelection.GetChildByName("BoutonDispo1");
+            BoutonDispo1 = (GHI.Glide.UI.Button)fenetreSelection.GetChildByName("BoutonHomologation");
             BoutonDispo2 = (GHI.Glide.UI.Button)fenetreSelection.GetChildByName("BoutonDispo2");
             BoutonDispo3 = (GHI.Glide.UI.Button)fenetreSelection.GetChildByName("BoutonDispo3");
             BoutonDispo4 = (GHI.Glide.UI.Button)fenetreSelection.GetChildByName("BoutonDispo4");
@@ -89,51 +123,51 @@ namespace PR
             TexteCouleur = (TextBlock)fenetreSelection.GetChildByName("TexteCouleur");        //Bloc de texte pour la selection (affiche la couleur et la disposition choisie)
             TexteDispo = (TextBlock)fenetreSelection.GetChildByName("TexteDispo");            //
 
-            BoutonBleu.TapEvent += new OnTap(sender => { equipe = Couleur.Bleu;
+            BoutonBleu.TapEvent += new OnTap(sender => { m_equipe = Couleur.Bleu;
                                                          TexteCouleur.Text = "Equipe bleue";
                                                          TexteCouleur.BackColor = (Color)0x1E7FCB;
                                                          fenetreSelection.FillRect(TexteCouleur.Rect);
                                                          TexteCouleur.Invalidate(); });
 
-            BoutonJaune.TapEvent += new OnTap(sender => { equipe = Couleur.Jaune;
+            BoutonJaune.TapEvent += new OnTap(sender => { m_equipe = Couleur.Jaune;
                                                            TexteCouleur.Text = "Equipe jaune";
                                                            TexteCouleur.BackColor = (Color)0xE8D630;
                                                            fenetreSelection.FillRect(TexteCouleur.Rect);
                                                            TexteCouleur.Invalidate(); });
 
-            BoutonDispo1.TapEvent += new OnTap(sender => { disposition = 1;
-                                                           TexteDispo.Text = "Dispo. no. 1";
+            BoutonDispo1.TapEvent += new OnTap(sender => { m_disposition = 1;
+                                                           TexteDispo.Text = "Homologation";
                                                            fenetreSelection.FillRect(TexteDispo.Rect);
                                                            TexteDispo.Invalidate(); });
 
-            BoutonDispo2.TapEvent += new OnTap(sender => { disposition = 2;
+            BoutonDispo2.TapEvent += new OnTap(sender => { m_disposition = 2;
                                                            TexteDispo.Text = "Dispo. no. 2";
                                                            fenetreSelection.FillRect(TexteDispo.Rect);
                                                            TexteDispo.Invalidate(); });
 
-            BoutonDispo3.TapEvent += new OnTap(sender => { disposition = 3;
+            BoutonDispo3.TapEvent += new OnTap(sender => { m_disposition = 3;
                                                            TexteDispo.Text = "Dispo. no. 3";
                                                            fenetreSelection.FillRect(TexteDispo.Rect);
                                                            TexteDispo.Invalidate(); });
 
-            BoutonDispo4.TapEvent += new OnTap(sender => { disposition = 4;
+            BoutonDispo4.TapEvent += new OnTap(sender => { m_disposition = 4;
                                                            TexteDispo.Text = "Dispo. no. 4";
                                                            fenetreSelection.FillRect(TexteDispo.Rect);
                                                            TexteDispo.Invalidate(); });
 
-            BoutonDispo5.TapEvent += new OnTap(sender => { disposition = 5;
+            BoutonDispo5.TapEvent += new OnTap(sender => { m_disposition = 5;
                                                            TexteDispo.Text = "Dispo. no. 5";
                                                            fenetreSelection.FillRect(TexteDispo.Rect);
                                                            TexteDispo.Invalidate(); });
 
-            while (equipe == Couleur.Null || disposition == 0)      //Execution de la boucle tant que l'equipe et la disposition du terrain ne sont pas validés
-            
-            m_equipe = equipe;
-            m_disposition = disposition;
+            while (m_equipe == Couleur.Null || m_disposition == 0)      //Execution de la boucle tant que l'equipe et la disposition du terrain ne sont pas validés
 
+
+     
             while (validation == false)
             {
                 BoutonValider.TapEvent += new OnTap(sender => { validation = true; });
+
             }
             
             Fermer();   //ferme la fenetre de selection  

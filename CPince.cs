@@ -19,15 +19,17 @@ namespace PR.Membres
             rentree = 821,
             intermediaire_rentree = 512,
             sortie = 206,
-            intermediaire_sortie = 512 // Valeurs à changer après tests sur servos
+            intermediaire = 512,
+            intermediaire_sortie = 670// Valeurs à changer après tests sur servos
         };
 
         enum positionPinceBleue
         {
             rentree = 200,
-            intermediaire_rentree = 452,//512
+            intermediaire_rentree = 420,//512 452
             sortie = 830,
-            intermediaire_sortie = 512 // Valeurs à changer après tests sur servos
+            intermediaire = 492,//512
+            intermediaire_sortie = 675// Valeurs à changer après tests sur servos
         };
 
 
@@ -49,7 +51,7 @@ namespace PR.Membres
                 m_ax12Pince = new CAX12(config.idAX12PinceBleue, controleur.m_port, controleur.m_direction);
                 m_ax12Pince.setMode(AX12Mode.joint);
             }
-            m_ax12Pince.setMovingSpeed(75);
+            m_ax12Pince.setMovingSpeed(150);
             Debug.Print("CPince opérationnel");
         }
 
@@ -92,6 +94,18 @@ namespace PR.Membres
         }
 
 
+        public void milieu()//semiDeplie
+        {
+            if (couleurEquipe == Couleur.Jaune)
+            {
+                m_ax12Pince.move((int)positionPinceJaune.intermediaire);
+            }
+            else
+            {
+                m_ax12Pince.move((int)positionPinceBleue.intermediaire);
+            }
+        }
+
         public void semiDeplie()
         {
             if (couleurEquipe == Couleur.Jaune)
@@ -101,18 +115,6 @@ namespace PR.Membres
             else
             {
                 m_ax12Pince.move((int)positionPinceBleue.intermediaire_sortie);
-            }
-        }
-
-        public void replieArriere()
-        {
-            if (couleurEquipe == Couleur.Jaune)
-            {
-                m_ax12Pince.move((int)positionPinceJaune.sortie);
-            }
-            else
-            {
-                m_ax12Pince.move((int)positionPinceBleue.sortie);
             }
         }
 

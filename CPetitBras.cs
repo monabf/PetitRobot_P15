@@ -25,16 +25,16 @@ namespace PR.Membres
             rentree = 800,
             intermediaire_rentree = 512,
             sortie = 350,
-            intermediaire_sortie = 512, // Valeurs à changer après tests sur servos
+            intermediaire_sortie = 520, // Valeurs à changer après tests sur servos 500
             intialisiation_roulette = 90
         };
 
         enum positionPetitBrasJaune
         {
-            rentree = 821,
-            intermediaire_rentree = 650,
-            sortie = 206,
-            intermediaire_sortie = 512, // Valeurs à changer après tests sur servos
+            rentree = 800,
+            intermediaire_rentree = 512,
+            sortie = 350,
+            intermediaire_sortie = 520, // Valeurs à changer après tests sur servos
             intialisiation_roulette = 90
         };
 
@@ -53,7 +53,8 @@ namespace PR.Membres
                 m_ax12Coude.setMode(AX12Mode.joint);
                 // corriger le deuxième paramètre du contructeur CCapteurCouleur ci-dessous
                 CAX12 ax12RotateurJaune = new CAX12(config.idAX12RotateurJaune, controleur.m_port, controleur.m_direction);
-                CCapteurCouleur capteurCouleurJaune = new CCapteurCouleur(config.idCapteurBrasJaune, equipe, false);
+                ax12RotateurJaune.setMode(AX12Mode.wheel);
+                CCapteurCouleur capteurCouleurJaune = new CCapteurCouleur(config.idCapteurBrasJaune, equipe);
                 m_rouletteIntelligente = new CRouletteIntelligente(capteurCouleurJaune, ax12RotateurJaune);
             }
             else
@@ -62,15 +63,16 @@ namespace PR.Membres
                 m_ax12Coude.setMode(AX12Mode.joint);
                 // corriger le deuxième paramètre du contructeur CCapteurCouleur ci-dessous
                 CAX12 ax12RotateurBleu = new CAX12(config.idAX12RotateurBleu, controleur.m_port, controleur.m_direction);
+                ax12RotateurBleu.setMode(AX12Mode.wheel);
                 Debug.Print("Rotateur opérationnel");
                 Debug.Print("" + config.idCapteurBrasBleu);
-                CCapteurCouleur capteurCouleurBleu = new CCapteurCouleur(config.idCapteurBrasBleu, equipe, false);
+                CCapteurCouleur capteurCouleurBleu = new CCapteurCouleur(config.idCapteurBrasBleu, equipe);
                 Debug.Print("Capteur couleur opérationnel");
                 m_rouletteIntelligente = new CRouletteIntelligente(capteurCouleurBleu, ax12RotateurBleu);
             }
 
             Debug.Print("CPetitBras opérationnel");
-            m_rouletteIntelligente.getRoulette().setMovingSpeed(75);
+            //m_rouletteIntelligente.getRoulette().setMovingSpeed(150);
         }
 
 
@@ -142,7 +144,12 @@ namespace PR.Membres
         public void tourner()
         {
             // il faut cette fois-ci que la couleur soit près du capteur
-            m_rouletteIntelligente.Tourner();
+            m_rouletteIntelligente.Tourner(couleurEquipe);
+        }
+
+        public void arretUrgenceRoulette()
+        {
+            m_rouletteIntelligente.getRoulette().setMovingSpeed(speed.stop);
         }
 
 

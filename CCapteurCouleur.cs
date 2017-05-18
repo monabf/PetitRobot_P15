@@ -3,13 +3,12 @@ using Microsoft.SPOT;
 using GT = Gadgeteer;
 using GTM = Gadgeteer.Modules;
 using Gadgeteer.Modules.GHIElectronics;
-using PR;
 
 namespace PR
 {
     class CCapteurCouleur
     {
-		int couleurInitiale;
+		Couleur couleurInitiale;
         ColorSense myColorSense;
         static int White = 2, Yellow = 1, Blue = 0;
         int c1, c2, c3, c4;
@@ -27,22 +26,24 @@ namespace PR
             float max = System.Math.Max(System.Math.Max(red, green), blue);
 
             float hue = 0f;
-            if (max == red)
-            {
-                hue = (green - blue) / (max - min);
+            
+                if (max == red)
+                {
+                    hue = (green - blue) / (max - min+1);
 
-            }
-            else if (max == green)
-            {
-                hue = 2f + (blue - red) / (max - min);
+                }
+                else if (max == green)
+                {
+                    hue = 2f + (blue - red) / (max - min+1);
 
-            }
-            else
-            {
-                hue = 4f + (red - green) / (max - min);
-            }
+                }
+                else
+                {
+                    hue = 4f + (red - green) / (max - min+1);
+                }
 
-            hue = hue * 60;
+                hue = hue * 60;
+            
             if (hue < 0) hue = hue + 360;
 
             return (int)System.Math.Round(hue);
@@ -52,47 +53,62 @@ namespace PR
 
         
         //Constructeur
-        public CCapteurCouleur(int id, Couleur ourColor, bool grandRobot)
+        public CCapteurCouleur(int id, Couleur ourColor)
         {
-            couleurInitiale = -1;
+            couleurInitiale = ourColor;
             myColorSense = new ColorSense(id);
+            myColorSense.LedEnabled = true;
             Debug.Print("ColorSense opérationnel");
 
-            if (grandRobot)
+
+            if (ourColor == Couleur.Bleu)
             {
-                //Grand robot
-                if (ourColor == Couleur.Jaune)
-                {
-                    c1 = 1; c2 = -3; c3 = 3; c4 = -1;
-                }
-                else
-                {
-                    c1 = -3; c2 = 1; c3 = -1; c4 = 3;
-                }
+                c1 = 5; c2 = 1; c3 = 7; c4 = 3;
             }
             else
-            { //Petit robot
-                if (ourColor == Couleur.Jaune)
+            {
+                c1 = 1; c2 = 5; c3 = 3; c4 = 7;
+            }
+          
+        }
+        public bool ContinuerRotation()
+        {
+            //Lire les couleurs 
+            //***********
+            ColorSense.ColorData colors = myColorSense.ReadColor();
+            int HUE = getHue(colors.Red, colors.Green, colors.Blue);
+            bool white = colors.Red + colors.Blue + colors.Green > 420;
+            //**********
+
+            //Debug.Print("prog continuerRotation" + HUE + "-" + colors.Red + " " + colors.Blue + " " + colors.Green);
+            //Attention !!!!!! il faut mettre le parametre couleurInitiale à -1 pour chaque cylindre
+            if (white) return true;
+                //NB pour la méthode ci-dessous, le jaune et le bleu sont inversés par rapport au grand robot
+            else
+                if (couleurInitiale == Couleur.Bleu)
                 {
-                    c1 = 5; c2 = 1; c3 = 7; c4 = 3;
+                    if (HUE > 150) return false; //Blue
+                    else return true;
                 }
                 else
                 {
-                    c1 = 1; c2 = 5; c3 = 3; c4 = 7;
+                    if (HUE < 100) return false; //Jaune
+                    else return true;
                 }
-            }
-        }
 
+        }
+        /*
         //Continuer la rotation
         public bool ContinuerRotation()
         {
-
             //Lire les couleurs 
             //***********
             ColorSense.ColorData colors = myColorSense.ReadColor();
             int HUE = getHue(colors.Red, colors.Blue, colors.Green);
             bool white = colors.Red + colors.Blue + colors.Green > 420;
             //**********
+
+            Debug.Print("prog continuerRotation" + HUE + "-" + colors.Red +" "+ colors.Blue+" "+ colors.Green);
             //Attention !!!!!! il faut mettre le parametre couleurInitiale à -1 pour chaque cylindre
             if (couleurInitiale == -1)
             {
@@ -135,13 +151,12 @@ namespace PR
                  }
                 return true;
             }
-            else { return true; /* la couleur n'est pas claire*/ }
+            else { return true; } //la couleur n'est pas claire
         }
+        */
 
-//
         public int CompleterRotation()
         {
-            couleurInitiale = -1;
             //
             switch (config)
             {

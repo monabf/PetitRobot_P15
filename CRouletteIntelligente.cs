@@ -22,16 +22,23 @@ namespace PR.Membres
             return m_ax12Roulette;
         }
 
-        public void Tourner() {
+        public void Tourner(Couleur equipe) {
             // les lignes ci-dessous a été commentées pour les tests. La décommenter après
-            /*
-            m_ax12Roulette.setMovingSpeed(speed.forward);
+            if (equipe == Couleur.Bleu)
+            {
+                m_ax12Roulette.setMovingSpeed(speed.forward);
+            }
+            else
+            {
+                m_ax12Roulette.setMovingSpeed(speed.reverse);
+            }
             while (m_capteurCouleur.ContinuerRotation())
             {
-                Thread.Sleep(100);
+                //Thread.Sleep(10);
+                //Debug.Print(""+i++);
             }
             m_ax12Roulette.setMovingSpeed(speed.stop);
-             * */
+             
         }
       /*
         public void MettreBonneCouleurLoinDuCapteur(Couleur equipe)

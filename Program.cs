@@ -37,48 +37,36 @@ namespace PR
                 idInfrarougeAVD = 5, // idem
                 idInfrarougeARG = 6, // idem
                 idInfrarougeARD = 7, // idem
-                idCapteurUltrason = 6, // pin 6 de la spider
+              //  idCapteurUltrason = 6, // pin 6 de la spider // RIP 
                 idContAX12 = 11, // pin AX12
-                // idDetecteurIR = 12, // je ne comprends pas ce port. Il doit s'agit d'une erreur. PE
+              //  idContAX12Jaune = 9, // pin AX12
             };
 
             ports.poussoir.idAX12PoussoirBleu = 2;
-            ports.poussoir.idAX12PoussoirJaune = 2;
+            ports.poussoir.idAX12PoussoirJaune = 6;
 
             ports.pince.idAX12PinceBleue = 1;
-            ports.pince.idAX12PinceJaune = 1;
+            ports.pince.idAX12PinceJaune = 5;
 
             ports.petitBras.idAX12CoudeBleu = 3;
             ports.petitBras.idAX12RotateurBleu = 4; // ATTENTION : il faudra mettre le numéro 4 avec le logiciel !
-            ports.petitBras.idAX12CoudeJaune = 3;
-            ports.petitBras.idAX12RotateurJaune = 4;
+            ports.petitBras.idAX12CoudeJaune = 7;
+            ports.petitBras.idAX12RotateurJaune = 8;
 
             // ces ports là sont des ports de la spyder/spider
             ports.petitBras.idCapteurBrasBleu = 4;
-            ports.petitBras.idCapteurBrasJaune = 9; // ce port 4 n'est pas adapté, il faut en trouver un autre !!
+            ports.petitBras.idCapteurBrasJaune = 6; // ce port 4 n'est pas adapté, il faut en trouver un autre !!
 
             // initialisation de l'IHM de sélection
-            /*
-            IHMSelection selection;
-            selection = new IHMSelection();
-            Debug.Print("test1");
-            // affiche l'IHM de sélection et attend que la couleur et la disposition aient été choisis
-            selection.Afficher("Renseigner configuration");
-            Debug.Print("test2");
-            while (selection.getEquipe() != Couleur.Null || selection.getDisposition() == 0)
-            {
-                Thread.Sleep(1);
-            }
-            selection.Fermer();
-            Debug.Print("test3");
-             
+            
+            IHM ihm_principal;
+            ihm_principal = new IHM();
+            ihm_principal.Selection();
+          
             PetitRobot robot;
-            robot = new PetitRobot(ports, selection.getEquipe());
-             * */
-            PetitRobot robot;
-            robot = new PetitRobot(ports, Couleur.Bleu);            
+            robot = new PetitRobot(ports, ihm_principal.getEquipe(), ihm_principal.getDisposition(), ihm_principal);
 
-            // attente du jack
+
             Debug.Print("Godot viendra-t-il ?");
             robot.AttendreJack();
             // démarre le robot

@@ -28,7 +28,6 @@ namespace PR
   
     struct EtatRobot
     {
-        public positionBaseRoulante posBR;
         public Couleur couleurEquipe;
         public int disposition;
         public int coefPos;
@@ -51,15 +50,14 @@ namespace PR
         EtatRobot m_etatRobot;
 
         GestionnaireStrategie GestionStrat;
-        //IHMSelection m_ihm;
+        IHM m_ihm;
         Jack m_jack;
         GroupeInfrarouge m_IR;
+        DateTime InstantDebut;
 
-
-        CCapteurUltrason m_ultrason;
+   //     CCapteurUltrason m_ultrason;
 
         CBaseRoulante m_baseRoulante;
-        positionBaseRoulante m_positionRobot = new positionBaseRoulante();
 
         ControleurAX12 m_controleurAX12;
         CPetitBras petitBras;
@@ -72,15 +70,16 @@ namespace PR
         
         #region Constructeur
 
-        public PetitRobot(ConfigurationPorts ports, Couleur equipe)
+        public PetitRobot(ConfigurationPorts ports, Couleur equipe, int disposition, IHM ihm)
         {
             m_ports = ports;
 
             m_baseRoulante = new CBaseRoulante(m_ports.idBaseRoulante);
-            m_baseRoulante.setCouleur(Couleur.Bleu);
+            m_baseRoulante.setCouleur(equipe);
+            m_etatRobot.couleurEquipe = equipe;
+            m_etatRobot.disposition = disposition;
+            m_ihm = ihm;
                        
-           // m_ihm = new IHMSelection();
-
             GestionStrat = new GestionnaireStrategie();
             InitialisationStrategie();
 
@@ -98,7 +97,7 @@ namespace PR
             m_jack = new Jack(m_ports.idIO, m_ports.idJack);
             m_IR = new GroupeInfrarouge(m_ports.idIO, m_ports.idInfrarougeAVD, m_ports.idInfrarougeAVG, m_ports.idInfrarougeARD, m_ports.idInfrarougeARG);
 
-            m_ultrason = new CCapteurUltrason(m_ports.idCapteurUltrason);
+           // m_ultrason = new CCapteurUltrason(m_ports.idCapteurUltrason);
             Debug.Print("Détection opérationnels");
 
             // et c'est parti pour la boucle !
@@ -116,24 +115,6 @@ namespace PR
 
         #region Initialisation
 
-        /// <summary>
-        /// Méthode qui va initialiser les paramètres du robot en fonction de la couleur et de la disposition choisie
-        /// </summary>
-        /**
-        public void Initialisation()
-        {
-            m_ihm.Selection(ref m_etatRobot.couleurEquipe, ref m_etatRobot.disposition);        //Retourne la couleur de l'equipe et la disposition du terrain choisi sur l'IHM
-            m_ihm.Afficher("Selection : OK");
-            m_ihm.Afficher("Configuration de la table : OK");
-
-            m_baseRoulante.setCouleur((m_etatRobot.couleurEquipe == Couleur.Bleu ? Couleur.Bleu : Couleur.Jaune));       //Envoi la couleur sélectionné pour définir à la base roulante sa position de départ
-            
-            InitialisationStrategie();              //Initialise la stratégie du robot
-           // m_ihm.Afficher("Initialisation de la strategie : OK");
-        }
-        **/
-    
-
         #endregion
 
         #region Méthodes de debut/fin et executions des actions
@@ -150,9 +131,17 @@ namespace PR
             m_threadRun.Start();*/
         }
 
-                
+        public Couleur robotGetCouleur()
+        {
+            return m_etatRobot.couleurEquipe;
+        }
 
-        etatBR robotGoToXY(ushort x,ushort y, sens s, bool boolDetection = false,int speed=10)
+        public int robotGetDisposition()
+        {
+            return m_etatRobot.disposition;
+        }  
+
+        etatBR robotGoToXY(ushort x,ushort y, sens s, bool boolDetection = false,int speed=10, int speedAngle=300)
         {
             etatBR retour;
             if (boolDetection)
@@ -177,22 +166,19 @@ namespace PR
             }
             else
             {
-                retour = m_baseRoulante.allerEn(y, x, s,speed);
+                retour = m_baseRoulante.allerEn(y, x, s, speed, speedAngle);
             }
             return retour;
         }
 
-        void recalageX(int angle, int x,sens s, int speed)
+        void recalageX(int angle, int x, sens s, int speed, int temps)
         {
-            m_baseRoulante.recalagePosX(angle, x,speed,s);
+            m_baseRoulante.recalagePosX(angle, x, speed, s, temps);
         }
-        /*void recalageX(int angle, int x)
+
+        void recalageY(int angle, int y, sens s, int speed, int temps)
         {
-            m_baseRoulante.recalagePosX(angle, x);
-        }*/
-        void recalageY(int angle, int y,int speed, sens s)
-        {
-            m_baseRoulante.recalagePosY(angle, y,speed,s);
+            m_baseRoulante.recalagePosY(angle, y, speed, s, temps);
         }
 
         void getPosition(ref positionBaseRoulante pos)
@@ -205,10 +191,10 @@ namespace PR
             m_baseRoulante.changerXYA(angle, x, y);
         }
 
-        etatBR robotRotate(int alpha)
+        etatBR robotRotate(int alpha, int speedAngle=300)
         {
             etatBR retour;
-            retour = m_baseRoulante.tourner(alpha);
+            retour = m_baseRoulante.tourner(alpha, speedAngle);
             return retour;
         }
 
@@ -222,8 +208,9 @@ namespace PR
             if (dir == sens.avancer)
             {
                 // on teste les capteurs IR avants puis le capteur laser en appui
+                /*
                 double distance = 0d;
-                bool obstacleUS = false;
+                bool obstacleUS = false;*/
                 // mesure une distance moyenne avec 5 mesures rapides
                 //Ultrason désactivé pour l'instant, ils prennent beaucoup trop de temps pour acquérir l'information.
                 /*
@@ -263,21 +250,55 @@ namespace PR
         /// <summary>
         /// Execution des différentes tâches
         /// </summary>
-        public void Demarrer()
+        public void Demarrer(double tempsImparti)
         {
-            //m_ihm.Afficher("Debut de la strategie");
-            Debug.Print("Demmarage ok");
-            Debug.Print(""+GestionStrat.NombreAction);
-            while (GestionStrat.ExecutionPossible == true)     //Execution de la boucle tant qu'il y a toujours une action à réaliser 
+
+
+            Timer timeout;
+            DateTime fin = new DateTime();
+            var thDecompte = new Thread(() =>
             {
-               // m_ihm.Afficher("Execution de l'action suivante");
+                while (GestionStrat.ExecutionPossible && DateTime.Now < fin)
+                {
+                    //Trac.Ecrire("Temps restant: " + (fin - DateTime.Now).ToString().Substring(3, 5) + ".");
+                    Thread.Sleep(10000);
+                }
+            });
+            var thStrat = new Thread(() => EffectuerStrategie());
+
+            InstantDebut = DateTime.Now;
+            fin = InstantDebut.AddSeconds(tempsImparti);
+
+            //InitialisationStrategie();
+
+            thDecompte.Start();
+            thStrat.Start();
+
+            timeout = new Timer(state =>
+            {
+                //m_ihm.Ecrire("Fin du temps imparti.");
+                if (thStrat.IsAlive) thStrat.Abort();
+                m_baseRoulante.stop();
+                petitBras.arretUrgenceRoulette();
+
+            }, null, (int)(tempsImparti * 1000), -1);
+        }
+
+        private void EffectuerStrategie()
+        {
+            //m_ihm.Ecrire("Debut de l'execution de la strategie.");
+
+            while (GestionStrat.ExecutionPossible)
+            {
+                //m_ihm.Ecrire("Execution de l'action suivante.");
                 GestionStrat.ExecuterSuivante();
-                Debug.Print("Action suivante");
             }
 
-            //m_ihm.Afficher("Fin de la strategie");
-            
+            //m_ihm.Ecrire("Fin de l'execution de la strategie.");
+           
         }
+
+        
 
         /// <summary>
         /// Stop tout mouvement du robot. Est appelé au bout de 90s.

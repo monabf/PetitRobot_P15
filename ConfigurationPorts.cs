@@ -13,6 +13,7 @@ namespace PR
        // public int idDetecteurIR; // ??
         public int idBaseRoulante;
         public int idContAX12;
+    //    public int idContAX12Jaune;
         public CPince.configPince pince;
         public CPetitBras.configPetitBras petitBras;
         public CPoussoir.configPoussoir poussoir;

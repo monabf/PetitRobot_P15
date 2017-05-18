@@ -32,7 +32,7 @@ namespace PR.BR2
         CKangaroo m_kangaroo;
         public positionBaseRoulante m_posBR;
         public etatBR m_status=0;
-        RelayX1 relai = new RelayX1(10);//A changer
+        RelayX1 relai = new RelayX1(9);//A changer
 
         public CBaseRoulante(int numPort)
         {
@@ -47,70 +47,98 @@ namespace PR.BR2
             if (c == Couleur.Bleu)
             {
                 //NB: constantes à modifier
-                m_posBR.x = 205;//30 //85
-                m_posBR.y = 1405;//157 //157
-                m_posBR.alpha = -90;//0 //0
+                m_posBR.x = 85;//30 //85
+                m_posBR.y = 157;//157 //157
+                m_posBR.alpha = 0;//0 //0
             }
             else
             {
                 // idem
-                m_posBR.x = 244;
-                m_posBR.y = 2500;
-                m_posBR.alpha = -90;//-
+                m_posBR.x = 2915;
+                m_posBR.y = 157;
+                m_posBR.alpha = 180;
             }
         }
 
-        public void recalagePosX(int angle, int x,int speed,sens s)
+        //public void recalagePosX(int angle, int x,int speed,sens s)
+        //{
+        //    bool reponse = true;
+        //    m_posBR.alpha = angle;
+        //    m_posBR.y = x;
+        //    int r = 0;
+        //    int distanceReelle=0;
+        //    int AdistanceReelle=1;
+        //    m_kangaroo.allerEn((int)(s)*100, speed, unite.mm);
+        //    Thread.Sleep(150);
+        //    while (reponse)
+        //    {
+        //        getDistanceParcourue(ref distanceReelle);
+        //        if (distanceReelle!=AdistanceReelle) r=0;
+        //        if (distanceReelle==AdistanceReelle) r++;
+        //        if (r == 3)
+        //        {
+        //            m_kangaroo.start(mode.drive);
+        //            //m_kangaroo.allerEn(0, speed, unite.mm);
+        //            reponse = false;
+                    
+        //        }
+        //        Thread.Sleep(30);
+        //    }
+        //    Thread.Sleep(1000);
+        //}
+
+        public void recalagePosX(int angle, int x, int speed, sens s,int temps)
         {
-            bool reponse = true;
+
             m_posBR.alpha = angle;
             m_posBR.y = x;
-            int r = 0;
-            int distanceReelle=0;
-            int AdistanceReelle=0;
-            m_kangaroo.allerEn((int)(s)*100, speed, unite.mm);
-            while (reponse)
-            {
-                getDistanceParcourue(ref distanceReelle);
-                if (distanceReelle!=AdistanceReelle) r=0;
-                if (distanceReelle==AdistanceReelle) r++;
-                if (r == 4)
-                {
-                    m_kangaroo.start(mode.drive);
-                    //m_kangaroo.allerEn(0, speed, unite.mm);
-                    reponse = false;
-                    
-                }
-            }
-            Thread.Sleep(1000);
+
+            m_kangaroo.allerEn((int)(s) * 100, speed, unite.mm);
+            Thread.Sleep(temps);
+            m_kangaroo.start(mode.drive);
+            
+
         }
-
-
-        public void recalagePosY(int angle, int y, int speed, sens s)
+        public void recalagePosY(int angle, int y, int speed, sens s, int temps)
         {
-            bool reponse = true;
+
             m_posBR.alpha = angle;
             m_posBR.x = y;
-            int r = 0;
-            int distanceReelle = 0;
-            int AdistanceReelle = 0;
-            m_kangaroo.allerEn((int)(s) * 100, speed, unite.mm);
-            while (reponse)
-            {
-                getDistanceParcourue(ref distanceReelle);
-                
-                if (distanceReelle == AdistanceReelle) r++;// position du robot ne bougeant plus
-                if (r == 4) 
-                {
-                    //m_kangaroo.allerEn(0, speed, unite.mm);
-                    m_kangaroo.start(mode.drive);
-                    reponse = false;
 
-                }
-                if (distanceReelle != AdistanceReelle) r = 0;
-            }
-            Thread.Sleep(1000);
+            m_kangaroo.allerEn((int)(s) * 100, speed, unite.mm);
+            Thread.Sleep(temps);
+            m_kangaroo.start(mode.drive);
+
+
         }
+
+        //public void recalagePosY(int angle, int y, int speed, sens s)
+        //{
+        //    bool reponse = true;
+        //    m_posBR.alpha = angle;
+        //    m_posBR.x = y;
+        //    int r = 0;
+        //    int distanceReelle = 0;
+        //    int AdistanceReelle = 0;
+        //    m_kangaroo.allerEn((int)(s) * 100, speed, unite.mm);
+        //    Thread.Sleep(150);
+        //    while (reponse)
+        //    {
+        //        getDistanceParcourue(ref distanceReelle);
+                
+        //        if (distanceReelle == AdistanceReelle) r++;// position du robot ne bougeant plus
+        //        if (r == 3) 
+        //        {
+        //            //m_kangaroo.allerEn(0, speed, unite.mm);
+        //            m_kangaroo.start(mode.drive);
+        //            reponse = false;
+
+        //        }
+        //        if (distanceReelle != AdistanceReelle) r = 0;
+        //        Thread.Sleep(30);
+        //    }
+        //    Thread.Sleep(1000);
+        //}
 
         public void changerXYA(int angle, int x, int y)
         {
@@ -139,7 +167,7 @@ namespace PR.BR2
             int erreur = 0;
             int posCodeur = 0;
             erreur=m_kangaroo.getPosition(mode.turn, ref posCodeur);
-            angle = (int)(posCodeur/(8.7));//*371.7/373.5));/// (int)unite.degre 9.27  / 9.1
+            angle = (int)(posCodeur/(9.111));//*371.7/373.5));/// (int)unite.degre 9.27  / 9.1
             return erreur;
         }
 
@@ -161,14 +189,14 @@ namespace PR.BR2
             return beta;
         }
 
-        public etatBR tourner(int alphaConsigne)
+        public etatBR tourner(int alphaConsigne, int speedAngle=300)
         {
                      
             int erreur = 0;
             int  alphaReel = 0, alphaReel_tm1=0;
             int delta = 0;
             m_status = 0;
-            m_kangaroo.tourner(alphaConsigne);
+            m_kangaroo.tourner(alphaConsigne, speedAngle);
             //attente d'être arrive ou bloque ou stoppe
             do
             {
@@ -188,19 +216,20 @@ namespace PR.BR2
                 {
                     
                     delta = System.Math.Abs(alphaConsigne - alphaReel);
-                    if (delta < 1)
+                    if (delta < 2)
                     {
                         m_status = etatBR.arrive;
-                        Thread.Sleep(1000);
+                        //Thread.Sleep(500);
                         getAngleTourne(ref alphaReel);
                     }
                 }
             } while (m_status != etatBR.arrive && m_status != etatBR.bloque && m_status != etatBR.stope);
+            m_posBR.alpha = m_posBR.alpha + alphaReel;
                        
             return m_status;
         }
 
-        public etatBR allerEn(double x,double y, sens s, int speed=10)
+        public etatBR allerEn(double x,double y, sens s, int speed=10,int speedAngle=300)
         {
             
             int erreur = 0;
@@ -219,7 +248,7 @@ namespace PR.BR2
             alphaConsigne = recallerAngle(alphaConsigne);
          //   m_status= tourner(alphaConsigne);  
             m_status = 0;
-            m_kangaroo.tourner(alphaConsigne);
+            m_kangaroo.tourner(alphaConsigne,speedAngle);
             //attente d'être arrive ou bloque ou stoppe
             do
             {
@@ -243,7 +272,7 @@ namespace PR.BR2
                     if (delta < 2)
                     {
                         m_status = etatBR.arrive;
-                        Thread.Sleep(500);
+                        Thread.Sleep(300);
                         getAngleTourne(ref alphaReel);
                     }
                 }
@@ -252,7 +281,7 @@ namespace PR.BR2
             delta = 0;
             m_status = 0;
             distanceConsigne = (int)s*(int)System.Math.Sqrt(System.Math.Pow((x - m_posBR.x), 2) + System.Math.Pow((y -m_posBR.y), 2));
-            Debug.Print("distance à parcourir : " + distanceConsigne);
+           
             m_kangaroo.allerEn(distanceConsigne , speed, unite.mm);
             //attente d'être arrive ou bloque ou stoppe
             do
@@ -278,7 +307,7 @@ namespace PR.BR2
                 if (delta < 5)//5
                 {
                     m_status = etatBR.arrive;
-                    Thread.Sleep(1000);
+                    Thread.Sleep(300);//500
                     erreur = getDistanceParcourue(ref distanceReelle);
                 }
                 
@@ -340,9 +369,9 @@ namespace PR.BR2
                 {
                     alphaReel = alphaReel_tm1;
                     m_status = etatBR.bloque;
-                    relai.TurnOn();
+        //            relai.TurnOn();
                     Thread.Sleep(1000);
-                    relai.TurnOff();
+         //           relai.TurnOff();
                     Thread.Sleep(1000);
                     m_kangaroo.init();
                 }
@@ -353,7 +382,7 @@ namespace PR.BR2
                     if (delta < 2)
                     {
                         m_status = etatBR.arrive;
-                        Thread.Sleep(500);
+                        Thread.Sleep(300);
                         getAngleTourne(ref alphaReel);
                     }
                 }
@@ -369,10 +398,11 @@ namespace PR.BR2
                 {
                     Debug.Print("entrée de la fonction check");
                     getDistanceParcourue(ref distanceStop);
+                    int dx = 0;
                     
                     //m_kangaroo.allerEn(0, 1, unite.mm);
                     m_kangaroo.start(mode.drive);
-                    distanceSF += distanceStop;
+                    distanceSF += distanceStop+(int)s*dx*speed*speed;
                     while (PetitRobot.obstacle) Thread.Sleep(100);
                     m_kangaroo.allerEn(distanceConsigne + distanceSF, speed, unite.mm);//distanceConsigne - distanceSF
                     Debug.Print("sortie de la fonction check");
@@ -399,7 +429,7 @@ namespace PR.BR2
                 if (delta < 5)
                 {
                     m_status = etatBR.arrive;
-                    Thread.Sleep(1000);
+                    Thread.Sleep(300);
                     erreur = getDistanceParcourue(ref distanceReelle);
                 }
 
@@ -407,9 +437,9 @@ namespace PR.BR2
                 {
                     distanceReelle = distanceReelle_tm1;
                     m_status = etatBR.bloque;
-                    relai.TurnOn();
+ //                   relai.TurnOn();
                     Thread.Sleep(1000);
-                    relai.TurnOff();
+//                    relai.TurnOff();
                     Thread.Sleep(1000);
                     m_kangaroo.init();
 
