@@ -72,7 +72,6 @@ namespace PR
             // démarre le robot
             Debug.Print("jack");
             
-            //robot.petitBras.tourner();
             robot.Demarrer(90d);
             
             

@@ -55,7 +55,7 @@ namespace PR
         GroupeInfrarouge m_IR;
         DateTime InstantDebut;
 
-   //     CCapteurUltrason m_ultrason;
+  //     CCapteurUltrason m_ultrason;
 
         CBaseRoulante m_baseRoulante;
 
@@ -269,8 +269,6 @@ namespace PR
             InstantDebut = DateTime.Now;
             fin = InstantDebut.AddSeconds(tempsImparti);
 
-            //InitialisationStrategie();
-
             thDecompte.Start();
             thStrat.Start();
 
@@ -313,8 +311,11 @@ namespace PR
 
         #endregion
 
+      
+
     
     }
 
     
 }
+    
