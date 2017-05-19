@@ -31,10 +31,10 @@ namespace PR.Membres
 
         enum positionPetitBrasJaune
         {
-            rentree = 821,
+            rentree = 300,
             intermediaire_rentree = 650,
             sortie = 206,
-            intermediaire_sortie = 512, // Valeurs à changer après tests sur servos
+            intermediaire_sortie = 540, // Valeurs à changer après tests sur servos
             intialisiation_roulette = 90
         };
 

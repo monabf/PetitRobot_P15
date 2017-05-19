@@ -17,7 +17,7 @@ namespace PR.Membres
         enum positionPinceJaune
         {
             rentree = 821,
-            intermediaire_rentree = 512,
+            intermediaire_rentree = 584,
             sortie = 206,
             intermediaire = 512,
             intermediaire_sortie = 670// Valeurs à changer après tests sur servos

@@ -165,6 +165,7 @@ namespace PR
                 }
                 else
                 {
+
                   robotGoToXY((ushort)157, (ushort)935, sens.avancer, false, 12);//157,895
                   robotRotate(90,500);
                   recalageX(90, 85,sens.reculer,10,1500);// On peut gagner un peu de temps sur cette transition
@@ -196,8 +197,6 @@ namespace PR
             {
                 //m_ihm.Afficher("Creneau");
                 m_ihm.retourPhase(Couleurs.orange);
-
-                // m_baseRoulante.setSpeed(20);
 
                 if (m_etatRobot.couleurEquipe == Couleur.Jaune)
                 {
