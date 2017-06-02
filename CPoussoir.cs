@@ -19,7 +19,7 @@ namespace PR.Membres
         enum positionPoussoirBleu
         {
             rentree = 825,
-            intermediaireRentré=572,
+            intermediaireRentre=572,
             intermediaire = 500,//512
             sortie = 224
             // Valeurs a changer apres tests sur servos
@@ -28,8 +28,8 @@ namespace PR.Membres
         enum positionPoussoirJaune
         {
             rentree = 206,
-            intermediaireRentré=485,//422
-            intermediaire = 512,
+            intermediaireRentre=485,//422
+            intermediaire = 531,
             sortie = 834
             // Valeurs a changer apres tests sur servos
         };
@@ -59,6 +59,10 @@ namespace PR.Membres
 
         }
 
+        public void killPoussoir()
+        {
+            m_ax12Poussoir.setMode(AX12Mode.wheel);
+        }
 
         public void milieu()//deplie
         {
@@ -77,12 +81,12 @@ namespace PR.Membres
         {
             if (couleurEquipe == Couleur.Jaune)
             {
-                m_ax12Poussoir.move((int)positionPoussoirJaune.intermediaireRentré);
+                m_ax12Poussoir.move((int)positionPoussoirJaune.intermediaireRentre);
             }
 
             else
             {
-                m_ax12Poussoir.move((int)positionPoussoirBleu.intermediaireRentré);
+                m_ax12Poussoir.move((int)positionPoussoirBleu.intermediaireRentre);
             }
         }
 

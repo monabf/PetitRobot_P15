@@ -16,11 +16,11 @@ namespace PR.Membres
 
         enum positionPinceJaune
         {
-            rentree = 804,// vendredi 19 mai 821
-            intermediaire_rentree = 584, // vendredi 19 mai 584
-            sortie = 174, // vendredi 19 mai 206
-            intermediaire = 512, // vendredi 19 mai 512
-            intermediaire_sortie = 695, // vendredi 19 mai 670
+            rentree = 821,
+            intermediaire_rentree = 601,
+            sortie = 215,
+            intermediaire = 529,
+            intermediaire_sortie = 346// Valeurs à changer après tests sur servos
         };
 
         enum positionPinceBleue
@@ -50,11 +50,17 @@ namespace PR.Membres
             {
                 m_ax12Pince = new CAX12(config.idAX12PinceBleue, controleur.m_port, controleur.m_direction);
                 m_ax12Pince.setMode(AX12Mode.joint);
+                Debug.Print("pince haha");
+
             }
             m_ax12Pince.setMovingSpeed(150);
             Debug.Print("CPince opérationnel");
         }
 
+        public void killPince()
+        {
+            m_ax12Pince.setMode(AX12Mode.wheel);
+        }
 
         public void deplie()
         {

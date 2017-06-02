@@ -13,8 +13,6 @@ namespace PR.Membres
         {
             m_capteurCouleur = capteurCouleur;
             m_ax12Roulette = ax12Roulette;
-            // la ligne ci-dessous a été commentée pour les tests. La décommenter après
-            //m_ax12Roulette.setMode(AX12Mode.wheel);
             Debug.Print("roulette opérationnelle");
         }
 
@@ -23,7 +21,6 @@ namespace PR.Membres
         }
 
         public void Tourner(Couleur equipe) {
-            // les lignes ci-dessous a été commentées pour les tests. La décommenter après
             if (equipe == Couleur.Bleu)
             {
                 m_ax12Roulette.setMovingSpeed(speed.forward);

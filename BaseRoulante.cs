@@ -42,6 +42,13 @@ namespace PR.BR2
           
         }
         
+        public void setPosition(int x, int y, int alpha)
+        {
+                m_posBR.x = x;
+                m_posBR.y = y;
+                m_posBR.alpha = alpha;
+        }
+
         public void setCouleur(Couleur c)
         {
             if (c == Couleur.Bleu)
@@ -93,7 +100,7 @@ namespace PR.BR2
             m_posBR.alpha = angle;
             m_posBR.y = x;
 
-            m_kangaroo.allerEn((int)(s) * 100, speed, unite.mm);
+            m_kangaroo.allerEn((int)(s) * 150, speed, unite.mm);
             Thread.Sleep(temps);
             m_kangaroo.start(mode.drive);
             
@@ -105,7 +112,7 @@ namespace PR.BR2
             m_posBR.alpha = angle;
             m_posBR.x = y;
 
-            m_kangaroo.allerEn((int)(s) * 100, speed, unite.mm);
+            m_kangaroo.allerEn((int)(s) * 150, speed, unite.mm);
             Thread.Sleep(temps);
             m_kangaroo.start(mode.drive);
 
@@ -283,11 +290,18 @@ namespace PR.BR2
             distanceConsigne = (int)s*(int)System.Math.Sqrt(System.Math.Pow((x - m_posBR.x), 2) + System.Math.Pow((y -m_posBR.y), 2));
            
             m_kangaroo.allerEn(distanceConsigne , speed, unite.mm);
+            int ij = 0;
             //attente d'être arrive ou bloque ou stoppe
             do
             {
                 distanceReelle_tm1 = distanceReelle;
                 erreur= getDistanceParcourue(ref distanceReelle);
+                if (distanceReelle_tm1 == distanceReelle) ij++;
+                else ij = 0;
+                if (ij == 5)
+                {
+                    break;
+                }
                 if (distanceReelle == 0)
                 {
                     dureeBlocage++;
@@ -399,12 +413,12 @@ namespace PR.BR2
                     Debug.Print("entrée de la fonction check");
                     getDistanceParcourue(ref distanceStop);
                     int dx = 0;
-                    
                     //m_kangaroo.allerEn(0, 1, unite.mm);
                     m_kangaroo.start(mode.drive);
                     distanceSF += distanceStop+(int)s*dx*speed*speed;
                     while (PetitRobot.obstacle) Thread.Sleep(100);
-                    m_kangaroo.allerEn(distanceConsigne + distanceSF, speed, unite.mm);//distanceConsigne - distanceSF
+                    Thread.Sleep(1000);
+                    m_kangaroo.allerEn(distanceConsigne - distanceSF, speed, unite.mm);//distanceConsigne - distanceSF
                     Debug.Print("sortie de la fonction check");
 
                 }
